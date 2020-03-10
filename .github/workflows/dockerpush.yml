@@ -16,6 +16,7 @@ on:
 # env:
   # TODO: Change variable to your image's name.
   # IMAGE_NAME: oefenuw
+  DH_USER: galvanist
 
 jobs:
   # Run tests.
@@ -55,6 +56,14 @@ jobs:
           for dockerfile in */Dockerfile; do
             PROJECT="$(dirname "$dockerfile")"
             IMAGE="docker.pkg.github.com/${{ github.repository }}/${PROJECT}:latest"
+
+            # github releases
             docker pull "$IMAGE" || true
             docker build -t "$IMAGE" "$PROJECT" && docker push "$IMAGE"
+
+            # dockerhub
+            printf '%s' '${{ secrets.DOCKER_HUB_TOKEN }}' | docker login --username "$DH_USER" --password-stdin
+            DH_IMAGE="${DH_USER}/conex:${PROJECT}"
+            docker tag "$IMAGE" "$DH_IMAGE"
+            docker push "$DH_IMAGE"
           done
