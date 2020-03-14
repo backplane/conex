@@ -16,7 +16,9 @@ RUN AG="env DEBIAN_FRONTEND=noninteractive apt-get -yq" \
     git \
     libc6-dev \
     make \
+    nano \
     pkg-config \
+    vim \
   && rm -rf /var/lib/apt/lists/*
 
 RUN set -eux \
