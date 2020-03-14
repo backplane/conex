@@ -21,6 +21,12 @@ goenv() {
 
 Then you just cd to a directory with a go project (or an empty directory) and run `goenv`.
 
+## [`grta`](grta/Dockerfile)
+
+This HTTP endpoint receives webhooks, validates against the PSK, writes the webhook payload to a file.
+
+Meant to be used behind a load balancer that provides TLS
+
 ## [`hugo`](hugo/Dockerfile)
 
 This is a `debian:stable-slim`-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
