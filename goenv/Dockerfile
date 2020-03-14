@@ -1,0 +1,62 @@
+FROM debian:stable-slim
+LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+
+# Via https://golang.org/dl/
+ARG GO_REL="https://dl.google.com/go/go1.14.linux-amd64.tar.gz"
+ARG GO_REL_SHA256="08df79b46b0adf498ea9f320a0f23d6ec59e9003660b4c9c1ce8e5e2c6f823ca"
+
+RUN AG="env DEBIAN_FRONTEND=noninteractive apt-get -yq" \
+  && $AG update \
+  && $AG upgrade \
+  && $AG install --no-install-recommends \
+    ca-certificates \
+    curl \
+    g++ \
+    gcc \
+    git \
+    libc6-dev \
+    make \
+    pkg-config \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN set -eux \
+  && curl -sSL -o "go.tgz" "${GO_REL}" \
+  && printf '%s  %s' "$GO_REL_SHA256" "go.tgz" \
+    | sha256sum --strict --status -c - \
+  && tar -C / -xzf "go.tgz" \
+  && rm "go.tgz" \
+  && /go/bin/go version \
+  && mkdir -p \
+    /etc/skel/go/bin \
+    /etc/skel/go/src/local
+#   && printf '%s\n' \
+#       '' \
+#       '[ -d "$HOME/go/bin" ] && export PATH="$HOME/go/bin:$PATH"' \
+#     | tee -a \
+#       "/etc/skel/.bashrc" \
+#       "/etc/skel/.profile"
+
+ENV PATH="/go/bin:$PATH"
+
+RUN set -eux \
+  && useradd \
+    --base-dir / \
+    --home-dir "/home/user" \
+    --create-home \
+    --no-user-group \
+    --shell "/bin/bash" \
+    --uid "1111" \
+    user
+USER user
+
+ENV PATH="/home/user/go/bin:$PATH"
+
+# https://staticcheck.io/docs
+# https://golang.github.io/dep/docs/installation.html
+# https://github.com/golang/lint
+RUN set -eux \
+  && go get -u github.com/golang/dep/cmd/dep \
+  && go get -u golang.org/x/lint/golint \
+  && go get -u honnef.co/go/tools/...
+
+WORKDIR /home/user/go/src/local
