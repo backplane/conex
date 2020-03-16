@@ -13,6 +13,11 @@ on:
   # Run tests for any PRs.
   pull_request:
 
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # random daily run
+    - cron:  '16 9 * * *'
+
 env:
   DH_USER: galvanist
 
@@ -41,27 +46,19 @@ jobs:
     #needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || github.event_name == 'schedule'
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Log into registry
-        run: printf '%s' "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: Dual Registry Login
+        run: |
+          # github
+          printf '%s' "${{ secrets.GITHUB_TOKEN }}" | docker login --username "${{ github.actor }}" --password-stdin docker.pkg.github.com
+          # docker hub
+          printf '%s' '${{ secrets.DOCKER_HUB_TOKEN }}' | docker login --username "$DH_USER" --password-stdin
 
       - name: Build push
         run: |
-          for dockerfile in */Dockerfile; do
-            PROJECT="$(dirname "$dockerfile")"
-            IMAGE="docker.pkg.github.com/${{ github.repository }}/${PROJECT}:latest"
-
-            # github releases
-            docker pull "$IMAGE" || true
-            docker build -t "$IMAGE" "$PROJECT" && docker push "$IMAGE"
-
-            # dockerhub
-            printf '%s' '${{ secrets.DOCKER_HUB_TOKEN }}' | docker login --username "$DH_USER" --password-stdin
-            DH_IMAGE="${DH_USER}/conex:${PROJECT}"
-            docker tag "$IMAGE" "$DH_IMAGE"
-            docker push "$DH_IMAGE"
-          done
+          export GH_REGISTRY_PATH="docker.pkg.github.com/${{ github.repository }}"
+          make -j 4 push
