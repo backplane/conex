@@ -1,4 +1,5 @@
 FROM golang:1-alpine as builder
+LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
 
 RUN apk add --no-cache \
     git \
