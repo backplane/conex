@@ -2,6 +2,25 @@
 
 This is a repository for utility containers. The latest versions are mirrored to docker hub.
 
+## [`audiosprite`](audiosprite/Dockerfile)
+
+This is an alpine-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
+
+### interactive use
+
+
+```sh
+audiosprite() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --volume "$(pwd):/data" \
+    "galvanist/conex: audiosprite" \
+    "$@"
+}
+```
+
 ## [`goenv`](goenv/Dockerfile)
 
 ### interactive use
