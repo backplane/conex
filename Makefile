@@ -6,7 +6,7 @@ DOCKER := docker
 DOCKERFILES := $(wildcard */Dockerfile)
 PROJECTS := $(DOCKERFILES:/Dockerfile=)
 
-.PHONY: build push clean deepclean list all test
+.PHONY: build push clean deepclean list report all test
 
 build: $(PROJECTS:%=%-build-rcpt.txt)
 
@@ -37,6 +37,19 @@ deepclean:
 list:
 	@for project in $(PROJECTS); do \
 	  echo "$$project"; \
+	done
+
+report:
+	@for project in $(PROJECTS); do \
+	  for step in build ghpush dhpush postpush; do \
+	    echo "========== $$project $$step ==========" && \
+	    rcpt="$${project}-$${step}-rcpt.txt"; \
+	    if [ -f "$$rcpt" ]; then \
+	      cat -- "$$rcpt"; \
+	    else \
+		  echo "No receipt found. ($${rcpt})"; \
+		fi; \
+	  done; \
 	done
 
 all: build
