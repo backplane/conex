@@ -40,6 +40,9 @@ list:
 	  echo "$$project"; \
 	done
 
+# enables "make <subdir>" to work (e.g. "make vueenv")
+$(PROJECTS): % : %-build-rcpt.txt
+
 %-build-rcpt.txt: %/Dockerfile
 	@echo "===> BUILD $<"
 	@set -x \
