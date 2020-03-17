@@ -16,7 +16,7 @@ audiosprite() {
     --interactive \
     --tty \
     --volume "$(pwd):/data" \
-    "galvanist/conex: audiosprite" \
+    "galvanist/conex:audiosprite" \
     "$@"
 }
 ```
@@ -41,7 +41,7 @@ checkmake() {
 }
 ```
 
-Examples sessions function:
+Examples sessions using the function:
 
 ```sh
 $ checkmake
