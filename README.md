@@ -15,6 +15,7 @@ goenv() {
     --interactive \
     --tty \
     --volume "$(pwd):/home/user/go/src/local" \
+    "$@" \
     galvanist/conex:goenv
 }
 ```
@@ -107,9 +108,11 @@ Add this to your shell profile:
 ```sh
 vueenv() {
   docker run \
-    -it \
-    --rm "$@" \
+    --rm \
+    --interactive \
+    --tty \
     --volume "$(pwd):/app" \
-    "galvanist/vueenv:latest"
+    "$@" \
+    "galvanist/conex:vueenv"
 }
 ```
