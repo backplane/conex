@@ -97,7 +97,7 @@ $(PROJECTS): % : %-build-rcpt.txt
 	) 2>&1 \
 	| tee -- "$@"
 
-README.md: */README.md
+README.md: */README.md Makefile
 	grep -B 1000 '^## The Images$$' README.md >README.md.new
 	echo >>README.md.new
 	grep --no-filename '^## ' */README.md | sed 's/^## .\(.*\).$$/* [`\1`](#\1)/g' >>README.md.new
