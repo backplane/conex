@@ -6,9 +6,12 @@ RUN apk add --no-cache \
     npm \
   && true
 
-#RUN npm install --global \
-#    '@vue/cli' \
-#  && true
+RUN npm install --global \
+    '@vue/cli' \
+  && true
 
-WORKDIR /app
+RUN adduser -D -h /work vue
+USER vue
+
+WORKDIR /work
 CMD [ "/bin/bash" ]

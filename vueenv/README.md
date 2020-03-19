@@ -13,7 +13,7 @@ vueenv() {
   docker run \
     -it \
     --rm "$@" \
-    --volume "$(pwd):/app" \
+    --volume "$(pwd):/work" \
     "galvanist/vueenv:latest"
 }
 ```
@@ -23,13 +23,13 @@ vueenv() {
 ```Dockerfile
 FROM galvanist/vueenv:latest as builder
 
-COPY src /app
+COPY src /work
 
 RUN npm install \
   && npm run build
 
 FROM nginx:1-alpine as server
-COPY --from=builder /app/dist/ /usr/share/nginx/html/
+COPY --from=builder /work/dist/ /usr/share/nginx/html/
 
 # maybe also something like this:
 # COPY nginx_conf.d/* /etc/nginx/conf.d/
