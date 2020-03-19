@@ -1,4 +1,4 @@
-## [`bpython`](bpython/Dockerfile)
+## `bpython`
 
 This is a lightweight dockerization of [the bpython interpreter](https://bpython-interpreter.org/). As their homepage says:
 

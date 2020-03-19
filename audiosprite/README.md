@@ -1,4 +1,4 @@
-## [`audiosprite`](audiosprite/Dockerfile)
+## `audiosprite`
 
 This is an alpine-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
 
