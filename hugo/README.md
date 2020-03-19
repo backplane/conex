@@ -1,4 +1,4 @@
-## [`hugo`](hugo/Dockerfile)
+## `hugo`
 
 This is a `debian:stable-slim`-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
 

@@ -1,4 +1,4 @@
-## [`checkmake`](checkmake/Dockerfile)
+## `checkmake`
 
 Alpine-based containerization of [checkmake](https://github.com/mrtazz/checkmake/), the `Makefile` linter.
 

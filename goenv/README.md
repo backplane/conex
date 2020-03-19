@@ -1,4 +1,4 @@
-## [`goenv`](goenv/Dockerfile)
+## `goenv`
 
 ### Usage
 

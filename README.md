@@ -14,7 +14,7 @@ This is a repository for utility container images. The latest versions are mirro
 * [`hugo`](#hugo)
 * [`vueenv`](#vueenv)
 
-## [`audiosprite`](audiosprite/Dockerfile)
+## [`audiosprite`](audiosprite)
 
 This is an alpine-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
 
@@ -33,7 +33,7 @@ audiosprite() {
     "$@"
 }
 ```
-## [`bpython`](bpython/Dockerfile)
+## [`bpython`](bpython)
 
 This is a lightweight dockerization of [the bpython interpreter](https://bpython-interpreter.org/). As their homepage says:
 
@@ -68,7 +68,7 @@ bpython() {
 }
 
 ```
-## [`checkmake`](checkmake/Dockerfile)
+## [`checkmake`](checkmake)
 
 Alpine-based containerization of [checkmake](https://github.com/mrtazz/checkmake/), the `Makefile` linter.
 
@@ -125,7 +125,7 @@ $ checkmake Makefile
   minphony        Missing required phony target    0            
                   "test"                                        
 ```
-## [`goenv`](goenv/Dockerfile)
+## [`goenv`](goenv)
 
 ### Usage
 
@@ -146,13 +146,14 @@ goenv() {
 ```
 
 Then you just cd to a directory with a go project (or an empty directory) and run `goenv`.
-## [`grta`](grta/Dockerfile)
+## [`grta`](grta)
 
 This HTTP endpoint receives webhooks, validates against the PSK, writes the webhook payload to a file (or fifo). Meant to be used behind a load balancer that provides TLS.
 
 ### Usage
 
-Coming "soon."## [`hugo`](hugo/Dockerfile)
+Coming "soon."
+## [`hugo`](hugo)
 
 This is a `debian:stable-slim`-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
 
@@ -207,24 +208,7 @@ RUN hugo
 FROM nginx:1-alpine as server
 COPY --from=builder /work/public/ /usr/share/nginx/html/
 ```
-# statictools
-
-See: <https://github.com/andrew-d/static-binaries>
-
-This container has static binaries of useful tools:
-
-* bash
-* busybox
-* ncdu
-* rsync
-
-It rsyncs them to a directory like /tools
-
-You put a named volume there
-
-Then you share the named volume with containers to use those tools.
-
-## [`vueenv`](vueenv/Dockerfile)
+## [`vueenv`](vueenv)
 
 This container image is meant to be used as a builder stage for Vue CLI-based apps in a multi-stage build. It is also very useful during development.
 

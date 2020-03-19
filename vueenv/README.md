@@ -1,4 +1,4 @@
-## [`vueenv`](vueenv/Dockerfile)
+## `vueenv`
 
 This container image is meant to be used as a builder stage for Vue CLI-based apps in a multi-stage build. It is also very useful during development.
 
