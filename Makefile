@@ -102,5 +102,5 @@ README.md: */README.md
 	echo >>README.md.new
 	grep --no-filename '^## ' */README.md | sed 's/^## .\(.*\).$$/* [`\1`](#\1)/g' >>README.md.new
 	echo >>README.md.new
-	printf '%s\n' $^ | sort | xargs cat | sed 's/^## .\(.*\).$$/## [`\1`](\1)/g' >>README.md.new
+	for README in */README.md; do echo; cat $$README; echo; done | sed 's/^## .\(.*\).$$/## [`\1`](\1)/g' >>README.md.new
 	mv README.md.new README.md
