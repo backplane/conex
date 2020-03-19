@@ -1,13 +1,26 @@
 # conex
 
-This is a repository for utility containers. The latest versions are mirrored to docker hub.
+This is a repository for utility container images. The latest versions are mirrored to docker hub.
+
+### To access these images, see: <https://hub.docker.com/r/galvanist/conex/tags>
+
+## The Images
+
+* [`audiosprite`](#audiosprite)
+* [`bpython`](#bpython)
+* [`checkmake`](#checkmake)
+* [`goenv`](#goenv)
+* [`grta`](#grta)
+* [`hugo`](#hugo)
+* [`vueenv`](#vueenv)
 
 ## [`audiosprite`](audiosprite/Dockerfile)
 
 This is an alpine-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
 
-### interactive use
+### Usage
 
+#### Interactive
 
 ```sh
 audiosprite() {
@@ -20,12 +33,48 @@ audiosprite() {
     "$@"
 }
 ```
+## [`bpython`](bpython/Dockerfile)
 
+This is a lightweight dockerization of [the bpython interpreter](https://bpython-interpreter.org/). As their homepage says:
+
+> bpython is a fancy interface to the Python interpreter for Linux, BSD, OS X and Windows (with some work). bpython is released under the MIT License. It has the following (special) features:
+
+> * In-line syntax highlighting
+* Readline-like autocomplete with suggestions displayed as you type.
+* Expected parameter list for any Python function.
+* "Rewind" function to pop the last line of code from memory and re-evaluate.
+* Send the code you've entered off to a pastebin.
+* Save the code you've entered to a file.
+* Auto-indentation.
+* Python 3 support.
+
+
+### Usage
+
+#### Interactive
+
+I use the following shell function to run this container:
+
+```sh
+
+bpython() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --volume "$(pwd):/work" \
+    "$@" \
+    "galvanist/conex:bpython"
+}
+
+```
 ## [`checkmake`](checkmake/Dockerfile)
 
 Alpine-based containerization of [checkmake](https://github.com/mrtazz/checkmake/), the `Makefile` linter.
 
-### interactive use
+### Usage
+
+#### Interactive
 
 This shell function demonstrates using this container in place of having the binary installed.
 
@@ -76,10 +125,11 @@ $ checkmake Makefile
   minphony        Missing required phony target    0            
                   "test"                                        
 ```
-
 ## [`goenv`](goenv/Dockerfile)
 
-### interactive use
+### Usage
+
+#### Interactive
 
 This shell function demonstrates using this container in place of having the actual go installation.
 
@@ -96,16 +146,19 @@ goenv() {
 ```
 
 Then you just cd to a directory with a go project (or an empty directory) and run `goenv`.
-
 ## [`grta`](grta/Dockerfile)
 
 This HTTP endpoint receives webhooks, validates against the PSK, writes the webhook payload to a file (or fifo). Meant to be used behind a load balancer that provides TLS.
 
-## [`hugo`](hugo/Dockerfile)
+### Usage
+
+Coming "soon."## [`hugo`](hugo/Dockerfile)
 
 This is a `debian:stable-slim`-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
 
-### interactive use
+### Usage
+
+#### Interactive
 
 This shell function demonstrates using this container in place of having the actual hugo binary.
 
@@ -143,7 +196,7 @@ or
 $ hugo serve -D
 ```
 
-### multistage build usage
+#### As Build Stage
 
 ```Dockerfile
 FROM galvanist/conex:hugo as builder
@@ -154,12 +207,44 @@ RUN hugo
 FROM nginx:1-alpine as server
 COPY --from=builder /work/public/ /usr/share/nginx/html/
 ```
+# statictools
+
+See: <https://github.com/andrew-d/static-binaries>
+
+This container has static binaries of useful tools:
+
+* bash
+* busybox
+* ncdu
+* rsync
+
+It rsyncs them to a directory like /tools
+
+You put a named volume there
+
+Then you share the named volume with containers to use those tools.
 
 ## [`vueenv`](vueenv/Dockerfile)
 
 This container image is meant to be used as a builder stage for Vue CLI-based apps in a multi-stage build. It is also very useful during development.
 
-### Multistage Build Use
+### Usage
+
+#### Interactive
+
+Add this to your shell profile:
+
+```sh
+vueenv() {
+  docker run \
+    -it \
+    --rm "$@" \
+    --volume "$(pwd):/app" \
+    "galvanist/vueenv:latest"
+}
+```
+
+#### As Build Stage
 
 ```Dockerfile
 FROM galvanist/vueenv:latest as builder
@@ -174,20 +259,4 @@ COPY --from=builder /app/dist/ /usr/share/nginx/html/
 
 # maybe also something like this:
 # COPY nginx_conf.d/* /etc/nginx/conf.d/
-```
-
-### Interactive Use
-
-Add this to your shell profile:
-
-```sh
-vueenv() {
-  docker run \
-    --rm \
-    --interactive \
-    --tty \
-    --volume "$(pwd):/app" \
-    "$@" \
-    "galvanist/conex:vueenv"
-}
 ```
