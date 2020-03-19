@@ -12,7 +12,9 @@ This is a repository for utility container images. The latest versions are mirro
 * [`goenv`](#goenv)
 * [`grta`](#grta)
 * [`hugo`](#hugo)
+* [`json-server`](#json-server)
 * [`vueenv`](#vueenv)
+
 
 ## [`audiosprite`](audiosprite)
 
@@ -33,20 +35,22 @@ audiosprite() {
     "$@"
 }
 ```
+
+
 ## [`bpython`](bpython)
 
 This is a lightweight dockerization of [the bpython interpreter](https://bpython-interpreter.org/). As their homepage says:
 
 > bpython is a fancy interface to the Python interpreter for Linux, BSD, OS X and Windows (with some work). bpython is released under the MIT License. It has the following (special) features:
-
-> * In-line syntax highlighting
-* Readline-like autocomplete with suggestions displayed as you type.
-* Expected parameter list for any Python function.
-* "Rewind" function to pop the last line of code from memory and re-evaluate.
-* Send the code you've entered off to a pastebin.
-* Save the code you've entered to a file.
-* Auto-indentation.
-* Python 3 support.
+>
+>* In-line syntax highlighting
+>* Readline-like autocomplete with suggestions displayed as you type.
+>* Expected parameter list for any Python function.
+>* "Rewind" function to pop the last line of code from memory and re-evaluate.
+>* Send the code you've entered off to a pastebin.
+>* Save the code you've entered to a file.
+>* Auto-indentation.
+>* Python 3 support.
 
 
 ### Usage
@@ -68,6 +72,8 @@ bpython() {
 }
 
 ```
+
+
 ## [`checkmake`](checkmake)
 
 Alpine-based containerization of [checkmake](https://github.com/mrtazz/checkmake/), the `Makefile` linter.
@@ -125,6 +131,8 @@ $ checkmake Makefile
   minphony        Missing required phony target    0            
                   "test"                                        
 ```
+
+
 ## [`goenv`](goenv)
 
 ### Usage
@@ -146,6 +154,8 @@ goenv() {
 ```
 
 Then you just cd to a directory with a go project (or an empty directory) and run `goenv`.
+
+
 ## [`grta`](grta)
 
 This HTTP endpoint receives webhooks, validates against the PSK, writes the webhook payload to a file (or fifo). Meant to be used behind a load balancer that provides TLS.
@@ -153,6 +163,8 @@ This HTTP endpoint receives webhooks, validates against the PSK, writes the webh
 ### Usage
 
 Coming "soon."
+
+
 ## [`hugo`](hugo)
 
 This is a `debian:stable-slim`-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
@@ -208,6 +220,33 @@ RUN hugo
 FROM nginx:1-alpine as server
 COPY --from=builder /work/public/ /usr/share/nginx/html/
 ```
+
+
+## [`json-server`](json-server)
+
+This is an alpine-based dockerization of [json-server](https://github.com/typicode/json-server).
+
+### Usage
+
+#### Interactive
+
+```sh
+
+json-server() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --volume "$(pwd):/work" \
+    --publish "3000:3000" \
+    "galvanist/conex:json-server" \
+    --host 0.0.0.0 \
+    "$@"
+}
+
+```
+
+
 ## [`vueenv`](vueenv)
 
 This container image is meant to be used as a builder stage for Vue CLI-based apps in a multi-stage build. It is also very useful during development.
@@ -244,3 +283,4 @@ COPY --from=builder /app/dist/ /usr/share/nginx/html/
 # maybe also something like this:
 # COPY nginx_conf.d/* /etc/nginx/conf.d/
 ```
+
