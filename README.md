@@ -235,6 +235,7 @@ This is an alpine-based dockerization of [json-server](https://github.com/typico
 json-server() {
   docker run \
     --rm \
+    --init \
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
