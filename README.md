@@ -306,9 +306,13 @@ Add this to your shell profile:
 vueenv() {
   docker run \
     -it \
-    --rm "$@" \
-    --volume "$(pwd):/app" \
-    "galvanist/vueenv:latest"
+    --rm \
+    --volume "$(pwd):/work" \
+    --env "HOST=0.0.0.0" \
+    --env "PORT=8090" \
+    --publish "8090:8090" \
+    "galvanist/vueenv:latest" \
+    "$@"
 }
 ```
 
@@ -317,13 +321,13 @@ vueenv() {
 ```Dockerfile
 FROM galvanist/vueenv:latest as builder
 
-COPY src /app
+COPY src /work
 
 RUN npm install \
   && npm run build
 
 FROM nginx:1-alpine as server
-COPY --from=builder /app/dist/ /usr/share/nginx/html/
+COPY --from=builder /work/dist/ /usr/share/nginx/html/
 
 # maybe also something like this:
 # COPY nginx_conf.d/* /etc/nginx/conf.d/
