@@ -12,9 +12,13 @@ Add this to your shell profile:
 vueenv() {
   docker run \
     -it \
-    --rm "$@" \
+    --rm \
     --volume "$(pwd):/work" \
-    "galvanist/vueenv:latest"
+    --env "HOST=0.0.0.0" \
+    --env "PORT=8090" \
+    --publish "8090:8090" \
+    "galvanist/vueenv:latest" \
+    "$@"
 }
 ```
 
