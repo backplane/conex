@@ -63,3 +63,8 @@ jobs:
           export GH_REGISTRY_PATH="docker.pkg.github.com/${{ github.repository }}"
           make -j 4 push >/dev/null 2>&1 || true
           make report
+
+      - uses: actions/upload-artifact@v2-preview
+        with:
+          name: receipts
+          path: ./*-rcpt.txt
