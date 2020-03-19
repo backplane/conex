@@ -1,4 +1,4 @@
-## [`imagename`](imagename/Dockerfile)
+## `imagename`
 
 ### Usage
 
