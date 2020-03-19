@@ -96,3 +96,11 @@ $(PROJECTS): % : %-build-rcpt.txt
 	  $(DOCKER) push "$$TAG"; \
 	) 2>&1 \
 	| tee -- "$@"
+
+README.md: */README.md
+	grep -B 1000 '^## The Images$$' README.md >README.md.new
+	echo >>README.md.new
+	grep --no-filename '^## ' */README.md | sed 's/^## \[.\(.*\).\](.*)$$/* [`\1`](#\1)/g' >>README.md.new
+	echo >>README.md.new
+	printf '%s\n' $^ | sort | xargs cat >>README.md.new
+	mv README.md.new README.md
