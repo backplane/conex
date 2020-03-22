@@ -16,7 +16,6 @@ testImportMode() {
 # }
 
 oneTimeSetUp() {
-  printf "importing $TESTING_TARGET" >ugh.sh
   IMPORT=1 . "${TESTING_TARGET}"
 }
 
