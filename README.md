@@ -14,9 +14,11 @@ This is a repository for utility container images. The latest versions are mirro
 * [`grta`](#grta)
 * [`hugo`](#hugo)
 * [`json-server`](#json-server)
+* [`kotlinc`](#kotlinc)
 * [`pycodestyle`](#pycodestyle)
 * [`pylint`](#pylint)
 * [`shunit2`](#shunit2)
+* [`imagename`](#imagename)
 * [`vueenv`](#vueenv)
 
 
@@ -280,6 +282,52 @@ json-server() {
 ```
 
 
+## [`kotlinc`](kotlinc)
+
+Reference: <https://github.com/JetBrains/kotlin>
+Releases: <https://github.com/JetBrains/kotlin/releases>
+
+* I don't see published sums so I calculate them myself 😞
+* `bash` is an actual dep 😞
+* I don't know if the `JDK_nn` defs are actually needed because things seems to work fine without them.
+* You can make the image smaller by setting these image build args to empty strings:
+
+  * `INTERACTIVE_EXTRAS` includes `nano` and `vim` by default
+  * `DEV_EXTRAS` includes `gradle` by default
+
+### Usage
+
+Still experimenting with this container. Here are some things I'm experimenting with:
+
+#### Interactive
+
+Here's a shell function that you could use to run this container:
+
+```sh
+
+kotlinc() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --volume "$(pwd):/work" \
+    "galvanist/conex:kotlinc" \
+    "$@"
+}
+
+```
+
+#### As Build Stage
+
+```Dockerfile
+FROM galvanist/conex:kotlinc as builder
+
+COPY . .
+
+# RUN some kind of kotlinc thing? help me out, I'm just learning kotlin
+```
+
+
 ## [`pycodestyle`](pycodestyle)
 
 ### Usage
@@ -362,6 +410,36 @@ shunit2() {
 ```
 
 Simply run `shunit2` from the project root directory.
+
+
+## [`imagename`](imagename)
+
+### Usage
+
+#### Interactive
+
+```sh
+
+imagename() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --volume "$(pwd):/work" \
+    "galvanist/conex:" \
+    "$@"
+}
+
+```
+
+#### As Build Stage
+
+```Dockerfile
+FROM galvanist/conex: as builder
+
+
+
+```
 
 
 ## [`vueenv`](vueenv)
