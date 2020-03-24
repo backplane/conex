@@ -18,7 +18,6 @@ This is a repository for utility container images. The latest versions are mirro
 * [`pycodestyle`](#pycodestyle)
 * [`pylint`](#pylint)
 * [`shunit2`](#shunit2)
-* [`imagename`](#imagename)
 * [`vueenv`](#vueenv)
 
 
@@ -410,36 +409,6 @@ shunit2() {
 ```
 
 Simply run `shunit2` from the project root directory.
-
-
-## [`imagename`](imagename)
-
-### Usage
-
-#### Interactive
-
-```sh
-
-imagename() {
-  docker run \
-    --rm \
-    --interactive \
-    --tty \
-    --volume "$(pwd):/work" \
-    "galvanist/conex:" \
-    "$@"
-}
-
-```
-
-#### As Build Stage
-
-```Dockerfile
-FROM galvanist/conex: as builder
-
-
-
-```
 
 
 ## [`vueenv`](vueenv)
