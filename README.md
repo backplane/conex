@@ -10,6 +10,7 @@ This is a repository for utility container images. The latest versions are mirro
 * [`audiosprite`](#audiosprite)
 * [`bpython`](#bpython)
 * [`checkmake`](#checkmake)
+* [`fzf`](#fzf)
 * [`goenv`](#goenv)
 * [`grta`](#grta)
 * [`hugo`](#hugo)
@@ -163,6 +164,31 @@ $ checkmake Makefile
                   "all"                                         
   minphony        Missing required phony target    0            
                   "test"                                        
+```
+
+
+## [`fzf`](fzf)
+
+An alpine-linux based dockerization of [fzf](https://github.com/junegunn/fzf). 
+
+### Usage
+
+This is a work in progress. Here's my typical function wrapper. It will need a bit more help to be useful this way.
+
+#### Interactive
+
+```sh
+
+fzf() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --volume "$(pwd):/work" \
+    "galvanist/conex:fzf" \
+    "$@"
+}
+
 ```
 
 
