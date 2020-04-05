@@ -17,6 +17,7 @@ This is a repository for utility container images. The latest versions are mirro
 * [`json-server`](#json-server)
 * [`kotlinc`](#kotlinc)
 * [`pycodestyle`](#pycodestyle)
+* [`pygmentize`](#pygmentize)
 * [`pylint`](#pylint)
 * [`shunit2`](#shunit2)
 * [`vueenv`](#vueenv)
@@ -368,6 +369,28 @@ pycodestyle() {
     --tty \
     --volume "$(pwd):/work" \
     "galvanist/conex:pycodestyle" \
+    "$@"
+}
+
+```
+
+
+## [`pygmentize`](pygmentize)
+
+This is an alpine-based dockerization of the [pygmentize](https://pygments.org/docs/cmdline/) from the [Pygments](https://pygments.org/) generic syntax highlighter.
+
+### Usage
+
+#### Interactive
+
+```sh
+
+pygmentize() {
+  docker run \
+    --rm \
+    --interactive \
+    --volume "$(pwd):/work" \
+    "galvanist/conex:pygmentize" \
     "$@"
 }
 
