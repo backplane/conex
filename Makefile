@@ -66,17 +66,21 @@ $(PROJECTS): % : %-build-rcpt.txt
 	export NAME=$$(basename "$@" "-build-rcpt.txt") && \
 	export DOCKER="$(DOCKER)" && \
 	export POSTBUILD="$$NAME/.postbuild.sh" && \
-	( \
-	  $(DOCKER) build \
-	    $(BUILD_ARGS) \
-	    --label "com.galvanist.daysum=$$(.helpers/daysum.sh "$${NAME}")" \
-	    -t "$(LOCAL_IMG_PREFIX)$${NAME}" \
-	    "$$NAME" && \
-	  if [ -f "$$POSTBUILD" ]; then \
-	    echo "====> POSTBUILD $$NAME"; \
-	    . "$$POSTBUILD"; \
-	  fi; \
-	) 2>&1 \
+	if .helpers/skip-build.sh $$NAME 2>&1; then \
+	  true; \
+	else \
+	  ( \
+	    $(DOCKER) build \
+	      $(BUILD_ARGS) \
+	      --label "com.galvanist.daysum=$$(.helpers/daysum.sh "$${NAME}")" \
+	      -t "$(LOCAL_IMG_PREFIX)$${NAME}" \
+	      "$$NAME" && \
+	    if [ -f "$$POSTBUILD" ]; then \
+	      echo "====> POSTBUILD $$NAME"; \
+	      . "$$POSTBUILD"; \
+	    fi; \
+	  ) 2>&1; \
+	fi \
 	| tee -- "$@"
 
 %-ghpush-rcpt.txt: %-build-rcpt.txt

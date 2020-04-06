@@ -7,8 +7,9 @@ usage() {
     "Usage: ${self} target_directory" \
     "" \
     "This program calculates the checksum of the contents of a given" \
-    "target_directory. The date is also embedded in the data so that the" \
-    "checksum is guaranteed to change within 24 hours." \
+    "target_directory. The year and current UTC week number are embedded" \
+    "in the data so that the checksum is guaranteed to change at least" \
+    "weekly." \
     ""
 
   exit 1
@@ -34,7 +35,7 @@ daysum() {
   target_dir="$1"; shift
 
   { sumdir "$target_dir" \
-    && date '+%F'; } \
+    && date -u '+%Y-%U'; } \
   | shasum -a 256 - \
   | cut -f 1 -d ' '
 }
