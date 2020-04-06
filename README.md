@@ -1,8 +1,6 @@
 # conex
 
-This is a repository for utility container images. The latest versions are mirrored to docker hub.
-
-### To access these images, see: <https://hub.docker.com/r/galvanist/conex/tags>
+This is a repository for various utility container images. The [latest versions of these images are mirrored to docker hub](https://hub.docker.com/r/galvanist/conex/tags).
 
 ## The Images
 
