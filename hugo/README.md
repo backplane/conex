@@ -1,6 +1,6 @@
 ## `hugo`
 
-This is a `debian:stable-slim`-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
+This is a [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
 
 ### Usage
 

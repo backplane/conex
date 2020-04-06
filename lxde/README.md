@@ -2,7 +2,7 @@
 
 ### Usage
 
-This is a [debian:stable-slim](https://hub.docker.com/_/debian/)-based dockerization of [TigerVNC](https://tigervnc.org/) running an [LXDE](https://lxde.org/) X11 desktop environment.
+This is a [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of [TigerVNC](https://tigervnc.org/) running an [LXDE](https://lxde.org/) X11 desktop environment.
 
 Start the container below. A session-specific VNC password will be generated and written to the standard output. Then VNC to localhost and enter the password.
 
