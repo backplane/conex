@@ -26,7 +26,7 @@ This is a repository for utility container images. The latest versions are mirro
 
 ## [`adb`](adb)
 
-This is a `debian:stable-slim`-based dockerization of the Android [SDK Platform Tools](https://developer.android.com/studio/releases/platform-tools) (using the [debian adb package](https://packages.debian.org/buster/adb)).
+This is a [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of the Android [SDK Platform Tools](https://developer.android.com/studio/releases/platform-tools) (using the [debian adb package](https://packages.debian.org/buster/adb)).
 
 Note: In an earlier variant I was getting the package directly from <https://dl.google.com/android/repository/platform-tools-latest-linux.zip>.
 
@@ -228,7 +228,7 @@ Coming "soon."
 
 ## [`hugo`](hugo)
 
-This is a `debian:stable-slim`-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
+This is a [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
 
 ### Usage
 
@@ -359,7 +359,7 @@ COPY . .
 
 ### Usage
 
-This is a [debian:stable-slim](https://hub.docker.com/_/debian/)-based dockerization of [TigerVNC](https://tigervnc.org/) running an [LXDE](https://lxde.org/) X11 desktop environment.
+This is a [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of [TigerVNC](https://tigervnc.org/) running an [LXDE](https://lxde.org/) X11 desktop environment.
 
 Start the container below. A session-specific VNC password will be generated and written to the standard output. Then VNC to localhost and enter the password.
 
