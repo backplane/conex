@@ -67,7 +67,11 @@ $(PROJECTS): % : %-build-rcpt.txt
 	export DOCKER="$(DOCKER)" && \
 	export POSTBUILD="$$NAME/.postbuild.sh" && \
 	( \
-	  $(DOCKER) build $(BUILD_ARGS) -t "$(LOCAL_IMG_PREFIX)$${NAME}" "$$NAME" && \
+	  $(DOCKER) build \
+	    $(BUILD_ARGS) \
+	    --label "com.galvanist.daysum=$$(.helpers/daysum.sh "$${NAME}")" \
+	    -t "$(LOCAL_IMG_PREFIX)$${NAME}" \
+	    "$$NAME" && \
 	  if [ -f "$$POSTBUILD" ]; then \
 	    echo "====> POSTBUILD $$NAME"; \
 	    . "$$POSTBUILD"; \
