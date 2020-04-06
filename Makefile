@@ -8,20 +8,11 @@ PROJECTS := $(DOCKERFILES:/Dockerfile=)
 
 .PHONY: build push clean deepclean list report all test
 
-build: $(PROJECTS:%=%-build-rcpt.txt)
+.PRESCIOUS: $(PROJECTS:%=%-build-rcpt.txt) $(PROJECTS:%=%-postbuild-rcpt.txt) $(PROJECTS:%=%-ghpush-rcpt.txt) $(PROJECTS:%=%-dhpush-rcpt.txt) $(PROJECTS:%=%-postpush-rcpt.txt)
 
-# since we have two registries to push to, the postpush hooks run here
-push: $(PROJECTS:%=%-ghpush-rcpt.txt) $(PROJECTS:%=%-dhpush-rcpt.txt)
-	@for project in $(PROJECTS); do \
-	  export NAME="$$project" && \
-	  export IMAGE="$(LOCAL_IMG_PREFIX)$${NAME}" && \
-	  export POSTPUSH="$$NAME/.postpush.sh" && \
-	  if [ -f "$$POSTPUSH" ]; then \
-	    echo "====> POSTPUSH $$NAME"; \
-	    ( set -x; . "$$POSTPUSH" ); \
-	  fi; \
-	done 2>&1 \
-	| tee -- "postpush-rcpt.txt"
+build: $(PROJECTS:%=%-postbuild-rcpt.txt)
+
+push: $(PROJECTS:%=%-postpush-rcpt.txt)
 
 clean:
 	@echo "===> CLEAN $<"
@@ -53,62 +44,34 @@ report:
 	done
 
 all: build
+
 test:
 	@echo 'This repo needs tests! Please help.'
 	@false
 
 # enables "make <subdir>" to work (e.g. "make vueenv")
-$(PROJECTS): % : %-build-rcpt.txt
+$(PROJECTS): % : %-postbuild-rcpt.txt
 
 %-build-rcpt.txt: %/Dockerfile
-	@echo "===> BUILD $<"
-	@set -x; \
-	export NAME=$$(basename "$@" "-build-rcpt.txt") && \
-	export DOCKER="$(DOCKER)" && \
-	export POSTBUILD="$$NAME/.postbuild.sh" && \
-	if .helpers/skip-build.sh $$NAME 2>&1; then \
-	  true; \
-	else \
-	  ( \
-	    $(DOCKER) build \
-	      $(BUILD_ARGS) \
-	      --label "com.galvanist.daysum=$$(.helpers/daysum.sh "$${NAME}")" \
-	      -t "$(LOCAL_IMG_PREFIX)$${NAME}" \
-	      "$$NAME" && \
-	    if [ -f "$$POSTBUILD" ]; then \
-	      echo "====> POSTBUILD $$NAME"; \
-	      . "$$POSTBUILD"; \
-	    fi; \
-	  ) 2>&1; \
-	fi \
-	| tee -- "$@"
+	@printf '==> %s\n' "$$(basename "$@" "-rcpt.txt")"
+	.helpers/maker.sh build "$@"
 
-%-ghpush-rcpt.txt: %-build-rcpt.txt
-	@echo "===> GITHUB PUSH $<"
-	@set -x; \
-	export NAME=$$(basename "$@" "-ghpush-rcpt.txt") && \
-	export TAG="$(GH_REGISTRY_PATH)/$${NAME}:latest" && \
-	( \
-	  $(DOCKER) tag "$(LOCAL_IMG_PREFIX)$${NAME}" "$$TAG" && \
-	  $(DOCKER) push "$$TAG"; \
-	) 2>&1 \
-	| tee -- "$@"
+%-postbuild-rcpt.txt: %-build-rcpt.txt
+	@printf '==> %s\n' "$$(basename "$@" "-rcpt.txt")"
+	.helpers/maker.sh postbuild "$@"
 
-%-dhpush-rcpt.txt: %-build-rcpt.txt
-	@echo "===> DOCKER HUB PUSH $<"
-	@set -x; \
-	export NAME=$$(basename "$@" "-dhpush-rcpt.txt") && \
-	export TAG="$(DH_REGISTRY_PATH):$${NAME}" && \
-	( \
-	  $(DOCKER) tag "$(LOCAL_IMG_PREFIX)$${NAME}" "$$TAG" && \
-	  $(DOCKER) push "$$TAG"; \
-	) 2>&1 \
-	| tee -- "$@"
+%-ghpush-rcpt.txt: %-postbuild-rcpt.txt
+	@printf '==> %s\n' "$$(basename "$@" "-rcpt.txt")"
+	.helpers/maker.sh ghpush "$@"
+
+%-dhpush-rcpt.txt: %-postbuild-rcpt.txt
+	@printf '==> %s\n' "$$(basename "$@" "-rcpt.txt")"
+	.helpers/maker.sh dhpush "$@"
+
+%-postpush-rcpt.txt: %-dhpush-rcpt.txt %-ghpush-rcpt.txt
+	@printf '==> %s\n' "$$(basename "$@" "-rcpt.txt")"
+	.helpers/maker.sh postpush "$@"
 
 README.md: */README.md Makefile
-	grep -B 1000 '^## The Images$$' README.md >README.md.new
-	echo >>README.md.new
-	grep --no-filename '^## ' */README.md | sed 's/^## .\(.*\).$$/* [`\1`](#\1)/g' >>README.md.new
-	echo >>README.md.new
-	for README in */README.md; do echo; cat $$README; echo; done | sed 's/^## .\(.*\).$$/## [`\1`](\1)/g' >>README.md.new
-	mv README.md.new README.md
+	@echo "==> $@"
+	.helpers/maker.sh genreadme $(PROJECTS)
