@@ -3,7 +3,7 @@
 LOCAL_IMG_PREFIX="${LOCAL_IMG_PREFIX:-conex_}"
 GH_REGISTRY_PATH="${GH_REGISTRY_PATH:-docker.pkg.github.com/glvnst/conex}"
 DH_REGISTRY_PATH="${DH_REGISTRY_PATH:-galvanist/conex}"
-
+DISABLE_DAYSUM_QUERY="${DISABLE_DAYSUM_QUERY:-}"
 
 usage() {
   self="$(basename "$0")"
@@ -34,14 +34,28 @@ build() {
   local_tag="$1"; shift
   [ -n "$local_tag" ] || die "build requires local_tag arg"
 
-  .helpers/skip-build.sh "$target" 2>&1 && exit 0
-
-  current_sum="$(.helpers/daysum.sh "$target")"
-  [ -n "$current_sum" ] \
+  current_daysum="$(.helpers/daysum.sh "$target")"
+  [ -n "$current_daysum" ] \
   || die "Unable to calculate current context checksum"
 
+  # can we skip?
+  if [ -z "$DISABLE_DAYSUM_QUERY" ]; then
+    dh_daysum="$(.helpers/dhdaysum.sh "galvanist/conex:${target}")"
+
+    if [ "$dh_daysum" = "$current_daysum" ]; then
+      # this "SKIP BUILD" string is grepped for by skip_if_no_build
+      printf 'current local daysum: %s matches DH daysum. SKIP BUILD.\n' \
+        "$current_daysum"
+      return
+    fi
+
+    printf 'DH daysum: %s != current local daysum: %s. REBUILD REQUIRED.\n' \
+      "$dh_daysum" \
+      "$current_daysum"
+  fi
+
   docker build \
-    --label "com.galvanist.daysum=${current_sum}" \
+    --label "com.galvanist.daysum=${current_daysum}" \
     --tag "$local_tag" \
     "$target" \
   || die "build failed"
