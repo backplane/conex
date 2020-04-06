@@ -13,7 +13,6 @@ RUN set -x \
   && $AG upgrade \
   && $AG install --no-install-recommends \
     apt-transport-https \
-    bash \
     busybox \
     bzip2 \
     ca-certificates \
