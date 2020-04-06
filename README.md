@@ -23,7 +23,6 @@ This is a repository for utility container images. The latest versions are mirro
 * [`shunit2`](#shunit2)
 * [`vueenv`](#vueenv)
 
-
 ## [`adb`](adb)
 
 This is a [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of the Android [SDK Platform Tools](https://developer.android.com/studio/releases/platform-tools) (using the [debian adb package](https://packages.debian.org/buster/adb)).
@@ -51,7 +50,6 @@ adb() {
 
 ```
 
-
 ## [`audiosprite`](audiosprite)
 
 This is an alpine-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
@@ -71,7 +69,6 @@ audiosprite() {
     "$@"
 }
 ```
-
 
 ## [`bpython`](bpython)
 
@@ -108,7 +105,6 @@ bpython() {
 }
 
 ```
-
 
 ## [`checkmake`](checkmake)
 
@@ -168,7 +164,6 @@ $ checkmake Makefile
                   "test"                                        
 ```
 
-
 ## [`fzf`](fzf)
 
 An alpine-linux based dockerization of [fzf](https://github.com/junegunn/fzf). 
@@ -193,7 +188,6 @@ fzf() {
 
 ```
 
-
 ## [`goenv`](goenv)
 
 ### Usage
@@ -216,7 +210,6 @@ goenv() {
 
 Then you just cd to a directory with a go project (or an empty directory) and run `goenv`.
 
-
 ## [`grta`](grta)
 
 This HTTP endpoint receives webhooks, validates against the PSK, writes the webhook payload to a file (or fifo). Meant to be used behind a load balancer that provides TLS.
@@ -224,7 +217,6 @@ This HTTP endpoint receives webhooks, validates against the PSK, writes the webh
 ### Usage
 
 Coming "soon."
-
 
 ## [`hugo`](hugo)
 
@@ -282,7 +274,6 @@ FROM nginx:1-alpine as server
 COPY --from=builder /work/public/ /usr/share/nginx/html/
 ```
 
-
 ## [`json-server`](json-server)
 
 This is an alpine-based dockerization of [json-server](https://github.com/typicode/json-server).
@@ -307,7 +298,6 @@ json-server() {
 }
 
 ```
-
 
 ## [`kotlinc`](kotlinc)
 
@@ -354,7 +344,6 @@ COPY . .
 # RUN some kind of kotlinc thing? help me out, I'm just learning kotlin
 ```
 
-
 ## [`lxde`](lxde)
 
 ### Usage
@@ -384,7 +373,6 @@ lxde() {
 
 ```
 
-
 ## [`pycodestyle`](pycodestyle)
 
 ### Usage
@@ -404,7 +392,6 @@ pycodestyle() {
 }
 
 ```
-
 
 ## [`pygmentize`](pygmentize)
 
@@ -427,7 +414,6 @@ pygmentize() {
 
 ```
 
-
 ## [`pylint`](pylint)
 
 ### Usage
@@ -447,7 +433,6 @@ pylint() {
 }
 
 ```
-
 
 ## [`shunit2`](shunit2)
 
@@ -489,7 +474,6 @@ shunit2() {
 ```
 
 Simply run `shunit2` from the project root directory.
-
 
 ## [`vueenv`](vueenv)
 
