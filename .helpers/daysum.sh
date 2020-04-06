@@ -27,7 +27,9 @@ die() {
 sumdir() {
   target_dir="$1"; shift
 
-  find "$(basename "$target_dir")" -type f -print0 \
+  find "$(basename "$target_dir")" -type f -print \
+    | sort \
+    | tr '\n' '\0' \
     | xargs -0 shasum -a 256
 }
 
@@ -36,6 +38,7 @@ daysum() {
 
   { sumdir "$target_dir" \
     && date -u '+%Y-%U'; } \
+  | tee /dev/stderr \
   | shasum -a 256 - \
   | cut -f 1 -d ' '
 }
