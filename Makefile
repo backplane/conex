@@ -72,6 +72,6 @@ $(PROJECTS): % : %-postbuild-rcpt.txt
 	@printf '==> %s\n' "$$(basename "$@" "-rcpt.txt")"
 	.helpers/maker.sh postpush "$@"
 
-README.md: */README.md Makefile
+README.md: */README.md
 	@echo "==> $@"
 	.helpers/maker.sh genreadme $(PROJECTS)

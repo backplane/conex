@@ -110,7 +110,7 @@ postpush() {
   true
 }
 
-gen_readme() {
+genreadme() {
   [ -f "README.md" ] || die "Couldn't find existing readme file"
 
   (
@@ -184,8 +184,8 @@ main() {
       ( set -x; postpush "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
       ;;
 
-    gen_readme)
-      ( gen_readme "$target" "$@" ) || exit 1
+    genreadme)
+      ( genreadme "$target" "$@" ) || exit 1
       ;;
 
     *)
