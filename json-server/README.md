@@ -1,6 +1,6 @@
 ## `json-server`
 
-This is an alpine-based dockerization of [json-server](https://github.com/typicode/json-server).
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [json-server](https://github.com/typicode/json-server).
 
 ### Usage
 

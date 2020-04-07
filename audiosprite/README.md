@@ -1,6 +1,6 @@
 ## `audiosprite`
 
-This is an alpine-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
 
 ### Usage
 
