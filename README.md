@@ -12,6 +12,7 @@ This is a repository for various utility container images. The [latest versions 
 * [`goenv`](#goenv)
 * [`grta`](#grta)
 * [`hugo`](#hugo)
+* [`jq`](#jq)
 * [`json-server`](#json-server)
 * [`kotlinc`](#kotlinc)
 * [`lxde`](#lxde)
@@ -50,7 +51,7 @@ adb() {
 
 ## [`audiosprite`](audiosprite)
 
-This is an alpine-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite).
 
 ### Usage
 
@@ -164,7 +165,7 @@ $ checkmake Makefile
 
 ## [`fzf`](fzf)
 
-An alpine-linux based dockerization of [fzf](https://github.com/junegunn/fzf). 
+An [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [fzf](https://github.com/junegunn/fzf). 
 
 ### Usage
 
@@ -272,9 +273,44 @@ FROM nginx:1-alpine as server
 COPY --from=builder /work/public/ /usr/share/nginx/html/
 ```
 
+## [`jq`](jq)
+
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [jq](https://stedolan.github.io/jq/).
+
+From the site:
+
+> jq is a lightweight and flexible command-line JSON processor. jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text.
+
+### Usage
+
+#### Interactive
+
+I use a shell function like this to run the container.
+
+```sh
+jq() {
+  flags=""
+
+  if [ -t 1 ] && [ -z "$NOFORMAT" ]; then
+    # stdout is a terminal
+    flags="-C" # colorize json
+  else
+    # stdout is a pipe or something
+    if [ -n "$NOFORMAT" ]; then
+      flags="-M -c" # monochrome, compact
+    else
+      flags="-M" # monochrome
+    fi
+  fi
+
+  # shellcheck disable=SC2086
+  exec docker run --rm "galvanist/conex:jq" $flags "$@"
+}
+```
+
 ## [`json-server`](json-server)
 
-This is an alpine-based dockerization of [json-server](https://github.com/typicode/json-server).
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [json-server](https://github.com/typicode/json-server).
 
 ### Usage
 
@@ -393,7 +429,7 @@ pycodestyle() {
 
 ## [`pygmentize`](pygmentize)
 
-This is an alpine-based dockerization of the [pygmentize](https://pygments.org/docs/cmdline/) from the [Pygments](https://pygments.org/) generic syntax highlighter.
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of the [pygmentize](https://pygments.org/docs/cmdline/) from the [Pygments](https://pygments.org/) generic syntax highlighter.
 
 ### Usage
 
@@ -434,7 +470,7 @@ pylint() {
 
 ## [`shunit2`](shunit2)
 
-This is an alpine-based containerization of [shUnit2](https://github.com/kward/shunit2/), the "xUnit-based unit test framework for Bourne-based shell scripts."
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based containerization of [shUnit2](https://github.com/kward/shunit2/), the "xUnit-based unit test framework for Bourne-based shell scripts."
 
 ### Usage
 
