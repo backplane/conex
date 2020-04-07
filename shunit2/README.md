@@ -1,6 +1,6 @@
 ## `shunit2`
 
-This is an alpine-based containerization of [shUnit2](https://github.com/kward/shunit2/), the "xUnit-based unit test framework for Bourne-based shell scripts."
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based containerization of [shUnit2](https://github.com/kward/shunit2/), the "xUnit-based unit test framework for Bourne-based shell scripts."
 
 ### Usage
 

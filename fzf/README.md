@@ -1,6 +1,6 @@
 ## `fzf`
 
-An alpine-linux based dockerization of [fzf](https://github.com/junegunn/fzf). 
+An [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [fzf](https://github.com/junegunn/fzf). 
 
 ### Usage
 
