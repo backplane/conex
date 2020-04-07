@@ -178,24 +178,8 @@ main() {
   local_tag="${LOCAL_IMG_PREFIX}${target}"
 
   case "$command" in 
-    build)
-      ( set -x; build "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
-      ;;
-
-    postbuild)
-      ( set -x; postbuild "$target" ) >"$receipt" 2>&1 || exit 1
-      ;;
-
-    ghpush)
-      ( set -x; ghpush "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
-      ;;
-
-    dhpush)
-      ( set -x; postbuild "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
-      ;;
-
-    postpush)
-      ( set -x; postpush "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
+    build|postbuild|ghpush|dhpush|postpush)
+      ( set -x; "$command" "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
       ;;
 
     genreadme)
