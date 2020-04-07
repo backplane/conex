@@ -179,7 +179,7 @@ main() {
 
   case "$command" in 
     build|postbuild|ghpush|dhpush|postpush)
-      ( set -x; "$command" "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
+      ( "$command" "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
       ;;
 
     genreadme)

@@ -36,8 +36,9 @@ sumdir() {
 daysum() {
   target_dir="$1"; shift
 
+  # tee's output buffering here results in incomplete logs...
   { sumdir "$target_dir" \
-    && date -u '+%Y-%U'; } \
+    ; date -u '+%Y-%U'; } \
   | tee /dev/stderr \
   | shasum -a 256 - \
   | cut -f 1 -d ' '
