@@ -249,32 +249,26 @@ You can use a function like this, note the name is `http` not `httpie` when call
 
 ```sh
 http() {
-  flags=""
-  add_newline=""
+  run_flags="--rm -i"
+  container_flags="" 
 
   if [ -t 0 ]; then
     # stdin is a terminal
-    flags="--ignore-stdin"
+    # run_flags="${run_flags}" # -t can be a problem here
+    container_flags="--ignore-stdin"
   fi
   # else stdin is a pipe or some non-terminal thing
 
   if [ -t 1 ] && [ -z "$NOFORMAT" ]; then
     # stdout is a terminal
-    flags="${flags} --verbose --pretty=all"
-    add_newline="1"
+    container_flags="${container_flags} --verbose --pretty=all"
   else
     # stdout is a pipe or something
-    if [ -n "$NOFORMAT" ]; then
-      flags="${flags} --pretty=none"
-    else
-      flags="${flags} --pretty=format"
-    fi
+    container_flags="${container_flags} --print=b --pretty=none"
   fi
 
   # shellcheck disable=SC2086
-  docker run --rm "galvanist/conex:httpie" $flags "$@"
-
-  [ -n "$add_newline" ] && printf '\n'
+  docker run $run_flags "galvanist/conex:httpie" $container_flags "$@"
 }
 ```
 
@@ -350,22 +344,28 @@ I use a shell function like this to run the container.
 
 ```sh
 jq() {
-  flags=""
+  run_flags="--rm -i"
+  container_flags=""
+
+  if [ -t 0 ]; then
+    # stdin is a terminal
+    run_flags="${run_flags} -t"
+  fi
 
   if [ -t 1 ] && [ -z "$NOFORMAT" ]; then
     # stdout is a terminal
-    flags="-C" # colorize json
+    container_flags="${container_flags} -C" # colorize json
   else
     # stdout is a pipe or something
+    container_flags="${container_flags} -M" # monochrome
+
     if [ -n "$NOFORMAT" ]; then
-      flags="-M -c" # monochrome, compact
-    else
-      flags="-M" # monochrome
+      container_flags="${container_flags} -c" # compact
     fi
   fi
 
   # shellcheck disable=SC2086
-  docker run --rm "galvanist/conex:jq" $flags "$@"
+  docker run $run_flags "galvanist/conex:jq" $container_flags "$@"
 }
 ```
 
