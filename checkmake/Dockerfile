@@ -1,5 +1,4 @@
 FROM golang:1-alpine as builder
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
 
 RUN apk add --no-cache \
     git \
@@ -14,6 +13,8 @@ RUN set -x \
   && make binaries
 
 FROM alpine:edge
+LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+
 COPY --from=builder /build/checkmake /
 WORKDIR /work
 USER nobody
