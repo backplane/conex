@@ -38,7 +38,7 @@ func HandleMyIP(w http.ResponseWriter, r *http.Request) {
 		ip = r.RemoteAddr
 	}
 
-	fmt.Fprintf(w, `{"ip": "%s"}"\n`, ip)
+	fmt.Fprintf(w, "{\"ip\": \"%s\"}\n", ip)
 }
 
 func init() {
