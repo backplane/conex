@@ -17,6 +17,7 @@ This is a repository for various utility container images. The [latest versions 
 * [`json-server`](#json-server)
 * [`kotlinc`](#kotlinc)
 * [`lxde`](#lxde)
+* [`myip`](#myip)
 * [`pycodestyle`](#pycodestyle)
 * [`pygmentize`](#pygmentize)
 * [`pylint`](#pylint)
@@ -466,6 +467,12 @@ lxde() {
 }
 
 ```
+
+## [`myip`](myip)
+
+This is a single-binary container that creates an HTTP endpoint which return's the user's own IP address in JSON format.
+
+It is meant to be run behind a load balancer that provides TLS.
 
 ## [`pycodestyle`](pycodestyle)
 
