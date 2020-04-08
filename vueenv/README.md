@@ -1,6 +1,6 @@
 ## `vueenv`
 
-This container image is meant to be used as a builder stage for Vue CLI-based apps in a multi-stage build. It is also very useful during development.
+A container image for working with [Vue.js](https://vuejs.org/). This image is meant to be used as a builder stage for [Vue CLI](https://cli.vuejs.org/)-based apps in a multi-stage build. It is also very useful during development.
 
 ### Usage
 
