@@ -191,6 +191,12 @@ fzf() {
 
 ## [`goenv`](goenv)
 
+A container image for working with the [go](https://golang.org/) programming language. As the homepage says:
+
+> Go is an open source programming language that makes it easy to build simple, reliable, and efficient software. 
+
+This image is meant to be used as a builder stage in a multi-stage build and it is also very useful for interactive use during development.
+
 ### Usage
 
 #### Interactive
@@ -470,15 +476,21 @@ lxde() {
 
 ## [`myip`](myip)
 
-This is a single-binary container that creates an HTTP endpoint which return's the user's own IP address in JSON format.
+This is a single-binary container that creates an HTTP endpoint which returns the user's own IP address in JSON format.
 
 It is meant to be run behind a load balancer that provides TLS.
 
 ## [`pycodestyle`](pycodestyle)
 
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [pycodestyle](https://pycodestyle.pycqa.org/). As the homepage says:
+
+> pycodestyle (formerly pep8) is a tool to check your Python code against some of the style conventions in [PEP 8](http://www.python.org/dev/peps/pep-0008/).
+
 ### Usage
 
 #### Interactive
+
+I use this container with something like the following shell function:
 
 ```sh
 
@@ -517,9 +529,15 @@ pygmentize() {
 
 ## [`pylint`](pylint)
 
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [pylint](https://www.pylint.org/). As the docs say:
+
+> Pylint is a tool that checks for errors in Python code, tries to enforce a coding standard and looks for code smells. It can also look for certain type errors, it can recommend suggestions about how particular blocks can be refactored and can offer you details about the code's complexity.
+
 ### Usage
 
 #### Interactive
+
+I use this container with something like the following shell function:
 
 ```sh
 
@@ -578,7 +596,7 @@ Simply run `shunit2` from the project root directory.
 
 ## [`vueenv`](vueenv)
 
-This container image is meant to be used as a builder stage for Vue CLI-based apps in a multi-stage build. It is also very useful during development.
+A container image for working with [Vue.js](https://vuejs.org/). This image is meant to be used as a builder stage for [Vue CLI](https://cli.vuejs.org/)-based apps in a multi-stage build. It is also very useful during development.
 
 ### Usage
 
