@@ -24,13 +24,13 @@ jq() {
 
   if [ -t 1 ] && [ -z "$NOFORMAT" ]; then
     # stdout is a terminal
-    container_flags="-C" # colorize json
+    container_flags="${container_flags} -C" # colorize json
   else
     # stdout is a pipe or something
+    container_flags="${container_flags} -M" # monochrome
+
     if [ -n "$NOFORMAT" ]; then
-      container_flags="-M -c" # monochrome, compact
-    else
-      container_flags="-M" # monochrome
+      container_flags="${container_flags} -c" # compact
     fi
   fi
 
