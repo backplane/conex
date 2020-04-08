@@ -14,21 +14,27 @@ I use a shell function like this to run the container.
 
 ```sh
 jq() {
-  flags=""
+  run_flags="--rm -i"
+  container_flags=""
+
+  if [ -t 0 ]; then
+    # stdin is a terminal
+    run_flags="${run_flags} -t"
+  fi
 
   if [ -t 1 ] && [ -z "$NOFORMAT" ]; then
     # stdout is a terminal
-    flags="-C" # colorize json
+    container_flags="-C" # colorize json
   else
     # stdout is a pipe or something
     if [ -n "$NOFORMAT" ]; then
-      flags="-M -c" # monochrome, compact
+      container_flags="-M -c" # monochrome, compact
     else
-      flags="-M" # monochrome
+      container_flags="-M" # monochrome
     fi
   fi
 
   # shellcheck disable=SC2086
-  docker run --rm "galvanist/conex:jq" $flags "$@"
+  docker run $run_flags "galvanist/conex:jq" $container_flags "$@"
 }
 ```
