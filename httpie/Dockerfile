@@ -6,7 +6,8 @@ RUN apk add --no-cache \
     py3-pip \
   && pip3 --no-cache-dir install \
     httpie \
-  && find / -name __pycache__ -type d -print0 | xargs -0 rm -r --
+  && true
+  #&& find / -name __pycache__ -type d -print0 | xargs -0 rm -r --
 
-ENTRYPOINT [ "http" ]
+ENTRYPOINT ["/usr/bin/http"]
 CMD ["--help"]
