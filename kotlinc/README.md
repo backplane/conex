@@ -1,4 +1,6 @@
-## `kotlinc`
+# kotlinc
+
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of the kotlin compiler
 
 Reference: <https://github.com/JetBrains/kotlin>
 Releases: <https://github.com/JetBrains/kotlin/releases>
@@ -11,11 +13,11 @@ Releases: <https://github.com/JetBrains/kotlin/releases>
   * `INTERACTIVE_EXTRAS` includes `nano` and `vim` by default
   * `DEV_EXTRAS` includes `gradle` by default
 
-### Usage
+## Usage
 
 Still experimenting with this container. Here are some things I'm experimenting with:
 
-#### Interactive
+### Interactive
 
 Here's a shell function that you could use to run this container:
 
@@ -33,7 +35,7 @@ kotlinc() {
 
 ```
 
-#### As Build Stage
+### As Build Stage
 
 ```Dockerfile
 FROM galvanist/conex:kotlinc as builder

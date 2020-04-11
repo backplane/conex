@@ -1,8 +1,10 @@
-## `pwgen`
+# pwgen
 
-This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [pwgen](https://github.com/tytso/pwgen) by [Theodore Ts'o](https://github.com/tytso). This is the same code base as the [pwgen package on debian](https://packages.debian.org/stable/pwgen).
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [pwgen](https://github.com/tytso/pwgen) -- the password generator written by [Theodore Ts'o](https://github.com/tytso)
 
-### Usage
+This is the same code base as the [pwgen package on debian](https://packages.debian.org/stable/pwgen).
+
+## Usage
 
 ```
 Usage: pwgen [ OPTIONS ] [ pw_length ] [ num_pw ]
@@ -36,7 +38,7 @@ Options supported by pwgen:
 	Do not use any vowels so as to avoid accidental nasty words
 ```
 
-#### Interactive
+### Interactive
 
 Here is a shell function that can simplify use of this container. Note that if you use it this way (without a bind-mount) you won't have access to the `-H` / `--sha1=` feature.
 

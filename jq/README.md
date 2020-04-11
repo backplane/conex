@@ -1,14 +1,14 @@
-## `jq`
+# jq
 
-This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [jq](https://stedolan.github.io/jq/).
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [jq](https://stedolan.github.io/jq/)
 
 From the site:
 
 > jq is a lightweight and flexible command-line JSON processor. jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text.
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 I use a shell function like this to run the container.
 

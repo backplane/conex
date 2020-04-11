@@ -1,6 +1,8 @@
-## `bpython`
+# bpython
 
-This is a lightweight dockerization of [the bpython interpreter](https://bpython-interpreter.org/). As their homepage says:
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [the bpython interpreter](https://bpython-interpreter.org/)
+
+As their homepage says:
 
 > bpython is a fancy interface to the Python interpreter for Linux, BSD, OS X and Windows (with some work). bpython is released under the MIT License. It has the following (special) features:
 >
@@ -14,9 +16,9 @@ This is a lightweight dockerization of [the bpython interpreter](https://bpython
 >* Python 3 support.
 
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 I use the following shell function to run this container:
 

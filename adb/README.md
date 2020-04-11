@@ -1,12 +1,12 @@
-## `adb`
+# adb
 
-This is a [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of the Android [SDK Platform Tools](https://developer.android.com/studio/releases/platform-tools) (using the [debian adb package](https://packages.debian.org/buster/adb)).
+[`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of the [Android Debug Bridge](https://developer.android.com/studio/command-line/adb)
 
-Note: In an earlier variant I was getting the package directly from <https://dl.google.com/android/repository/platform-tools-latest-linux.zip>.
+Note: This version uses the [debian adb package](https://packages.debian.org/buster/adb) only -- previously I was getting the code directly from [google's android platform utils for linux release](https://dl.google.com/android/repository/platform-tools-latest-linux.zip) and including other parts of the platform utils in this images.
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 something like this... still working on the params
 

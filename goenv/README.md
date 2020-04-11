@@ -1,14 +1,16 @@
-## `goenv`
+# goenv
 
-A container image for working with the [go](https://golang.org/) programming language. As the homepage says:
+[`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of the [go](https://golang.org/) programming language compiler and tools
+
+As the homepage says:
 
 > Go is an open source programming language that makes it easy to build simple, reliable, and efficient software. 
 
 This image is meant to be used as a builder stage in a multi-stage build and it is also very useful for interactive use during development.
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 This shell function demonstrates using this container in place of having the actual go installation.
 

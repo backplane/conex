@@ -1,10 +1,10 @@
-## `checkmake`
+# checkmake
 
-Alpine-based containerization of [checkmake](https://github.com/mrtazz/checkmake/), the `Makefile` linter.
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [checkmake](https://github.com/mrtazz/checkmake/), the `Makefile` linter
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 This shell function demonstrates using this container in place of having the binary installed.
 
