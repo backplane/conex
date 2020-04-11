@@ -90,9 +90,8 @@ ghpush() {
 
   skip_if_no_build "$target"
 
-  tag="${GH_REGISTRY_PATH}/${target}:latest"
-  docker tag "$local_tag" "$tag" || die "Couldn't tag ${local_tag} with gh registry tag ${tag}"
-  docker push "$tag" || die "Couldn't push tag ${tag}"
+  push_registry_tag "$local_tag" "${GH_REGISTRY_PATH}/${target}:latest" \
+  || die "ghpush failed"
 }
 
 dhpush() {
@@ -104,9 +103,22 @@ dhpush() {
 
   skip_if_no_build "$target"
 
-  tag="${DH_REGISTRY_PATH}:${target}"
-  docker tag "$local_tag" "$tag" || die "Couldn't tag ${local_tag} with dh registry tag ${tag}"
-  docker push "$tag" || die "Couldn't push tag ${tag}"
+  push_registry_tag "$local_tag" "${DH_REGISTRY_PATH}:${target}" \
+  || die "dhpush failed"
+}
+
+push_registry_tag() {
+  local_tag="$1"; shift
+  [ -n "$local_tag" ] || die "push_registry_tag requires local_tag arg"
+
+  registry_tag="$1"; shift
+  [ -n "$registry_tag" ] || die "push_registry_tag requires registry_tag arg"
+
+  docker tag "$local_tag" "$registry_tag" \
+  || die "Couldn't tag ${local_tag} with registry tag ${registry_tag}"
+
+  docker push "$registry_tag" \
+  || die "Couldn't push registry tag ${registry_tag}"
 }
 
 postpush() {
