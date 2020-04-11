@@ -12,9 +12,9 @@ I aspire to these guidelines when dockerizing things _for this repo_ but for pro
 * Base images directly on well-maintained OS-distro images in the docker hub library like `alpine:edge`, `debian:stable-slim`, or in some cases `ubuntu`. Or use `scratch`.
 * Always include a maintainer label
 * Limit layers and layer sizes as much as possible with the general layer structure:
-	* OS-level package deps + cleanup (e.g. `apk add` or `apt install`)
-	* App-level package deps + cleanup (e.g. `pip install` or `npm install`). Try to add these via manifest files like `requirements.txt` or `package.json` to enable security scanning.
-	* App code (usually via `COPY` or `curl`) as near to the end of the file as possible
+	1. OS-level package deps + cleanup (e.g. `apk add` or `apt install`)
+	2. App-level package deps + cleanup (e.g. `pip install` or `npm install`). Try to add these via manifest files like `requirements.txt` or `package.json` to enable security scanning.
+	3. App code (usually via `COPY` or `curl`) as near to the end of the file as possible
 * Fetch via verified TLS. Verify gpg signatures and checksums.
 * Drop privs when possible (with `RUN adduser ...` or equivalent then `USER`)
 * For `RUN` instructions:
@@ -44,6 +44,8 @@ I aspire to these guidelines when dockerizing things _for this repo_ but for pro
 ## The Images
 
 * [`adb`](#adb)
+* [`apg`](#apg)
+* [`autio`](#autio)
 * [`audiosprite`](#audiosprite)
 * [`bpython`](#bpython)
 * [`checkmake`](#checkmake)
@@ -57,11 +59,13 @@ I aspire to these guidelines when dockerizing things _for this repo_ but for pro
 * [`kotlinc`](#kotlinc)
 * [`lxde`](#lxde)
 * [`myip`](#myip)
+* [`pwgen`](#pwgen)
 * [`pycodestyle`](#pycodestyle)
 * [`pygmentize`](#pygmentize)
 * [`pylint`](#pylint)
 * [`shunit2`](#shunit2)
 * [`vueenv`](#vueenv)
+* [`wireguard`](#wireguard)
 
 ## [`adb`](adb)
 
@@ -85,6 +89,97 @@ adb() {
     --device "/dev/bus/usb/001/004" \
     --volume "$(pwd):/work" \
     "galvanist/conex:adb" \
+    "$@"
+}
+
+```
+
+## [`apg`](apg)
+
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of apg -- the "Automated Password Generator" by Adel I. Mirzazhanov.
+
+> APG (Automated Password Generator) is the tool set for random password generation. It generates some random words of required type and prints them to standard output. This binary package contains only the standalone version of apg. Advantages:
+> 
+>  * Built-in ANSI X9.17 RNG (Random Number Generator)(CAST/SHA1)
+>  * Built-in password quality checking system (now it has support for Bloom
+>    filter for faster access)
+>  * Two Password Generation Algorithms:
+>     1. Pronounceable Password Generation Algorithm (according to NIST
+>        FIPS 181)
+>     2. Random Character Password Generation Algorithm with 35
+>        configurable modes of operation
+>  * Configurable password length parameters
+>  * Configurable amount of generated passwords
+>  * Ability to initialize RNG with user string
+>  * Support for /dev/random
+>  * Ability to crypt() generated passwords and print them as additional output.
+>  * Special parameters to use APG in script
+>  * Ability to log password generation requests for network version
+>  * Ability to control APG service access using tcpd
+>  * Ability to use password generation service from any type of box (Mac,
+>    WinXX, etc.) that connected to network
+>  * Ability to enforce remote users to use only allowed type of password
+>    generation
+
+## [`autio`](autio)
+
+This container uses the alpine apk package [which is based on the ubuntu source file](https://git.alpinelinux.org/aports/tree/main/apg/APKBUILD), as of Apr 11 2020 that means: <https://launchpad.net/ubuntu/+archive/primary/+files/apg_2.2.3.orig.tar.gz>.
+
+The debian (and consequently ubuntu) package maintainer [Marc Haber](https://salsa.debian.org/zugschlus) has issued some [important warnings about the apg package](https://packages.debian.org/stable/apg):
+
+> * Please note that there are security flaws in pronounceable password generation schemes (see Ganesan / Davis "A New Attack on Random Pronounceable Password Generators", in "Proceedings of the 17th National Computer Security Conference (NCSC), Oct. 11-14, 1994 (Volume 1)", http://csrc.nist.gov/publications/history/nissc/1994-17th-NCSC-proceedings-vol-1.pdf, pages 203-216) [[updated link here](https://csrc.nist.gov/CSRC/media/Publications/conference-paper/1994/10/11/proceedings-17th-national-computer-security-conference-1994/documents/1994-17th-NCSC-proceedings-vol-1.pdf)]
+>
+> * Also note that the FIPS 181 standard from 1993 has been withdrawn by NIST in 2015 with no superseding publication. This means that the document is considered by its [publisher] as obsolete and not been updated to reference current or revised voluntary industry standards, federal specifications, or federal data standards.
+>
+> * apg has not seen upstream attention since 2003, upstream is not answering e-mail, and the upstream web page does not look like it is in good working order. The Debian maintainer plans to discontinue apg maintenance as soon as an actually maintained software with a [comparable] feature set becomes available.
+
+### Usage
+
+```
+apg   Automated Password Generator
+        Copyright (c) Adel I. Mirzazhanov
+
+apg   [-a algorithm] [-r file] 
+      [-M mode] [-E char_string] [-n num_of_pass] [-m min_pass_len]
+      [-x max_pass_len] [-c cl_seed] [-d] [-s] [-h] [-y] [-q]
+
+-M mode         new style password modes
+-E char_string  exclude characters from password generation process
+-r file         apply dictionary check against file
+-b filter_file  apply bloom filter check against filter_file
+                (filter_file should be created with apgbfm(1) utility)
+-p substr_len   paranoid modifier for bloom filter check
+-a algorithm    choose algorithm
+                 1 - random password generation according to
+                     password modes
+                 0 - pronounceable password generation
+-n num_of_pass  generate num_of_pass passwords
+-m min_pass_len minimum password length
+-x max_pass_len maximum password length
+-s              ask user for a random seed for password
+                generation
+-c cl_seed      use cl_seed as a random seed for password
+-d              do NOT use any delimiters between generated passwords
+-l              spell generated password
+-t              print pronunciation for generated pronounceable password
+-y              print crypted passwords
+-q              quiet mode (do not print warnings)
+-h              print this help screen
+-v              print version information
+```
+
+#### Interactive
+
+The following shell function can assist in running this container interactively:
+
+```sh
+
+apg() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    "galvanist/conex:apg" \
     "$@"
 }
 
@@ -519,6 +614,61 @@ This is a single-binary container that creates an HTTP endpoint which returns th
 
 It is meant to be run behind a load balancer that provides TLS.
 
+## [`pwgen`](pwgen)
+
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [pwgen](https://github.com/tytso/pwgen) by [Theodore Ts'o](https://github.com/tytso). This is the same code base as the [pwgen package on debian](https://packages.debian.org/stable/pwgen).
+
+### Usage
+
+```
+Usage: pwgen [ OPTIONS ] [ pw_length ] [ num_pw ]
+
+Options supported by pwgen:
+  -c or --capitalize
+	Include at least one capital letter in the password
+  -A or --no-capitalize
+	Don't include capital letters in the password
+  -n or --numerals
+	Include at least one number in the password
+  -0 or --no-numerals
+	Don't include numbers in the password
+  -y or --symbols
+	Include at least one special symbol in the password
+  -r <chars> or --remove-chars=<chars>
+	Remove characters from the set of characters to generate passwords
+  -s or --secure
+	Generate completely random passwords
+  -B or --ambiguous
+	Don't include ambiguous characters in the password
+  -h or --help
+	Print a help message
+  -H or --sha1=path/to/file[#seed]
+	Use sha1 hash of given file as a (not so) random generator
+  -C
+	Print the generated passwords in columns
+  -1
+	Don't print the generated passwords in columns
+  -v or --no-vowels
+	Do not use any vowels so as to avoid accidental nasty words
+```
+
+#### Interactive
+
+Here is a shell function that can simplify use of this container. Note that if you use it this way (without a bind-mount) you won't have access to the `-H` / `--sha1=` feature.
+
+```sh
+
+pwgen() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    "galvanist/conex:pwgen" \
+    "$@"
+}
+
+```
+
 ## [`pycodestyle`](pycodestyle)
 
 This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [pycodestyle](https://pycodestyle.pycqa.org/). As the homepage says:
@@ -672,5 +822,50 @@ COPY --from=builder /work/dist/ /usr/share/nginx/html/
 
 # maybe also something like this:
 # COPY nginx_conf.d/* /etc/nginx/conf.d/
+```
+
+## [`wireguard`](wireguard)
+
+This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [WireGuard](https://www.wireguard.com/), the free open-source VPN software. As the site says:
+
+> WireGuard® is an extremely simple yet fast and modern VPN that utilizes **state-of-the-art** [cryptography](https://www.wireguard.com/protocol/). It aims to be [faster](https://www.wireguard.com/performance/), [simpler](https://www.wireguard.com/quickstart/), leaner, and more useful than IPsec, while avoiding the massive headache. It intends to be considerably more performant than OpenVPN. WireGuard is designed as a general purpose VPN for running on embedded interfaces and super computers alike, fit for many different circumstances. Initially released for the Linux kernel, it is now cross-platform (Windows, macOS, BSD, iOS, Android) and widely deployable. It is currently under heavy development, but already it might be regarded as the most secure, easiest to use, and simplest VPN solution in the industry.
+
+The image uses the `wg` command as its entry-point.
+
+### Usage
+
+It is probably best if you don't use this "experimental" container image for anything sensitive. Experimental isn't exactly the right word because the Dockerfile just installs the recommended package and does nothing else, but using this image means you're trusting my setup, my github account, possibly my docker hub account in addition to the apk server, the apk packager's hardware and accounts, etc.
+
+```
+Usage: /usr/bin/wg <cmd> [<args>]
+
+Available subcommands:
+  show: Shows the current configuration and device information
+  showconf: Shows the current configuration of a given WireGuard interface, for use with `setconf'
+  set: Change the current configuration, add peers, remove peers, or change peers
+  setconf: Applies a configuration file to a WireGuard interface
+  addconf: Appends a configuration file to a WireGuard interface
+  syncconf: Synchronizes a configuration file to a WireGuard interface
+  genkey: Generates a new private key and writes it to stdout
+  genpsk: Generates a new preshared key and writes it to stdout
+  pubkey: Reads a private key from stdin and writes a public key to stdout
+You may pass `--help' to any of these subcommands to view usage.
+```
+
+#### Interactive
+
+Here is a shell function that might help if you want to throw caution to the wind:
+
+```sh
+
+wireguard() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    "galvanist/conex:wireguard" \
+    "$@"
+}
+
 ```
 
