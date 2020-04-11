@@ -74,4 +74,4 @@ $(PROJECTS): % : %-postbuild-rcpt.txt
 
 README.md: */README.md
 	@echo "==> $@"
-	.helpers/maker.sh genreadme $(PROJECTS)
+	.helpers/readme_generator.py */README.md >"$@"
