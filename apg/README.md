@@ -25,7 +25,7 @@ This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization
 >  * Ability to enforce remote users to use only allowed type of password
 >    generation
 
-## Caution
+### Caution
 
 This container uses the alpine apk package [which is based on the ubuntu source file](https://git.alpinelinux.org/aports/tree/main/apg/APKBUILD), as of Apr 11 2020 that means: <https://launchpad.net/ubuntu/+archive/primary/+files/apg_2.2.3.orig.tar.gz>.
 
