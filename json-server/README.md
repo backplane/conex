@@ -1,10 +1,10 @@
-## `json-server`
+# json-server
 
-This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [json-server](https://github.com/typicode/json-server).
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [json-server](https://github.com/typicode/json-server)
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 ```sh
 

@@ -1,10 +1,10 @@
-## `vueenv`
+# vueenv
 
-A container image for working with [Vue.js](https://vuejs.org/). This image is meant to be used as a builder stage for [Vue CLI](https://cli.vuejs.org/)-based apps in a multi-stage build. It is also very useful during development.
+container image for working with [Vue.js](https://vuejs.org/); meant to be run interactively during development and also used as a builder stage for [Vue CLI](https://cli.vuejs.org/)-based apps in a multi-stage container build 
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 Add this to your shell profile:
 
@@ -22,7 +22,7 @@ vueenv() {
 }
 ```
 
-#### As Build Stage
+### As Build Stage
 
 ```Dockerfile
 FROM galvanist/vueenv:latest as builder

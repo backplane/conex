@@ -1,10 +1,12 @@
-## `hugo`
+# hugo
 
-This is a [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based containerization of hugo-extended. I use it as a builder in multi-stage container builds, I also run it interactively during development.
+[`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of hugo-extended -- the static site generator
 
-### Usage
+I use it as a builder in multi-stage container builds, I also run it interactively during development.
 
-#### Interactive
+## Usage
+
+### Interactive
 
 This shell function demonstrates using this container in place of having the actual hugo binary.
 
@@ -42,7 +44,7 @@ or
 $ hugo serve -D
 ```
 
-#### As Build Stage
+### As Build Stage
 
 ```Dockerfile
 FROM galvanist/conex:hugo as builder

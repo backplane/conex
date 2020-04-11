@@ -1,6 +1,6 @@
-## `httpie`
+# httpie
 
-This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [HTTPie](https://httpie.org/).
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [HTTPie](https://httpie.org/) the versatile command line HTTP client
 
 As their site says:
 
@@ -20,9 +20,9 @@ As their site says:
 > * And more…
 
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 You can use a function like this, note the name is `http` not `httpie` when called.
 

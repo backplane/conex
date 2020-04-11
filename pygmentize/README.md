@@ -1,10 +1,10 @@
-## `pygmentize`
+# pygmentize
 
-This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of the [pygmentize](https://pygments.org/docs/cmdline/) from the [Pygments](https://pygments.org/) generic syntax highlighter.
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of the [pygmentize](https://pygments.org/docs/cmdline/) utility from the [Pygments](https://pygments.org/) generic syntax highlighter package
 
-### Usage
+## Usage
 
-#### Interactive
+### Interactive
 
 ```sh
 

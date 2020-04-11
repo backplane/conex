@@ -1,6 +1,8 @@
-## `apg`
+# apg
 
-This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of apg -- the "Automated Password Generator" by Adel I. Mirzazhanov.
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of apg -- the "Automated Password Generator"
+
+apg is written by Adel I. Mirzazhanov
 
 > APG (Automated Password Generator) is the tool set for random password generation. It generates some random words of required type and prints them to standard output. This binary package contains only the standalone version of apg. Advantages:
 > 
@@ -25,7 +27,7 @@ This is an [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization
 >  * Ability to enforce remote users to use only allowed type of password
 >    generation
 
-### Caution
+## Caution
 
 This container uses the alpine apk package [which is based on the ubuntu source file](https://git.alpinelinux.org/aports/tree/main/apg/APKBUILD), as of Apr 11 2020 that means: <https://launchpad.net/ubuntu/+archive/primary/+files/apg_2.2.3.orig.tar.gz>.
 
@@ -37,7 +39,7 @@ The debian (and consequently ubuntu) package maintainer [Marc Haber](https://sal
 >
 > * apg has not seen upstream attention since 2003, upstream is not answering e-mail, and the upstream web page does not look like it is in good working order. The Debian maintainer plans to discontinue apg maintenance as soon as an actually maintained software with a [comparable] feature set becomes available.
 
-### Usage
+## Usage
 
 ```
 apg   Automated Password Generator
@@ -72,7 +74,7 @@ apg   [-a algorithm] [-r file]
 -v              print version information
 ```
 
-#### Interactive
+### Interactive
 
 The following shell function can assist in running this container interactively:
 
