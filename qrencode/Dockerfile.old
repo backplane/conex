@@ -1,0 +1,45 @@
+FROM alpine:edge as builder
+
+# See https://fukuchi.org/works/qrencode/ for updates
+ARG VERSION=4.0.2
+ARG SHA512SUM=c3e3834574ec059a4b571427b29d6f5f26bd806fd7498b9bba778f4eceab6ebe5733eef0f3c4f6af91eb3f2e9310f93f6d7b337c28e85c72db7e59bd79be77a9
+
+RUN apk add --no-cache \
+    autoconf \
+    automake \
+    gcc \
+    libpng-dev \
+    libtool \
+    make \
+    musl-dev \
+    pkgconf \
+  && true
+
+WORKDIR /build
+
+RUN set -x \
+  && wget -q -O "dl.tgz" \
+    "https://fukuchi.org/works/qrencode/qrencode-${VERSION}.tar.gz" \
+  && printf '%s  %s\n' "$SHA512SUM" "dl.tgz" \
+    | sha512sum -c -s -w - \
+  && tar -xvzf dl.tgz \
+  && rm dl.tgz
+
+RUN set -x \
+  && mv "qrencode-${VERSION}" qrencode \
+  && cd qrencode\
+  && ./configure CFLAGS="-Wall -static -Wall -g -O2" \
+  && make
+
+FROM alpine:edge
+LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+
+RUN apk add --no-cache \
+    libpng \
+  && true
+
+COPY --from=builder /build/qrencode/qrencode /usr/bin/
+
+WORKDIR /work
+
+ENTRYPOINT [ "/usr/bin/qrencode" ]
