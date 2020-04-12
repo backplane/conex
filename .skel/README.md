@@ -1,4 +1,4 @@
-# `imagename`
+# imagename
 
 [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of
 

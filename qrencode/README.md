@@ -1,4 +1,4 @@
-# `qrencode`
+# qrencode
 
 [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [qrencode](https://fukuchi.org/works/qrencode/), the command-line utility for generating QR codes in various formats (PNG, terminal text, etc.)
 
