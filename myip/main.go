@@ -23,7 +23,7 @@ HTTP endpoint reports the user's IP address back to the user
 func HandleMyIP(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	// Accepting HTTP POSTs only
+	// Accepting HTTP GETs only
 	if r.Method != http.MethodGet {
 		log.Printf("invalid request method! method=%s\n", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
