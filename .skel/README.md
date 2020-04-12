@@ -1,8 +1,19 @@
-## `imagename`
+# `imagename`
 
-### Usage
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of
 
-#### Interactive
+[`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of 
+
+As the site says:
+
+>
+>
+
+## Usage
+
+### Interactive
+
+The following shell function can assist in running this container interactively:
 
 ```sh
 
@@ -12,17 +23,16 @@ imagename() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:" \
+    "galvanist/conex:imagename" \
     "$@"
 }
 
 ```
 
-#### As Build Stage
+### As Build Stage
 
 ```Dockerfile
-FROM galvanist/conex: as builder
-
+FROM galvanist/conex:imagename as builder
 
 
 ```
