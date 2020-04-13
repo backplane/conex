@@ -5,5 +5,6 @@ RUN apk add --no-cache \
     apg \
   && true
 
-ENTRYPOINT [ "/usr/bin/apg" ]
+WORKDIR /work
 
+ENTRYPOINT [ "/usr/bin/apg" ]

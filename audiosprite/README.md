@@ -12,7 +12,7 @@ audiosprite() {
     --rm \
     --interactive \
     --tty \
-    --volume "$(pwd):/data" \
+    --volume "$(pwd):/work" \
     "galvanist/conex:audiosprite" \
     "$@"
 }

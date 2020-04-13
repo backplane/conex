@@ -9,5 +9,7 @@ RUN apk add --no-cache \
   && true
   #&& find / -name __pycache__ -type d -print0 | xargs -0 rm -r --
 
+WORKDIR /work
+
 ENTRYPOINT ["/usr/bin/http"]
 CMD ["--help"]

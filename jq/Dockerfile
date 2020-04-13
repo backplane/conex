@@ -5,6 +5,8 @@ RUN apk add --no-cache \
     jq \
   && true
 
+WORKDIR /work
+
 ENTRYPOINT [ "jq" ]
 CMD ["--help"]
 

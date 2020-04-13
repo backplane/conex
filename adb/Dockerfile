@@ -11,3 +11,5 @@ RUN set -x \
     ca-certificates \
     curl \
   && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /work
