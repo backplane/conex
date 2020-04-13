@@ -7,50 +7,51 @@ DOCKERFILES := $(wildcard */Dockerfile)
 PROJECTS := $(DOCKERFILES:/Dockerfile=)
 
 .PHONY: build push clean deepclean list report all test
-
 .PRESCIOUS: $(PROJECTS:%=%-build-rcpt.txt) $(PROJECTS:%=%-postbuild-rcpt.txt) $(PROJECTS:%=%-ghpush-rcpt.txt) $(PROJECTS:%=%-dhpush-rcpt.txt) $(PROJECTS:%=%-postpush-rcpt.txt)
+
+all: build
+
+# enables "make <subdir>" to work (e.g. "make vueenv")
+$(PROJECTS): % : %-postbuild-rcpt.txt
 
 build: $(PROJECTS:%=%-postbuild-rcpt.txt)
 
 push: $(PROJECTS:%=%-postpush-rcpt.txt)
 
 clean:
-	@echo "===> CLEAN $<"
+	@printf '==> %s\n' 'CLEAN'
 	rm -f *-rcpt.txt
 
-deepclean:
-	@echo "===> CLEAN + docker clean $<"
-	rm -f *-rcpt.txt
-	@set -x; for project in $(PROJECTS); do \
-	  $(DOCKER) image rm "$(LOCAL_IMG_PREFIX)$${project}" || true; \
-	done
+deepclean: clean
+	@printf '==> %s\n' 'IMAGE CLEAN'
+	@for project in $(PROJECTS); do \
+	  printf '%s\n' "$(LOCAL_IMG_PREFIX)$${project}"; \
+	done \
+	| tr '\n' '\0' \
+	| xargs -0 $(DOCKER) image rm \
+	|| true
 
 list:
 	@for project in $(PROJECTS); do \
-	  echo "$$project"; \
+	  printf '%s\n' "$$project"; \
 	done
 
 report:
 	@for project in $(PROJECTS); do \
 	  for step in build ghpush dhpush postpush; do \
-	    echo "========== $$project $$step ==========" && \
+	    printf '%s\n' "========== $$project $$step ==========" && \
 	    rcpt="$${project}-$${step}-rcpt.txt"; \
 	    if [ -f "$$rcpt" ]; then \
 	      cat -- "$$rcpt"; \
 	    else \
-		  echo "No receipt found. ($${rcpt})"; \
-		fi; \
+	      printf '%s\n' "No receipt found. ($${rcpt})"; \
+	    fi; \
 	  done; \
 	done
 
-all: build
-
 test:
-	@echo 'This repo needs tests! Please help.'
+	@printf '==> %s\n' 'This repo needs tests! Please help.'
 	@false
-
-# enables "make <subdir>" to work (e.g. "make vueenv")
-$(PROJECTS): % : %-postbuild-rcpt.txt
 
 %-build-rcpt.txt: %/Dockerfile
 	@printf '==> %s\n' "$$(basename "$@" "-rcpt.txt")"
@@ -73,5 +74,5 @@ $(PROJECTS): % : %-postbuild-rcpt.txt
 	.helpers/maker.sh postpush "$@"
 
 README.md: */README.md
-	@echo "==> $@"
+	@printf '==> %s\n' "$@"
 	.helpers/readme_generator.py */README.md >"$@"
