@@ -28,7 +28,7 @@ compose_sort() {
   docker run \
     --rm \
     --interactive \
-    --tty \
+    --volume "$(pwd):/work" \
     "galvanist/conex:compose_sort" \
     "$@"
 }
