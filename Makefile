@@ -22,7 +22,7 @@ deepclean:
 	@echo "===> CLEAN + docker clean $<"
 	rm -f *-rcpt.txt
 	@set -x; for project in $(PROJECTS); do \
-	  docker image rm "$(LOCAL_IMG_PREFIX)$${project}" || true; \
+	  $(DOCKER) image rm "$(LOCAL_IMG_PREFIX)$${project}" || true; \
 	done
 
 list:
