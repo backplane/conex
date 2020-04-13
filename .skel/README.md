@@ -1,8 +1,10 @@
 # imagename
 
-[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of 
 
 [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of 
+
+[`scratch`](https://hub.docker.com/_/scratch/)-based single-binary container image which 
 
 As the site says:
 
