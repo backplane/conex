@@ -5,5 +5,6 @@ RUN apk add --no-cache \
     wireguard-tools \
   && true
 
-ENTRYPOINT [ "/usr/bin/wg" ]
+WORKDIR /work
 
+ENTRYPOINT [ "/usr/bin/wg" ]

@@ -16,4 +16,6 @@ LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
 COPY --from=builder /go/src/app/app /
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
+WORKDIR /work
+
 ENTRYPOINT ["/app"]

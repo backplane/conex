@@ -9,7 +9,8 @@ RUN apk add --no-cache \
 
 RUN npm install -g audiosprite
 
-VOLUME /data
-WORKDIR /data
+VOLUME /work
+WORKDIR /work
+
 ENTRYPOINT [ "audiosprite" ]
 CMD [ "--help" ]
