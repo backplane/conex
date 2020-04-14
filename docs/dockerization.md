@@ -1,23 +1,30 @@
-## Dockerization Guidelines For This Repo
+## Dockerization Guidelines
 
-I aspire to these guidelines when dockerizing things _for this repo_ but for prod/critical apps things like version-pinning are required.
+I aspire to the following guidelines when packaging things _for this repo_ with production and/or critical software, some additional steps like version-pinning and health checks are highly recommended.
 
-* Dockerfile instructions (e.g. `FROM`, `RUN`, `COPY`, `ENTRYPOINT`) should be in uppercase letters.
-* Base images directly on well-maintained OS-distro images in the docker hub library like `alpine:edge`, `debian:stable-slim`, or in some cases `ubuntu`. Or use `scratch`.
-* Always include a maintainer label
+* `Dockerfile` instructions (e.g.; `FROM`, `RUN`, `COPY`, `ENTRYPOINT`) should be in UPPERCASE letters.
+* For the `FROM` instruction:
+	* Use `scratch` if possible
+	* If the software vendor has created an official image and it is well-designed and well-maintained, it can be used as a base 
+	* Otherwise use well-maintained OS distributions from the [docker hub "library"](https://hub.docker.com/u/library/) (see also: [docker hub "official" repos](https://docs.docker.com/docker-hub/official_repos/)):
+		*  [`alpine`](https://hub.docker.com/_/alpine) (preferred)
+		*  [`debian`](https://hub.docker.com/_/debian) (prefer the `-slim` variants)
+		*  in rare cases [`ubuntu`](https://hub.docker.com/_/ubuntu)
+	* Avoid third-party base images as much as possible
+* Always include a `maintainer` label
 * Limit layers and layer sizes as much as possible with the general layer structure:
-	1. OS-level package deps + cleanup (e.g. `apk add` or `apt install`)
-	2. App-level package deps + cleanup (e.g. `pip install` or `npm install`). Try to add these via manifest files like `requirements.txt` or `package.json` to enable security scanning.
+	1. OS-level package dependencies + cleanup (e.g. `apk add` or `apt install`)
+	2. App-level package dependencies + cleanup (e.g., `pip install` or `npm install`). Try to add these via manifest files like `requirements.txt` or `package.json` to enable security scanning.
 	3. App code (usually via `COPY` or `curl`) as near to the end of the file as possible
-* Fetch via verified TLS. Verify gpg signatures and checksums.
-* Drop privs when possible (with `RUN adduser ...` or equivalent then `USER`)
+* Fetch via verified TLS. Verify gpg signatures and checksums as much as possible.
+* Drop privileges when possible (with `RUN adduser ...` or equivalent then `USER`)
 * For `RUN` instructions:
 
 	* Start long instructions with `set -x`
 	* Split complex commands across multiple lines using the continuation character `\`
 	* Generally use one command per line...
-	* ...but split complex commands so they have one argument per line
-	* Things like package installs get one package per line, always indented one additional level, sorted alphabetically, ending with a sentinel like true if the package install is the last thing in the run command.
+	* ...but split complex commands so they have one argument group per line
+	* Things like package installs get one package per line, always indented one additional level, sorted alphabetically, ending with a sentinel like `true` if the package install is the last thing in the run command.
 	* Put `&&` at the beginning of the line, not the end.
 	
 	For example:
