@@ -18,8 +18,8 @@ README_REGEX = re.compile(
 
 def parse_readme(path):
     """
-    read the file at the given path extract the title and return a tuple
-    of information about it (title, slug)
+    read the README.md file at the given path and return a tuple of information
+    about it (title, slug)
     """
     with open(path, "r") as readme:
         contents = readme.read()
@@ -33,20 +33,21 @@ def parse_readme(path):
 
 def shortpath(path):
     """
-    return a version of the path with the the file and its parent directory
+    return the given path with only the filename and its parent directory
+    e.g. /usr/home/someone/conex/bpython/README.md -> bpython/README.md
     """
     return os.sep.join(path.split(os.sep)[-2:])
 
 
 def printrow(*fields):
     """
-    given a number of fields, print them joined by the markdown table column
+    given a list of fields, print them joined by the markdown table column
     delimiter ' | '
     """
     print(' | '.join(fields))
 
 
-def print_table(readmes):
+def print_table(readmes, dhrepo):
     """ prints the markdown table of images """
     headings = [
         "Name",
@@ -55,7 +56,13 @@ def print_table(readmes):
         "Image Link"
     ]
 
+    img_link_fmt = "https://hub.docker.com/r/{repo}/tags?name={tag}"
+
+    # print the headings
     printrow(*headings)
+
+    # print the dashes below each heading - required for markdown tables
+    # explicitly left-aligning by beginning them with :
     printrow(*[':' + ('-' * (len(heading) - 1))
                for heading in headings])
 
@@ -73,14 +80,19 @@ def print_table(readmes):
         readme = parse_readme(readme_path)
 
         printrow(
+            # link to subdir with complete readme and container source
             '[{}]({})'.format(readme['title'], subdir),
+
+            # short description from first non-empty, non-header line of readme
             '{}'.format(readme['slug']),
+
+            # link directly to dockerfile for the image
             '[Dockerfile]({})'.format(dockerfile_link),
-            '[{}]({})'.format(
-                "galvanist/conex:{}".format(subdir),
-                ("https://hub.docker.com/r"
-                 "/galvanist/conex"
-                 "/tags?name={}").format(subdir)
+
+            # link to the image on dockerhub
+            '[{dhlinktext}]({dhlinkurl})'.format(
+                dhlinktext=':'.join([dhrepo, subdir]),
+                dhlinkurl=img_link_fmt.format(repo=dhrepo, tag=subdir)
             )
         )
 
@@ -97,16 +109,20 @@ def main():
         description=(
             "Utility for (re)generating the main README in this repo"),
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    argp.add_argument('-r', '--dhrepo', default="galvanist/conex", help=(
+        "the docker hub repo path to use when linking to images"))
+    argp.add_argument('-i', '--header', action="append", help=(
+        "header file(s) to include at the beginning of the output"))
     argp.add_argument('readmes', nargs="+", help=(
         "the source README.md files to build from"))
     argp.add_argument('-d', '--debug', action="store_true", help=(
         "enable debugging output"))
     args = argp.parse_args()
 
-    print_file("docs/about.md")
-    print_file("docs/dockerization.md")
+    for header in args.header:
+        print_file(header)
     print("## Images\n")
-    print_table(args.readmes)
+    print_table(args.readmes, args.dhrepo)
 
     return 0
 

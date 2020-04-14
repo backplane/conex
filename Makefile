@@ -75,4 +75,9 @@ test:
 
 README.md: */README.md docs/about.md docs/dockerization.md
 	@printf '==> %s\n' "$@"
-	.helpers/readme_generator.py */README.md >"$@"
+	.helpers/readme_generator.py \
+	  --dhrepo galvanist/conex \
+	  --header docs/about.md \
+	  --header docs/dockerization.md \
+	  */README.md \
+	  >"$@"
