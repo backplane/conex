@@ -73,6 +73,6 @@ test:
 	@printf '==> %s\n' "$$(basename "$@" "-rcpt.txt")"
 	.helpers/maker.sh postpush "$@"
 
-README.md: */README.md
+README.md: */README.md docs/about.md docs/dockerization.md
 	@printf '==> %s\n' "$@"
 	.helpers/readme_generator.py */README.md >"$@"
