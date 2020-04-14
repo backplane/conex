@@ -10,7 +10,7 @@ The following shell function can assist in running this container interactively:
 
 ```sh
 
-youtube-dl() {
+youtubedl() {
   docker run \
     --rm \
     --interactive \
