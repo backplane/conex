@@ -28,9 +28,9 @@ sumdir() {
   target_dir="$1"; shift
 
   find "$(basename "$target_dir")" -type f -print \
-    | sort \
-    | tr '\n' '\0' \
-    | xargs -0 shasum -a 256
+  | sort \
+  | tr '\n' '\0' \
+  | xargs -0 shasum -a 256
 }
 
 daysum() {
