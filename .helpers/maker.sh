@@ -38,9 +38,10 @@ build() {
   [ -n "$current_daysum" ] \
   || die "Unable to calculate current context checksum"
 
-  # can we skip?
+  # can we skip? if the current local "daysum" matches the one on docker hub's
+  # existing manifest for this image, we don't need to rebuild.
   if [ -z "$DISABLE_DAYSUM_QUERY" ]; then
-    dh_daysum="$(.helpers/dhdaysum.sh "galvanist/conex:${target}")"
+    dh_daysum="$(.helpers/dhdaysum.sh "${DH_REGISTRY_PATH}:${target}")"
 
     if [ "$dh_daysum" = "$current_daysum" ]; then
       # this "SKIP BUILD" string is grepped for by skip_if_no_build
@@ -136,41 +137,6 @@ postpush() {
   true
 }
 
-genreadme() {
-  [ -f "README.md" ] || die "Couldn't find existing readme file"
-
-  (
-    grep -B 1000 '^## The Images$' README.md
-
-    echo
-    # the heading at the top of the readme
-    for target in "$@"; do
-      readme_file="${target}/README.md"
-      [ -f "$target/.skip" ] && continue
-
-      # shellcheck disable=SC2016
-      grep --no-filename \
-        '^## ' \
-        "$readme_file" \
-      | sed 's/^## .\(.*\).$/* [`\1`](#\1)/g'
-    done
-
-    echo
-    # shellcheck disable=SC2016
-    for target in "$@"; do
-      readme_file="${target}/README.md"
-      [ -f "$target/.skip" ] && continue
-
-      cat "$readme_file"
-      echo
-    done \
-    | sed 's/^## .\(.*\).$/## [`\1`](\1)/g'
-  ) >README.md.new \
-  || die "Couldn't generate new new README.md"
-
-  mv README.md.new README.md
-}
-
 main() {
   command="$1"; shift
   [ -n "$command" ] || {
@@ -192,10 +158,6 @@ main() {
   case "$command" in 
     build|postbuild|ghpush|dhpush|postpush)
       ( "$command" "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
-      ;;
-
-    genreadme)
-      ( genreadme "$target" "$@" ) || exit 1
       ;;
 
     *)
