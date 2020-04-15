@@ -42,7 +42,8 @@ RUN set -x \
     unzip \
     vim \
     x11-xserver-utils \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && busybox --install
 
 RUN set -x \
   && printf '%s %s\n' "$LANG" "$CHARSET" | tee /etc/locale.gen \
