@@ -77,9 +77,10 @@ postbuild() {
   skip_if_no_build "$target"
 
   postbuild_file="${target}/.postbuild.sh"
-  # shellcheck source=/dev/null
-  [ -f "$postbuild_file" ] && . "$postbuild_file"
-  true
+  if [ -f "$postbuild_file" ]; then
+    # shellcheck source=/dev/null
+    . "$postbuild_file"
+  fi
 }
 
 ghpush() {
@@ -132,9 +133,10 @@ postpush() {
   skip_if_no_build "$target"
 
   postpush_file="${target}/.postpush.sh"
-  # shellcheck source=/dev/null
-  [ -f "$postpush_file" ] && . "$postpush_file"
-  true
+  if [ -f "$postpush_file" ]; then
+    # shellcheck source=/dev/null
+    . "$postpush_file"
+  fi
 }
 
 main() {
