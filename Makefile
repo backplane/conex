@@ -1,8 +1,11 @@
-GH_REGISTRY_PATH ?= docker.pkg.github.com/glvnst/conex
-DH_REGISTRY_PATH ?= galvanist/conex
-LOCAL_IMG_PREFIX ?= conex_
-BUILD_ARGS ?=
-DOCKER := docker
+export DH_REGISTRY_PATH ?= galvanist/conex
+export GH_REGISTRY_PATH ?= docker.pkg.github.com/glvnst/conex
+export LOCAL_IMG_PREFIX ?= conex_
+
+# leave this blank to enable skipping builds when the checksum of the build
+# context matches the checksum in the manfiest on docker hub
+export DISABLE_DAYSUM_QUERY ?=
+
 DOCKERFILES := $(wildcard */Dockerfile)
 PROJECTS := $(DOCKERFILES:/Dockerfile=)
 
@@ -25,10 +28,10 @@ clean:
 deepclean: clean
 	@printf '==> %s\n' 'IMAGE CLEAN'
 	@for project in $(PROJECTS); do \
-	  printf '%s\n' "$(LOCAL_IMG_PREFIX)$${project}"; \
+	  printf '%s\n' "$${LOCAL_IMG_PREFIX}$${project}"; \
 	done \
 	| tr '\n' '\0' \
-	| xargs -0 $(DOCKER) image rm \
+	| xargs -0 docker image rm \
 	|| true
 
 list:
@@ -76,7 +79,7 @@ test:
 README.md: */README.md docs/about.md docs/dockerization.md
 	@printf '==> %s\n' "$@"
 	.helpers/readme_generator.py \
-	  --dhrepo galvanist/conex \
+	  --dhrepo "$$DH_REGISTRY_PATH" \
 	  --header docs/about.md \
 	  --header docs/dockerization.md \
 	  */README.md \
