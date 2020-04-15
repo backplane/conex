@@ -127,3 +127,18 @@ wimlibimagex() {
 }
 
 ```
+
+#### Splitting Windows Installer WIM files
+
+If you're creating a Windows 10 USB install drive, sometimes you need to split the large `.wim` files into smaller chunks.
+
+The following command will split all excessively large `.wim` files under the current directory into smaller `.swm` files:
+
+```sh
+find . -size +4294967000c -iname '*.wim' -print | while read -r filename; do
+  base="$(basename "$filename" '.wim')"
+  echo "splitting ${filename}"
+  docker run --rm --interactive --tty --volume "$(pwd):/work" \
+    "galvanist/conex:wimlib-imagex" split "$filename" "${base}.swm" 4000
+done
+```
