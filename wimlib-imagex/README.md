@@ -135,10 +135,16 @@ If you're creating a Windows 10 USB install drive, sometimes you need to split t
 The following command will split all excessively large `.wim` files under the current directory into smaller `.swm` files:
 
 ```sh
-find . -size +4294967000c -iname '*.wim' -print | while read -r filename; do
-  base="$(basename "$filename" '.wim')"
-  echo "splitting ${filename}"
-  docker run --rm --interactive --tty --volume "$(pwd):/work" \
-    "galvanist/conex:wimlib-imagex" split "$filename" "${base}.swm" 4000
+find . -size +4294967000c -iname '*.wim' -print | while read -r wimpath; do
+  wimbase="$(basename "$wimpath" '.wim')"
+  wimdir="$(dirname "$wimpath")"
+  echo "splitting ${wimpath}"
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --volume "$(pwd):/work" \
+    "galvanist/conex:wimlib-imagex" \
+      split "$wimpath" "${wimdir}/${wimbase}.swm" 4000
 done
 ```
