@@ -10,16 +10,15 @@ die() {
 }
 
 main() {
-  [ -n "$IMAGE" ] || die "postpush missing IMAGE environment variable"
+  ${local_tag:?<- is missing from the environment}
 
-  # an additional location at docker hub
-  DH_TAG="galvanist/vueenv:latest"
+  # if we're building for galvanist/conex, add an additional tag at docker hub
+  [ "$DH_REGISTRY_PATH" = "galvanist/conex" ] || exit 0
+  additional_tag='galvanist/vueenv:latest'
 
   set -x
-  docker tag "$IMAGE" "$DH_TAG" || die "tagging failed"
-  docker push "$DH_TAG" || die "push failed"
-
-  exit 1
+  docker tag "$local_tag" "$additional_tag" || die "tagging failed"
+  docker push "$additional_tag" || die "push failed"
 }
 
-main "$@"
+[ -n "$IMPORT" ] || main "$@"
