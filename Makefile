@@ -9,7 +9,7 @@ export DISABLE_DAYSUM_QUERY ?=
 DOCKERFILES := $(wildcard */Dockerfile)
 PROJECTS := $(DOCKERFILES:/Dockerfile=)
 
-.PHONY: build push clean deepclean list report all test
+.PHONY: build push clean deepclean lint list report all test
 .PRESCIOUS: $(PROJECTS:%=%-build-rcpt.txt) $(PROJECTS:%=%-postbuild-rcpt.txt) $(PROJECTS:%=%-ghpush-rcpt.txt) $(PROJECTS:%=%-dhpush-rcpt.txt) $(PROJECTS:%=%-postpush-rcpt.txt)
 
 all: build
@@ -33,6 +33,9 @@ deepclean: clean
 	| tr '\n' '\0' \
 	| xargs -0 docker image rm \
 	|| true
+
+lint:
+	docker run --rm -it --volume "$$(pwd):/work" --workdir /work hadolint/hadolint:latest-alpine hadolint */Dockerfile
 
 list:
 	@for project in $(PROJECTS); do \
