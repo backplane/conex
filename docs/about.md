@@ -5,3 +5,5 @@ This is a repository of source files for various utility [Docker](https://en.wik
 The image sources in this repo have weekly <a href="https://hub.docker.com/r/galvanist/conex/tags">scheduled builds published to <img src="/.assets/dockerhub.png" width="150" height="28" alt="docker hub"></a>
 
 The name "conex" is a reference to the [Conex box](https://en.wikipedia.org/wiki/Intermodal_container), the key component of [containerization (in freight transport)](https://en.wikipedia.org/wiki/Containerization). Docker's creators make frequent use of the shipping container metaphor because the way that Docker standardizes (and thereby improves) the packaging, auditing, delivery, isolation, and use of *software* is analogous to the way the shipping container standardized (and thereby revolutionized) the packaging, tracking, isolation, and delivery of *freight*.
+
+**LICENSE NOTE**: This repo contains code for installing and running 3rd party software packages in Docker containers. Unless otherwise noted the code in this repo is subject to the LICENSE file. The use of the generated images is subject to the terms of the respective software packages.
