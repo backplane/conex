@@ -35,7 +35,7 @@ deepclean: clean
 	|| true
 
 lint:
-	docker run --rm -it --volume "$$(pwd):/work" --workdir /work hadolint/hadolint:latest-alpine hadolint */Dockerfile
+	docker run --rm -it --volume "$$(pwd):/work" --workdir /work hadolint/hadolint:latest-alpine hadolint */Dockerfile 2>&1
 
 list:
 	@for project in $(PROJECTS); do \
