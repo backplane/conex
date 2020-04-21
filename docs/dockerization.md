@@ -36,7 +36,7 @@ I aspire to the following guidelines when packaging things _for this repo_ with 
 	  && true
 	```
 	
-* For entrypoint scripts and other helpers: if you can't clearly and readably write it in POSIX-compliant shell script (i.e., `#!/bin/sh`) then use a real programming language. Do not use bash-isms and other half-measures.
+* For entrypoint scripts and other helpers: if you can't clearly and readably write it in POSIX-compliant shell script (`#!/bin/sh`) then use a real programming language instead. Do not use bash-isms. See [shellhaters.org's helpful links](https://shellhaters.org/), [Bruce Barnett's POSIX Shell tutorial (part of "The Grymoire")](https://www.grymoire.com/Unix/Sh.html), and [Rich's POSIX shell tricks](https://www.etalabs.net/sh_tricks.html) for useful POSIX shell help.
 * Lint and check everything (e.g., with tools like `shellcheck`, `pylint`, `go lint`, etc.)
 * Use build args to parameterize things like version numbers in package downloads. If you do so, include an adjacent comment with the URL a human and use to check for updates / release notes.
 * For contained services, follow the [12 factors](https://en.wikipedia.org/wiki/Twelve-Factor_App_methodology)
