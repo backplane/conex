@@ -5,7 +5,7 @@ RUN set -x \
   && apk add --update-cache \
     py3-pip \
     python3 \
-  && apk add --update-cache --virtual build-dependencies \
+  && apk add --virtual build-dependencies \
     gcc \
     musl-dev \
     python3-dev \
