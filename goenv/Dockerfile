@@ -6,6 +6,9 @@ RUN apk add --no-cache \
     ca-certificates \
     git \
     go \
+    make \
+    nano \
+    vim \
   && true
 
 RUN set -eux \
