@@ -1,6 +1,6 @@
 # goenv
 
-[`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of the [go](https://golang.org/) programming language compiler and tools
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of the [go](https://golang.org/) programming language compiler and tools
 
 As the homepage says:
 
