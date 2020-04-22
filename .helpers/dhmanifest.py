@@ -13,19 +13,8 @@ except ImportError:
     import urllib2 as url
 
 
-LOGIN_URL = (
-    "https://auth.docker.io"
-    "/token"
-    "?service=registry.docker.io"
-    "&scope=repository:{repository}:pull"
-)
-MANIFEST_URL = (
-    "https://registry.hub.docker.com"
-    "/v2"
-    "/{repository}"
-    "/manifests"
-    "/{tag}"
-)
+LOGIN_URL = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:{repository}:pull"
+MANIFEST_URL = "https://registry.hub.docker.com/v2/{repository}/manifests/{tag}"
 
 
 def get_json(request_url, headers=None):
@@ -35,18 +24,14 @@ def get_json(request_url, headers=None):
     else:
         request_headers = dict()
 
-    if 'accept' not in request_headers:
-        request_headers['accept'] = 'application/json'
+    if "accept" not in request_headers:
+        request_headers["accept"] = "application/json"
 
     req = url.Request(request_url)
     for header_name, header_value in request_headers.items():
         req.add_header(header_name, header_value)
 
     resp = url.urlopen(req)
-
-    # manifest = response.json()
-    # if not response.status_code == requests.codes.ok:
-    #     pretty_print(dict(response.headers))
     if resp.getcode() != 200:
         pretty_print(resp)
         sys.exit(1)
@@ -76,20 +61,22 @@ def manifest_for_repo(repo, tag):
 
     manifest = get_json(
         MANIFEST_URL.format(repository=repo, tag=tag),
-        headers={"Authorization": "Bearer {}".format(token),
-                 "accept": manifest_types},
+        headers={"Authorization": "Bearer {}".format(token), "accept": manifest_types},
     )
 
     return manifest
 
 
 def main():
-    """ command-line execution handler """
+    """ entrypoint for command-line execution """
     argp = argparse.ArgumentParser(
-        description="A tool for getting manifests from docker hub")
-    argp.add_argument('repotag', nargs='+', help=(
-        "<[namespace/]repository[:tag]> - the repo and tag of the desired "
-        "manifest"))
+        description="A tool for getting manifests from docker hub"
+    )
+    argp.add_argument(
+        "repotag",
+        nargs="+",
+        help="<[namespace/]repository[:tag]> - the repo and tag of the desired manifest",
+    )
     args = argp.parse_args()
 
     for repo_tag in args.repotag:
