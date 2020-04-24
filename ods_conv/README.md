@@ -1,6 +1,6 @@
 # ods_conv
 
-[`alpine:edge`](https://hub.docker.com/_/alpine/)-based utility which converts ODS documents into other formats (currently JSON and CSV)
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of a [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) utility that converts ODS documents into other formats (currently JSON and CSV). [ODS document format](https://en.wikipedia.org/wiki/OpenDocument) support is provided by [pyexcel-ods3](https://github.com/pyexcel/pyexcel-ods3).
 
 ## Usage
 
