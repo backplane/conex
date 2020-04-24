@@ -32,8 +32,8 @@ ods_conv() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "$@" \
-    "galvanist/conex:ods_conv"
+    "galvanist/conex:ods_conv" \
+    "$@"
 }
 
 ```
