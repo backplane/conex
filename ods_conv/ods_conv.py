@@ -77,7 +77,7 @@ def safename(filename):
     return FILENAME_CHARS.sub("_", filename)
 
 
-def output_path_for_ext(srcpath, ext, addendum=None):
+def output_path_for_ext(srcpath, ext, addendum=""):
     """ return an output path appropriate for with the given input file path """
     src_dir, src_filename = os.path.split(srcpath)
     src_rootname, _ = os.path.splitext(src_filename)
