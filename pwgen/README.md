@@ -40,7 +40,7 @@ Options supported by pwgen:
 
 ### Interactive
 
-Here is a shell function that can simplify use of this container. Note that if you use it this way (without a bind-mount) you won't have access to the `-H` / `--sha1=` feature.
+Here is a shell function that can simplify use of this image. Note that if you use it this way (without a bind-mount) you won't have access to the `-H` / `--sha1=` feature.
 
 ```sh
 

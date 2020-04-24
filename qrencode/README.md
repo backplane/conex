@@ -10,7 +10,7 @@ As the site says, `qrencode` is:
 
 ### Interactive
 
-The following shell function can assist in running this container interactively:
+The following shell function can assist in running this image interactively:
 
 ```sh
 

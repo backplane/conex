@@ -29,7 +29,7 @@ apg is written by Adel I. Mirzazhanov
 
 ## Caution
 
-This container uses the alpine apk package [which is based on the ubuntu source file](https://git.alpinelinux.org/aports/tree/main/apg/APKBUILD), as of Apr 11 2020 that means: <https://launchpad.net/ubuntu/+archive/primary/+files/apg_2.2.3.orig.tar.gz>.
+This image uses the alpine apk package [which is based on the ubuntu source file](https://git.alpinelinux.org/aports/tree/main/apg/APKBUILD), as of Apr 11 2020 that means: <https://launchpad.net/ubuntu/+archive/primary/+files/apg_2.2.3.orig.tar.gz>.
 
 The debian (and consequently ubuntu) package maintainer [Marc Haber](https://salsa.debian.org/zugschlus) has issued some [important warnings about the apg package](https://packages.debian.org/stable/apg):
 
@@ -76,7 +76,7 @@ apg   [-a algorithm] [-r file]
 
 ### Interactive
 
-The following shell function can assist in running this container interactively:
+The following shell function can assist in running this image interactively:
 
 ```sh
 

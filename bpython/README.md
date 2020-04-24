@@ -20,7 +20,7 @@ As their homepage says:
 
 ### Interactive
 
-I use the following shell function to run this container:
+I use the following shell function to run this image:
 
 ```sh
 

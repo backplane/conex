@@ -15,11 +15,11 @@ Releases: <https://github.com/JetBrains/kotlin/releases>
 
 ## Usage
 
-Still experimenting with this container. Here are some things I'm experimenting with:
+Still experimenting with this image. Here are some things I'm experimenting with:
 
 ### Interactive
 
-Here's a shell function that you could use to run this container:
+Here's a shell function that you could use to run this image:
 
 ```sh
 

@@ -16,7 +16,7 @@ If passphrase is left out, it will be read from stdin
 
 ### Interactive
 
-The following shell function can assist in running this container interactively:
+The following shell function can assist in running this image interactively:
 
 ```sh
 

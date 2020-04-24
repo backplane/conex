@@ -4,7 +4,7 @@
 
 ## Usage
 
-The container will set the `SHUNIT_PATH` environment variable (to `/shunit`). It will provide the latest version of shunit at `/shunit`. At the end of your shell tests, load shunit with something like the following line:
+The image will set the `SHUNIT_PATH` environment variable (to `/shunit`). It will provide the latest version of shunit at `/shunit`. At the end of your shell tests, load shunit with something like the following line:
 
 ```sh
 # shellcheck source=/dev/null
