@@ -12,7 +12,7 @@ This image is meant to be used as a builder stage in a multi-stage build and it 
 
 ### Interactive
 
-This shell function demonstrates using this container in place of having the actual go installation.
+This shell function demonstrates using this image in place of having the actual go installation.
 
 ```sh
 goenv() {

@@ -6,7 +6,7 @@
 
 ### Interactive
 
-This shell function demonstrates using this container in place of having the binary installed.
+This shell function demonstrates using this image in place of having the binary installed.
 
 ```sh
 checkmake() {

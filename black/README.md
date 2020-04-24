@@ -14,7 +14,7 @@ As the [github repo](https://github.com/psf/black) says:
 
 ### Interactive
 
-I use this container with something like the following shell function:
+I use this image with something like the following shell function:
 
 ```sh
 

@@ -4,7 +4,7 @@
 
 ## Usage
 
-Start the container below. A session-specific VNC password will be generated and written to the standard output. Then VNC to localhost and enter the password.
+Use the command below. A session-specific VNC password will be generated and written to the standard output. Then VNC to localhost and enter the password.
 
 `sudo` is available but you need to set a password for the non-priv user first.
 

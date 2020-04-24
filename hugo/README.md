@@ -2,13 +2,13 @@
 
 [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of hugo-extended -- the static site generator
 
-I use it as a builder in multi-stage container builds, I also run it interactively during development.
+I use it as a builder in multi-stage image builds, I also run it interactively during development.
 
 ## Usage
 
 ### Interactive
 
-This shell function demonstrates using this container in place of having the actual hugo binary.
+This shell function demonstrates using this container image in place of having the actual hugo binary.
 
 ```sh
 hugo() {

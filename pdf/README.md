@@ -8,7 +8,7 @@ As the site says:
 
 ## Usage
 
-The image is intended to be used interactively and the following shell function can assist in running this container this way:
+The image is intended to be used interactively and the following shell function can assist in running this image this way:
 
 ```sh
 
@@ -24,7 +24,7 @@ pdf() {
 
 ```
 
-When invoking the container this way, this help text applies:
+When invoking the image this way, this help text applies:
 
 ```
 Usage: pdf [-h|--help] command [command_options [...]]

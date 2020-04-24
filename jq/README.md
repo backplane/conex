@@ -10,7 +10,7 @@ From the site:
 
 ### Interactive
 
-I use a shell function like this to run the container.
+I use a shell function like this to run the image.
 
 ```sh
 jq() {

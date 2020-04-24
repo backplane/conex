@@ -10,7 +10,7 @@ As the docs say:
 
 ### Interactive
 
-I use this container with something like the following shell function:
+I use this container image with something like the following shell function:
 
 ```sh
 
