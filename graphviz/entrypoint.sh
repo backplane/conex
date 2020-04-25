@@ -31,7 +31,7 @@ usage() {
     '* gvcolor - flow colors through a ranked digraph (previously known as colorize)' \
     '* gvgen - generate graphs' \
     '* gvmap - find clusters and create a geographical map highlighting clusters' \
-    '* gvmapsh - find clusters and create a geographical map highlighting clusters' \
+    '* gvmap.sh - find clusters and create a geographical map highlighting clusters' \
     '* gvpack - merge and pack disjoint graphs' \
     '* gvpr - graph pattern scanning and processing language' \
     '* gxl2dot - GXL-GV converters' \
@@ -51,7 +51,7 @@ usage() {
     '* unflatten - adjust directed graphs to improve layout aspect ratio' \
     '* vimdot - combined text editor and dot viewer' \
     '' \
-    'Each command has additional options (including "-h")' \
+    'Each command has additional options (including "-?" and sometimes "-h")' \
     >&2
 
   exit 1
