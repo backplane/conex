@@ -18,8 +18,8 @@ See [Graphviz Command-line Invocation](https://graphviz.org/_pages/doc/info/comm
 * [`circo`](https://graphviz.gitlab.io/_pages/pdf/dot.1.pdf) - filter for circular layout of graphs'
 * [`cluster`](https://graphviz.gitlab.io/_pages/pdf/cluster.1.pdf) - find clusters in a graph and augment the graph with this information'
 * [`dijkstra`](https://graphviz.gitlab.io/_pages/pdf/dijkstra.1.pdf) - single-source distance filter'
-* [`dot`](https://graphviz.gitlab.io/_pages/pdf/dot.1.pdf) - filter for drawing directed graphs'
 * [`dot_builtins`](https://graphviz.gitlab.io/_pages/pdf/dot.1.pdf) - undocumented'
+* [`dot`](https://graphviz.gitlab.io/_pages/pdf/dot.1.pdf) - filter for drawing directed graphs'
 * [`dot2gxl`](https://graphviz.gitlab.io/_pages/pdf/dot2gxl.1.pdf) - GXL-GV converters'
 * [`dotty`](https://graphviz.gitlab.io/_pages/pdf/dotty.1.pdf) - customizable graph editor (an X11 app - not tested in this container)'
 * [`edgepaint`](https://graphviz.gitlab.io/_pages/pdf/edgepaint.1.pdf) - edge coloring to disambiguate crossing edges'
@@ -31,8 +31,8 @@ See [Graphviz Command-line Invocation](https://graphviz.org/_pages/doc/info/comm
 * [`gv2gxl`](https://graphviz.gitlab.io/_pages/pdf/gv2gxl.1.pdf) - GXL-GV converters'
 * [`gvcolor`](https://graphviz.gitlab.io/_pages/pdf/gvcolor.1.pdf) - flow colors through a ranked digraph (previously known as colorize)'
 * [`gvgen`](https://graphviz.gitlab.io/_pages/pdf/gvgen.1.pdf) - generate graphs'
+* [`gvmap.sh`](https://graphviz.gitlab.io/_pages/pdf/gvmap.sh.1.pdf) - find clusters and create a geographical map highlighting clusters'
 * [`gvmap`](https://graphviz.gitlab.io/_pages/pdf/gvmap.1.pdf) - find clusters and create a geographical map highlighting clusters'
-* [`gvmapsh`](https://graphviz.gitlab.io/_pages/pdf/gvmapsh.1.pdf) - find clusters and create a geographical map highlighting clusters'
 * [`gvpack`](https://graphviz.gitlab.io/_pages/pdf/gvpack.1.pdf) - merge and pack disjoint graphs'
 * [`gvpr`](https://graphviz.gitlab.io/_pages/pdf/gvpr.1.pdf) - graph pattern scanning and processing language'
 * [`gxl2dot`](https://graphviz.gitlab.io/_pages/pdf/gxl2dot.1.pdf) - GXL-GV converters'
@@ -71,5 +71,49 @@ graphviz() {
 When invoking the image this way, this help text applies:
 
 ```
+Usage: graphviz [-h|--help] command [command_options [...]]
 
+"command" is one of the following, which runs the corresponding binary from the graphviz package:
+
+* acyclic - make directed graph acyclic
+* bcomps - biconnected components filter for graphs
+* ccomps - connected components filter for graphs
+* circo - filter for circular layout of graphs
+* cluster - find clusters in a graph and augment the graph with this information
+* dijkstra - single-source distance filter
+* dot - filter for drawing directed graphs
+* dot_builtins - undocumented
+* dot2gxl - GXL-GV converters
+* dotty - customizable graph editor (an X11 app - not tested in this container)
+* edgepaint - edge coloring to disambiguate crossing edges
+* fdp - filter for drawing undirected graphs
+* gc - count graph components
+* gml2gv - GML-DOT converter
+* graphml2gv - GRAPHML-DOT converter
+* gv2gml - GML-DOT converter
+* gv2gxl - GXL-GV converters
+* gvcolor - flow colors through a ranked digraph (previously known as colorize)
+* gvgen - generate graphs
+* gvmap - find clusters and create a geographical map highlighting clusters
+* gvmap.sh - find clusters and create a geographical map highlighting clusters
+* gvpack - merge and pack disjoint graphs
+* gvpr - graph pattern scanning and processing language
+* gxl2dot - GXL-GV converters
+* gxl2gv - GXL-GV converters
+* lefty - a programmable two-view graphics editor for technical pictures
+* lneato - customizable graph editor (an X11 app - not tested in this container)
+* mm2gv - Matrix Market-DOT converters
+* neato - filter for drawing undirected graphs
+* nop - pretty-print graph files
+* osage - filter for array-based layouts
+* patchwork - filter for squarified tree maps
+* prune - undocumented
+* sccmap - extract strongly connected components of directed graphs
+* sfdp - filter for drawing large undirected graphs
+* tred - transitive reduction filter for directed graphs
+* twopi - filter for radial layouts of graphs
+* unflatten - adjust directed graphs to improve layout aspect ratio
+* vimdot - combined text editor and dot viewer
+
+Each command has additional options (including "-?" and sometimes "-h")
 ```
