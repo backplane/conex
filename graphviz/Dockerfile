@@ -4,6 +4,7 @@ LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
 RUN set -x \
   && apk add --no-cache \
     graphviz \
+    ttf-droid \
   && true
 
 RUN adduser \
