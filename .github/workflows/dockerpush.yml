@@ -64,7 +64,7 @@ jobs:
           make -j 4 push >/dev/null 2>&1 || true
           make report
 
-      - uses: actions/upload-artifact@v2-preview
+      - uses: actions/upload-artifact@v2
         with:
           name: receipts
           path: ./*-rcpt.txt
