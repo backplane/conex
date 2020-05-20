@@ -3,6 +3,7 @@ LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
 
 RUN apk add --no-cache \
     bash \
+    git \
     npm \
   && true
 
