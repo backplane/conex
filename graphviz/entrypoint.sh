@@ -1,5 +1,5 @@
 #!/bin/sh
-# wrapper around poppler-util commands
+# wrapper around graphviz commands
 
 
 usage() {
