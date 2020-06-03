@@ -7,6 +7,7 @@ RUN set -x \
     cabal \
     ghc \
     git \
+    make \
     musl-dev \
   && true
 
