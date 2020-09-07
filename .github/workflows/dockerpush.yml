@@ -61,8 +61,8 @@ jobs:
       - name: Build push
         run: |
           export GH_REGISTRY_PATH="docker.pkg.github.com/${{ github.repository }}"
-          make -j 4 push >/dev/null 2>&1 || true
-          make report
+          make -j 4 push || true
+          #make report
 
       - uses: actions/upload-artifact@v2
         with:
