@@ -1,5 +1,7 @@
 FROM alpine:edge as builder
 
+ARG TAG="v1.13.2"
+
 RUN set -x \
   && apk add --no-cache \
     autoconf \
@@ -16,11 +18,11 @@ RUN set -x \
     pkgconf \
   && true
 
-RUN git clone "git://wimlib.net/wimlib" /build
-
 WORKDIR /build
 
 RUN set -x \
+  && git clone "git://wimlib.net/wimlib" . \
+  && ( [ -z "$TAG" ] || git checkout "tags/${TAG}" -b "$TAG" ) \
   && ./bootstrap \
   && ./configure --prefix=/usr \
   && make install
