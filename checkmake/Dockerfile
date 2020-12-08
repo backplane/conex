@@ -5,6 +5,10 @@ RUN apk add --no-cache \
     make \
   && true
 
+# Environment variables required by the checkmake build system
+ARG BUILDER_NAME=github.com/glvnst/conex
+ARG BUILDER_EMAIL=glvnst@users.noreply.github.com
+
 WORKDIR /build
 RUN set -x \
   && git clone "https://github.com/mrtazz/checkmake" \
