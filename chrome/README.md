@@ -8,4 +8,4 @@ This directory (including the contained seccomp profile) is a fork of [jessfraz'
 
 ### Interactive
 
-See the <chrome_ssb.sh> script for an example of how to use the container.
+See the [chrome_ssb.sh](chrome_ssb.sh) script for an example of how to use the container.
