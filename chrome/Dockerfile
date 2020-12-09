@@ -20,16 +20,16 @@ RUN set -x \
     libpangox-1.0-0 \
     libpulse0 \
     libv4l-0 \
-	&& curl -sSL "https://dl.google.com/linux/linux_signing_key.pub" \
+  && curl -sSL "https://dl.google.com/linux/linux_signing_key.pub" \
     | apt-key add - \
-	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" \
+  && echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" \
     > /etc/apt/sources.list.d/google.list \
   && $AG update \
   && $AG install --no-install-recommends \
     google-chrome-stable \
-	&& $AG purge --auto-remove \
+  && $AG purge --auto-remove \
     curl \
-	&& rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/*
 
 # Add chrome user
 RUN set -x \

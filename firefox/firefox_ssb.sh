@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
 
-chrome_ssb() {
+firefox_ssb() {
   SITE=$1; shift
   if [ -z "$SITE" ]; then
     echo "a site name argument is required" 2>&1
@@ -18,7 +18,7 @@ chrome_ssb() {
     return 1
   fi
 
-  SSB_BASE="${HOME}/.chrome_ssb"
+  SSB_BASE="${HOME}/.firefox_ssb"
   if ! [ -d "$SSB_BASE" ]; then
     if ! mkdir -p "$SSB_BASE"; then
       echo "unable to make ssb base directory \"${SSB_BASE}\"" 2>&1
@@ -57,16 +57,11 @@ chrome_ssb() {
     --memory 512mb \
     --env "DISPLAY=${DISPLAY:-host.docker.internal:0}" \
     --volume "${SSB_ROOT}/data:/data" \
-    --volume "${HOME}/Downloads:/home/chrome/Downloads" \
+    --volume "${HOME}/Downloads:/home/user/Downloads" \
     --security-opt "seccomp=${SECCOMP_PROFILE}" \
-    --name "chrome_ssb_${SITE}" \
-    "galvanist/conex:chrome" \
-    "--use-gl=swiftshader" \
-    "--disable-dev-shm-usage" \
-    "--disable-audio-output" \
-    "--reset-variation-state" \
-    "--disable-field-trial-config" \
+    --name "firefox_ssb_${SITE}" \
+    "galvanist/conex:firefox" \
     "$@"
 }
 
-[ -n "$IMPORT" ] || chrome_ssb "$@"
+[ -n "$IMPORT" ] || firefox_ssb "$@"
