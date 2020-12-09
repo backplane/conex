@@ -1,6 +1,8 @@
 #!/bin/sh
+set -x
 
 chrome_ssb() {
+  DISPLAY="host.docker.internal:0"
   SITE=$1; shift
   if [ -z "$SITE" ]; then
     echo "a site name argument is required" 2>&1
@@ -35,28 +37,36 @@ chrome_ssb() {
   fi
 
   SSB_ROOT="${SSB_BASE}/${SITE}"
-  if ! mkdir -p "$SSB_ROOT"; then
-    echo "unable to make ssb root directory \"${SSB_ROOT}\"" 2>&1
-    return 1
+  if ! [ -d "$SSB_ROOT" ]; then
+    if ! mkdir -p "$SSB_ROOT"; then
+      echo "unable to make ssb root directory \"${SSB_ROOT}\"" 2>&1
+      return 1
+    fi
   fi
+
+  # not on macOS:
+  #  --device /dev/snd
+  #  --device /dev/dri
+  #  --volume "/tmp/.X11-unix:/tmp/.X11-unix"
+  #  --volume /dev/shm:/dev/shm
 
   docker run \
     --rm \
     --interactive \
     --tty \
-    --net host \
     --cpuset-cpus 0 \
     --memory 512mb \
-    --env "DISPLAY=unix${DISPLAY:-:0}" \
-    --volume "/tmp/.X11-unix:/tmp/.X11-unix" \
+    --env "DISPLAY=${DISPLAY:-host.docker.internal:0}" \
     --volume "${SSB_ROOT}/data:/data" \
     --volume "${HOME}/Downloads:/home/chrome/Downloads" \
     --security-opt "seccomp=${SECCOMP_PROFILE}" \
-    --device /dev/snd \
-    --device /dev/dri \
-    --volume /dev/shm:/dev/shm \
     --name "chrome_ssb_${SITE}" \
     "galvanist/conex:chrome" \
+    "--use-gl=swiftshader" \
+    "--disable-dev-shm-usage" \
+    "--disable-audio-output" \
+    "--reset-variation-state" \
+    "--disable-field-trial-config" \
     "$@"
 }
 
