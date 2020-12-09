@@ -1,40 +1,11 @@
-# imagename
+# firefox
 
-[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of 
+A [`debian:unstable-slim`](https://hub.docker.com/_/debian/)-based dockerization of the firefox web browser.
 
-[`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of 
-
-[`scratch`](https://hub.docker.com/_/scratch/)-based single-binary container image which 
-
-As the site says:
-
->
->
+The `Dockerfile`, `seccomp.json`, and `fonts.conf` in this directory are a forked from [jessfraz' firefox Dockerfile](https://github.com/jessfraz/dockerfiles/tree/master/firefox).
 
 ## Usage
 
 ### Interactive
 
-The following shell function can assist in running this image interactively:
-
-```sh
-
-imagename() {
-  docker run \
-    --rm \
-    --interactive \
-    --tty \
-    --volume "$(pwd):/work" \
-    "galvanist/conex:imagename" \
-    "$@"
-}
-
-```
-
-### As Build Stage
-
-```Dockerfile
-FROM galvanist/conex:imagename as builder
-
-
-```
+See the [firefox_ssb.sh](firefox_ssb.sh) script for an example of how to use the container.
