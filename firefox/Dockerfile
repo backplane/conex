@@ -49,6 +49,11 @@ RUN set -x \
   && mkdir -p /home/user/Downloads \
   && chown -R user:user /home/user
 
+# Create the data directory so named/managed volumes get the right permissions
+RUN set -x \
+  && mkdir /data \
+  && chown user:user /data
+
 # Run as non-privileged user
 USER user
 

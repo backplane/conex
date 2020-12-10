@@ -31,18 +31,23 @@ RUN set -x \
     curl \
   && rm -rf /var/lib/apt/lists/*
 
-# Add chrome user
-RUN set -x \
-  && groupadd -r chrome \
-  && useradd -r -g chrome -G audio,video chrome \
-  && mkdir -p /home/chrome/Downloads \
-  && chown -R chrome:chrome /home/chrome
-
 # Install fontconfig
 COPY ["fonts.conf", "/etc/fonts/local.conf"]
 
-# Run chrome as non privileged user
-USER chrome
+# Add non-privileged user
+RUN set -x \
+  && groupadd -r user \
+  && useradd -r -g user -G audio,video user \
+  && mkdir -p /home/user/Downloads \
+  && chown -R user:user /home/user
+
+# Create the data directory so named/managed volumes get the right permissions
+RUN set -x \
+  && mkdir /data \
+  && chown user:user /data
+
+# Run as non-privileged user
+USER user
 
 # Run chrome
 COPY ["entrypoint.sh", "/"]

@@ -26,19 +26,11 @@ firefox_ssb() {
     fi
   fi
 
-  SECCOMP_PROFILE="${SSB_BASE}/.seccomp.json"
+  SECCOMP_PROFILE="${SSB_BASE}/seccomp.json"
   if ! [ -f "$SECCOMP_PROFILE" ]; then
     if ! curl -sSLf -o "$SECCOMP_PROFILE" \
-      "https://raw.githubusercontent.com/glvnst/conex/master/chrome/seccomp.json"; then
+      "https://raw.githubusercontent.com/glvnst/conex/master/firefox/seccomp.json"; then
       echo "unable to obtain seccomp profile from github" 2>&1
-      return 1
-    fi
-  fi
-
-  SSB_ROOT="${SSB_BASE}/${SITE}"
-  if ! [ -d "$SSB_ROOT" ]; then
-    if ! mkdir -p "$SSB_ROOT"; then
-      echo "unable to make ssb root directory \"${SSB_ROOT}\"" 2>&1
       return 1
     fi
   fi
@@ -53,10 +45,10 @@ firefox_ssb() {
     --rm \
     --interactive \
     --tty \
-    --cpuset-cpus 0 \
-    --memory 512mb \
+    --cpuset-cpus "${SSB_CPUS:-0}" \
+    --memory "${SSB_MEM:-512mb}" \
     --env "DISPLAY=${DISPLAY:-host.docker.internal:0}" \
-    --volume "${SSB_ROOT}/data:/data" \
+    --volume "firefox_ssb_${SITE}:/data" \
     --volume "${HOME}/Downloads:/home/user/Downloads" \
     --security-opt "seccomp=${SECCOMP_PROFILE}" \
     --name "firefox_ssb_${SITE}" \
