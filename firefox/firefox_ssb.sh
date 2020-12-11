@@ -1,7 +1,15 @@
 #!/bin/sh
-set -x
 
 firefox_ssb() {
+  if [ -n "$SSB_DEBUG" ]; then
+    set -x
+    SSB_DETACH=""
+    SSB_RM=""
+  else
+    SSB_DETACH="--detach"
+    SSB_RM="--rm"
+  fi
+
   SITE=$1; shift
   if [ -z "$SITE" ]; then
     echo "a site name argument is required" 2>&1
@@ -42,7 +50,8 @@ firefox_ssb() {
   #  --volume /dev/shm:/dev/shm
 
   docker run \
-    --rm \
+    $SSB_DETACH \
+    $SSB_RM \
     --interactive \
     --tty \
     --cpuset-cpus "${SSB_CPUS:-0}" \
@@ -54,6 +63,12 @@ firefox_ssb() {
     --name "firefox_ssb_${SITE}" \
     "galvanist/conex:firefox" \
     "$@"
+  [ -n "$SSB_DEBUG" ] && printf '%s\n' \
+    "" \
+    "In debug mode this exited container is not automatically removed. To remote it, run:" \
+    "" \
+    "docker container rm 'firefox_ssb_${SITE}'" \
+    ""
 }
 
 [ -n "$IMPORT" ] || firefox_ssb "$@"
