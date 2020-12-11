@@ -1,7 +1,17 @@
 #!/bin/sh
-set -x
 
 chrome_ssb() {
+  if [ -n "$SSB_DEBUG" ]; then
+    set -x
+    SSB_DETACH=""
+    SSB_RM=""
+  else
+    SSB_DETACH="--detach"
+    SSB_RM="--rm"
+  fi
+
+  [ -n "$SSB_DEBUG" ] && set -x
+
   SITE=$1; shift
   if [ -z "$SITE" ]; then
     echo "a site name argument is required" 2>&1
@@ -42,7 +52,8 @@ chrome_ssb() {
   #  --volume /dev/shm:/dev/shm
 
   docker run \
-    --rm \
+    $SSB_DETACH \
+    $SSB_RM \
     --interactive \
     --tty \
     --cpuset-cpus "${SSB_CPUS:-0}" \
@@ -59,6 +70,13 @@ chrome_ssb() {
     "--reset-variation-state" \
     "--disable-field-trial-config" \
     "$@"
+    [ -n "$SSB_DEBUG" ] && printf '%s\n' \
+    "" \
+    "In debug mode this exited container is not automatically removed. To remote it, run:" \
+    "" \
+    "docker container rm 'chrome_ssb_${SITE}'" \
+    ""
+
 }
 
 [ -n "$IMPORT" ] || chrome_ssb "$@"
