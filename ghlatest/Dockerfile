@@ -20,7 +20,7 @@ RUN set -ex \
   && tar -xvzf "archive.tgz" \
   && find .
 
-FROM scratch
+FROM busybox:latest
 LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
 
 COPY --from=builder /build/ghlatest /
