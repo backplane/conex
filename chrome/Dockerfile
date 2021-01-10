@@ -10,7 +10,6 @@ RUN set -x \
   && $AG install --no-install-recommends \
     apt-transport-https \
     ca-certificates \
-    curl \
     fonts-symbola \
     gnupg \
     hicolor-icon-theme \
@@ -20,7 +19,9 @@ RUN set -x \
     libpangox-1.0-0 \
     libpulse0 \
     libv4l-0 \
-  && curl -sSL "https://dl.google.com/linux/linux_signing_key.pub" \
+    wget \
+  && wget -O - \
+    "https://dl.google.com/linux/linux_signing_key.pub" \
     | apt-key add - \
   && echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" \
     > /etc/apt/sources.list.d/google.list \
@@ -28,7 +29,7 @@ RUN set -x \
   && $AG install --no-install-recommends \
     google-chrome-stable \
   && $AG purge --auto-remove \
-    curl \
+    gnupg \
   && rm -rf /var/lib/apt/lists/*
 
 # Install fontconfig
