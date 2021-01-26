@@ -26,14 +26,11 @@ RUN set -x \
 # Add non-privileged user
 RUN set -x \
   && groupadd -r user \
-  && useradd -r -g user -G audio,video user \
-  && mkdir -p /home/user/Downloads \
-  && chown -R user:user /home/user
+  && useradd -r -g user user \
+  && mkdir -p /home/user /work \
+  && chown -R  user:user /home/user /work
 
-# Create the data directory so named/managed volumes get the right permissions
-RUN set -x \
-  && mkdir /data \
-  && chown user:user /data
+WORKDIR /work
 
 # Run as non-privileged user
 USER user
