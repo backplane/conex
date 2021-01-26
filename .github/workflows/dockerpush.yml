@@ -46,6 +46,10 @@ jobs:
     #needs: test
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container: ["adb", "apg", "audiosprite", "black", "bpython", "checkmake", "chrome", "compose_sort", "firefox", "fzf", "ghlatest", "goenv", "graphviz", "grta", "haskellenv", "httpie", "hugo", "jq", "json-server", "kotlinc", "lxde", "mssql-cli", "myip", "mypy", "ods_conv", "pdf", "pwgen", "pycodestyle", "pygmentize", "pylint", "qrencode", "shunit2", "tsqllint", "vueenv", "wimlib-imagex", "wireguard", "wpa_passphrase", "youtube-dl"]
+
     if: github.event_name == 'push' || github.event_name == 'schedule'
 
     steps:
@@ -61,9 +65,7 @@ jobs:
       - name: Build push
         run: |
           export GH_REGISTRY_PATH="docker.pkg.github.com/${{ github.repository }}"
-          #make -j 4 push || true
-          make push || true
-          #make report
+          make ${{ matrix.container }}
 
       - uses: actions/upload-artifact@v2
         with:
