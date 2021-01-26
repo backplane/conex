@@ -1,11 +1,12 @@
 FROM alpine:edge as builder
 
-ARG TAG="v1.13.2"
+ARG TAG="v1.13.3"
 
 RUN set -x \
   && apk add --no-cache \
     autoconf \
     automake \
+    file \
     fuse-dev \
     gcc \
     git \
@@ -24,7 +25,7 @@ RUN set -x \
   && git clone "git://wimlib.net/wimlib" . \
   && ( [ -z "$TAG" ] || git checkout "tags/${TAG}" -b "$TAG" ) \
   && ./bootstrap \
-  && ./configure --prefix=/usr \
+  && ( ./configure --prefix=/usr --disable-dependency-tracking || ( cat "config.log"; false ) ) \
   && make install
 
 FROM alpine:edge
