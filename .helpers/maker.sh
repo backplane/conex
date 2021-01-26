@@ -38,6 +38,8 @@ build() {
   [ -n "$current_daysum" ] \
   || die "Unable to calculate current context checksum"
 
+  build_receipt="${target}-build-rcpt.txt"
+
   # can we skip? if the current local "daysum" matches the one on docker hub's
   # existing manifest for this image, we don't need to rebuild.
   if [ -z "$DISABLE_DAYSUM_QUERY" ]; then
@@ -46,7 +48,7 @@ build() {
     if [ "$dh_daysum" = "$current_daysum" ]; then
       # this "SKIP BUILD" string is grepped for by skip_if_no_build
       printf 'current local daysum: %s matches DH daysum. SKIP BUILD.\n' \
-        "$current_daysum"
+        "$current_daysum" | tee "$build_receipt"
       return
     fi
 
@@ -156,12 +158,11 @@ main() {
 
   # strip the receipt suffix if there is one
   target="${target%-*-rcpt.txt}"
-  receipt="${target}-${command}-rcpt.txt"
   local_tag="${LOCAL_IMG_PREFIX}${target}"
 
   case "$command" in 
     build|postbuild|ghpush|dhpush|postpush)
-      ( "$command" "$target" "$local_tag" ) >"$receipt" 2>&1 || exit 1
+      "$command" "$target" "$local_tag"
       ;;
 
     *)
