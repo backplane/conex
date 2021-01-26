@@ -66,9 +66,9 @@ jobs:
       - name: Build push
         run: |
           export GH_REGISTRY_PATH="docker.pkg.github.com/${{ github.repository }}"
-          make ${{ matrix.container }}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: receipts
-          path: ./*-rcpt.txt
+          export DH_REGISTRY_PATH="galvanist/conex"
+          .helpers/maker.sh build ${{ matrix.container }}
+          .helpers/maker.sh postbuild ${{ matrix.container }}
+          .helpers/maker.sh ghpush ${{ matrix.container }}
+          .helpers/maker.sh dhpush ${{ matrix.container }}
+          .helpers/maker.sh postpush ${{ matrix.container }}
