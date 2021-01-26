@@ -14,7 +14,7 @@ The following shell function can assist in running this image interactively:
 
 ```sh
 
-mssql-cli() {
+mssqlcli() {
   docker run \
     --rm \
     --interactive \
