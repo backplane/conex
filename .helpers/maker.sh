@@ -57,6 +57,8 @@ build() {
 
   docker build \
     --label "com.galvanist.daysum=${current_daysum}" \
+    --label "org.opencontainers.image.revision=${GITHUB_SHA:-unknown}" \
+    --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY:-unknown}" \
     --tag "$local_tag" \
     "$target" \
   || die "build failed"
