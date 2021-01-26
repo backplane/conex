@@ -56,6 +56,7 @@ I aspire to the following guidelines when packaging things _for this repo_ with 
 
 Name | Description | Dockerfile Link | Image Link
 :--- | :---------- | :-------------- | :---------
+[7z](7z) | [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [p7zip](https://www.7-zip.org/) | [Dockerfile](7z/Dockerfile) | [galvanist/conex:7z](https://hub.docker.com/r/galvanist/conex/tags?name=7z)
 [adb](adb) | [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of the [Android Debug Bridge](https://developer.android.com/studio/command-line/adb) | [Dockerfile](adb/Dockerfile) | [galvanist/conex:adb](https://hub.docker.com/r/galvanist/conex/tags?name=adb)
 [apg](apg) | [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of apg -- the "Automated Password Generator" | [Dockerfile](apg/Dockerfile) | [galvanist/conex:apg](https://hub.docker.com/r/galvanist/conex/tags?name=apg)
 [audiosprite](audiosprite) | [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [audiosprite](https://github.com/tonistiigi/audiosprite), the "ffmpeg wrapper that will take in multiple audio files and combines them into a single file" | [Dockerfile](audiosprite/Dockerfile) | [galvanist/conex:audiosprite](https://hub.docker.com/r/galvanist/conex/tags?name=audiosprite)
