@@ -47,6 +47,7 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         container: ["adb", "apg", "audiosprite", "black", "bpython", "checkmake", "chrome", "compose_sort", "firefox", "fzf", "ghlatest", "goenv", "graphviz", "grta", "haskellenv", "httpie", "hugo", "jq", "json-server", "kotlinc", "lxde", "mssql-cli", "myip", "mypy", "ods_conv", "pdf", "pwgen", "pycodestyle", "pygmentize", "pylint", "qrencode", "shunit2", "tsqllint", "vueenv", "wimlib-imagex", "wireguard", "wpa_passphrase", "youtube-dl"]
 
