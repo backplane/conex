@@ -7,6 +7,7 @@ RUN set -x \
     python3 \
   && apk add --update-cache --virtual build-dependencies \
     curl \
+    g++ \
     gcc \
     musl-dev \
     python3-dev \
