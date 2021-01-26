@@ -1,4 +1,4 @@
-# TSQLLint
+# tsqllint
 
 [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [TSQLLint](https://github.com/tsqllint/tsqllint) the util for listing mssql code
 
