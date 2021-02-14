@@ -130,29 +130,27 @@ ccenter() {
   # padding. these colorized sequences have a bunch of non-printing characters
   # that affect the string length, which frustrates formatting attempts with
   # printf or something like column
-  desired_length="$1"; shift
+  desired_len="$1"; shift
   style="$1"; shift
   message="$*"
 
-  # step 1, build a string which will be used later as a format arg for printf
-  # it will look like this: '%s         ' with the proper number of trailing
-  # spaces
-  message_length="${#message}"
-  total_padding=$(( desired_length - message_length ))
-  left_pad_len=$(( total_padding / 2 ))
-  right_pad_len=$(( total_padding - left_pad_len ))
-
-  left_pad="$(printf "%${left_pad_len}s" '')"
-  right_pad="$(printf "%${right_pad_len}s" '')"
-
+  message_len="${#message}"
   # short-circuit if we don't have any padding to add
-  if [ "$message_length" -gt "$desired_length" ]; then
+  if [ "$message_len" -gt "$desired_len" ]; then
     # overflow rather than truncate (for now)
-    tprint "$style" "$message"
+    tprint -n "$style" "$message"
     return
   fi
 
-  # step 2, print the colorized message using the format string
+  padding_len=$(( desired_len - message_len ))
+  left_pad_len=$(( padding_len / 2 ))
+  right_pad_len=$(( padding_len - left_pad_len ))
+
+  # we just need to build two strings of spaces to print before and after the
+  # styled text
+  left_pad="$(printf "%${left_pad_len}s" '')"
+  right_pad="$(printf "%${right_pad_len}s" '')"
+
   printf '%s%s%s' "$left_pad" "$(tprint -n "$style" "$message")" "$right_pad"
 }
 
