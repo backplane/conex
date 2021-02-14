@@ -1,4 +1,4 @@
-FROM alpine:edge as builder
+FROM alpine:3.13 as builder
 
 ARG TAG="v1.13.3"
 
