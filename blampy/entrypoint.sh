@@ -202,10 +202,10 @@ note() {
 
 blampy() {
   # GIVE IT THE WORKS!
-  mode=$1; shift
+  utils=$1; shift
 
   # word-splitting desired here
-  for util in $mode; do
+  for util in $utils; do
     note "$util"
     case "$util" in
       black)
@@ -225,24 +225,24 @@ blampy() {
         ;;
 
       *)
-        die "unknown util \"${util}\" requested in mode"
+        die "unknown util \"${util}\" requested"
     esac
   done
 }
 
 watch_loop() {
   # watch the given paths for FS changes; when they change... BLAMPY!
-  mode=$1; shift
+  utils=$1; shift
   note watching
   while /usr/bin/inotifywait -e modify "$@"; do
-    blampy "$mode" "$@"  # fixme: one day: probably best to only re-check the changed items
+    blampy "$utils" "$@"  # fixme: one day: probably best to only re-check the changed items
     note watching
   done
 }
 
 main() {
-  watch_mode="${WATCH_MODE:-}"
-  mode=""
+  watch_mode=""
+  utils=""
 
   # argument processing loop
   while true; do
@@ -258,19 +258,19 @@ main() {
         ;;
 
       --black)
-        mode="${mode} black"
+        utils="${utils} black"
         ;;
 
       --pylint)
-        mode="${mode} pylint"
+        utils="${utils} pylint"
         ;;
 
       --pycodestyle)
-        mode="${mode} pycodestyle"
+        utils="${utils} pycodestyle"
         ;;
 
       --mypy)
-        mode="${mode} mypy"
+        utils="${utils} mypy"
         ;;
 
       --watch)
@@ -298,16 +298,16 @@ main() {
     exit
   fi
 
-  if [ -z "$mode" ]; then
+  if [ -z "$utils" ]; then
     # if no specific util was requested, we will run them all
-    mode="black pylint pycodestyle mypy"
+    utils="black pylint pycodestyle mypy"
   fi
 
-  blampy "$mode" "$@"
+  blampy "$utils" "$@"
 
   # in watch mode we run forever, waiting for filesystem changes to trigger
   # another (responsible) run of BLAMPY! YAY!
-  [ -n "$watch_mode" ] && watch_loop "$mode" "$@"
+  [ -n "$watch_mode" ] && watch_loop "$utils" "$@"
 
   exit 0
 }
