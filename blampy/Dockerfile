@@ -3,6 +3,7 @@ LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
 
 RUN set -x \
   && apk add --update-cache \
+    inotify-tools \
     py3-pip \
     python3 \
   && apk add --virtual build-dependencies \

@@ -178,7 +178,50 @@ note() {
   tprint dim-cyan '<<<<<<<<<<<<<<<<<<'
 }
 
+blampy() {
+  # GIVE IT THE WORKS!
+  mode=$1; shift
+
+  # word-splitting desired here
+  for util in $mode; do
+    note "$util"
+    case "$util" in
+      black)
+        black "$@"
+        ;;
+
+      pylint)
+        pylint "--disable=${PYLINT_IGNORE}" "$@" || true
+        ;;
+
+      pycodestyle)
+        pycodestyle "--ignore=${PYCODESTYLE_IGNORE}" "$@" || true
+        ;;
+
+      mypy)
+        mypy "$@"
+        ;;
+
+      *)
+        die "unknown util \"${util}\" requested in mode"
+    esac
+  done
+}
+
+watch_loop() {
+  # watch the given paths for FS changes; when they change... BLAMPY!
+  mode=$1; shift
+  note watching
+  while /usr/bin/inotifywait -e modify "$@"; do
+    blampy "$mode" "$@"  # fixme: one day: probably best to only re-check the changed items
+    note watching
+  done
+}
+
 main() {
+  watch_mode="${WATCH_MODE:-}"
+  mode=""
+
   # argument processing loop
   while true; do
     ARG="$1"; shift || break
@@ -190,6 +233,26 @@ main() {
 
       -h|--help)
         usage
+        ;;
+
+      --black)
+        mode="${mode} black"
+        ;;
+
+      --pylint)
+        mode="${mode} pylint"
+        ;;
+
+      --pycodestyle)
+        mode="${mode} pycodestyle"
+        ;;
+
+      --mypy)
+        mode="${mode} mypy"
+        ;;
+
+      --watch)
+        watch_mode=1
         ;;
 
       --)
@@ -208,22 +271,21 @@ main() {
   done
 
   if [ -z "$*" ]; then
-    # if there were no arguments then run bpython
+    # if there were no positional arguments then run bpython
     bpython
     exit
   fi
 
-  note black
-  black "$@"
+  if [ -z "$mode" ]; then
+    # if no specific util was requested, we will run them all
+    mode="black pylint pycodestyle mypy"
+  fi
 
-  note pylint
-  pylint "--disable=${PYLINT_IGNORE}" "$@" || true
+  blampy "$mode" "$@"
 
-  note pycodestyle
-  pycodestyle "--ignore=${PYCODESTYLE_IGNORE}" "$@" || true
-
-  note mypy
-  mypy "$@"
+  # in watch mode we run forever, waiting for filesystem changes to trigger
+  # another (responsible) run of BLAMPY! YAY!
+  [ -n "$watch_mode" ] && watch_loop "$mode" "$@"
 
   exit 0
 }
