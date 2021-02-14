@@ -159,13 +159,35 @@ ccenter() {
 usage() {
   [ -n "$*" ] && printf 'ERROR: %s\n\n' "$*"
   printf '%s\n' \
-    "Usage: blampy [-h|--help] [-d|--debug] [source_file [...]]" \
+    "Usage: blampy [-h|--help] [-d|--debug] [utility_selection(s)] [--watch] [source_file [...]]" \
     "" \
-    "This script checks python code or runs a REPL." \
+    "Container which reformats and checks python source code" \
+    "" \
+    "Source Files vs REPL" \
+    " The source_file arguments you give are passed to all the utilities (or" \
+    " the utilities you select (see below). If no source_file arguments are" \
+    " given, the container run the bpython REPL instead." \
     "" \
     " -h / --help           Prints this message" \
-    " -d / --debug          Enables the POSIX shell '-x' flag which prints commands and results as they are run" \
+    " -d / --debug          Enables the POSIX shell '-x' flag which prints" \
+    "                       commands and results as they are run" \
     "" \
+    "Utilities" \
+    " The following utilties are available. By default the container runs them" \
+    " all. Alternatively, you may use the flags below to specify which" \
+    " utilities to run and in what order (flag repetition is honored)." \
+    "" \
+    " --black               Run the black code formatting utility" \
+    "                       NOTE: BLACK ALTERS YOUR SOURCE FILES DIRECTLY" \
+    " --pylint              Run the pylint code linter" \
+    " --pycodestyle         Run the pycodestyle error checker" \
+    " --mypy                Run the mypy type checker" \
+    "" \
+    "Watch Mode" \
+    " --watch               In watch mode the container runs forever watching" \
+    "                       for changes in the given source files. When they" \
+    "                       change, the selected utilities are run on them" \
+    "                       again" \
     "" \
   >&1
   [ -n "$*" ] && exit 1
