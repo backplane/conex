@@ -8,7 +8,7 @@
 
 ```sh
 
-json-server() {
+json_server() {
   docker run \
     --rm \
     --init \
