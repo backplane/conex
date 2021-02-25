@@ -87,3 +87,6 @@ README.md: */README.md docs/about.md docs/dockerization.md
 	  --header docs/dockerization.md \
 	  */README.md \
 	  >"$@"
+
+subdirs:
+	@python -c 'import os; print(sorted([d for d in os.listdir(".") if os.path.exists(os.path.join(".", d, "README.md")) and not d.startswith(".")]))'
