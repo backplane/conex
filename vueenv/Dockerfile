@@ -9,6 +9,8 @@ RUN apk add --no-cache \
 
 RUN npm install --global \
     '@vue/cli' \
+    'vue@next' \
+    'yarn' \
   && true
 
 RUN adduser -D -h /work vue
