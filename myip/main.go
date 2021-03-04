@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 // command-line option init & defaults
@@ -31,13 +32,18 @@ func HandleMyIP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Add(`Content-Type`, `application/json`)
-
 	ip := r.Header.Get(`X-Forwarded-For`)
 	if ip == "" {
 		ip = r.RemoteAddr
+	} else {
+		commaIdx := strings.Index(ip, ",")
+		if commaIdx > -1 {
+			ip = ip[0:commaIdx]
+		}
 	}
 
+	log.Printf("%s, %s", r.RemoteAddr, r.Header.Get(`X-Forwarded-For`))
+	w.Header().Add(`Content-Type`, `application/json`)
 	fmt.Fprintf(w, "{\"ip\": \"%s\"}\n", ip)
 }
 
