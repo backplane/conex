@@ -16,7 +16,8 @@ RUN set -x \
     python3-pip \
   && rm -rf /var/lib/apt/lists/* \
   && curl -L -o "libssl.deb" "${BAD_IDEA}" \
-  && dpkg -i "libssl.deb"
+  && dpkg -i "libssl.deb" \
+  && rm "libssl.deb"
 
 RUN set -x \
   && pip3 install --upgrade \
