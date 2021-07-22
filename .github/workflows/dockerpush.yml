@@ -1,74 +1,82 @@
 name: Docker
-
 on:
   push:
-    # Publish `master` as Docker `latest` image.
     branches:
-      - main
-
-    # Publish `v1.2.3` tags as releases.
+    - main
     tags:
-      - v*.*.*
-
-  # Run tests for any PRs.
+    - v*.*.*
   pull_request:
-
   schedule:
-    # * is a special character in YAML so you have to quote this string
-    # random daily run
-    - cron:  '16 9 * * *'
-
+  - cron: "16 9 * * *"
 env:
   DH_USER: galvanist
-
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  #test:
-  #  runs-on: ubuntu-latest
-  #
-  #  steps:
-  #    - uses: actions/checkout@v2
-  #
-  #    - name: Run tests
-  #      run: |
-  #        if [ -f docker-compose.test.yml ]; then
-  #          docker-compose --file docker-compose.test.yml build
-  #          docker-compose --file docker-compose.test.yml run sut
-  #        else
-  #          docker build . --file Dockerfile
-  #        fi
-
-  # Push image to GitHub Package Registry.
-  # See also https://docs.docker.com/docker-hub/builds/
   buildpush:
-    # Ensure test job passes before pushing image.
-    #needs: test
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        container: ['7z', 'adb', 'apg', 'audiosprite', 'black', 'blampy', 'bpython', 'chardet', 'checkmake', 'chrome', 'compose_sort', 'firefox', 'fzf', 'ghlatest', 'goenv', 'graphviz', 'grta', 'haskellenv', 'httpie', 'hugo', 'jq', 'json-server', 'kotlinc', 'lxde', 'mssql-cli', 'mssql-scripter', 'myip', 'mypy', 'ods_conv', 'pdf', 'pwgen', 'pycodestyle', 'pygmentize', 'pylint', 'qrencode', 'shunit2', 'snakeeyes', 'sql-formatter', 'tsqllint', 'vueenv', 'wimlib-imagex', 'wireguard', 'wpa_passphrase', 'youtube-dl']
-
+        container:
+        - "7z"
+        - "adb"
+        - "apg"
+        - "audiosprite"
+        - "black"
+        - "blampy"
+        - "bpython"
+        - "chardet"
+        - "checkmake"
+        - "chrome"
+        - "compose_sort"
+        - "firefox"
+        - "fzf"
+        - "ghlatest"
+        - "goenv"
+        - "graphviz"
+        - "grta"
+        - "haskellenv"
+        - "httpie"
+        - "hugo"
+        - "jq"
+        - "json-server"
+        - "kotlinc"
+        - "kp1p"
+        - "lxde"
+        - "mssql-cli"
+        - "mssql-scripter"
+        - "myip"
+        - "mypy"
+        - "ods_conv"
+        - "pdf"
+        - "pwgen"
+        - "pycodestyle"
+        - "pygmentize"
+        - "pylint"
+        - "qrencode"
+        - "shunit2"
+        - "snakeeyes"
+        - "sql-formatter"
+        - "tsqllint"
+        - "vueenv"
+        - "wimlib-imagex"
+        - "wireguard"
+        - "wpa_passphrase"
+        - "youtube-dl"
     if: github.event_name == 'push' || github.event_name == 'schedule'
-
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Dual Registry Login
-        run: |
-          # github
-          printf '%s' "${{ secrets.GITHUB_TOKEN }}" | docker login --username "${{ github.actor }}" --password-stdin docker.pkg.github.com
-          # docker hub
-          printf '%s' '${{ secrets.DOCKER_HUB_TOKEN }}' | docker login --username "$DH_USER" --password-stdin
-
-      - name: Build push
-        run: |
-          export GH_REGISTRY_PATH="docker.pkg.github.com/${{ github.repository }}"
-          export DH_REGISTRY_PATH="galvanist/conex"
-          .helpers/maker.sh build ${{ matrix.container }}
-          .helpers/maker.sh postbuild ${{ matrix.container }}
-          .helpers/maker.sh ghpush ${{ matrix.container }}
-          .helpers/maker.sh dhpush ${{ matrix.container }}
-          .helpers/maker.sh postpush ${{ matrix.container }}
+    - uses: actions/checkout@v2
+    - name: Dual Registry Login
+      run: |
+        # github
+        printf '%s' "${{ secrets.GITHUB_TOKEN }}" | docker login --username "${{ github.actor }}" --password-stdin docker.pkg.github.com
+        # docker hub
+        printf '%s' '${{ secrets.DOCKER_HUB_TOKEN }}' | docker login --username "$DH_USER" --password-stdin
+    - name: Build push
+      run: |
+        export GH_REGISTRY_PATH="docker.pkg.github.com/${{ github.repository }}"
+        export DH_REGISTRY_PATH="galvanist/conex"
+        .helpers/maker.sh build ${{ matrix.container }}
+        .helpers/maker.sh postbuild ${{ matrix.container }}
+        .helpers/maker.sh ghpush ${{ matrix.container }}
+        .helpers/maker.sh dhpush ${{ matrix.container }}
+        .helpers/maker.sh postpush ${{ matrix.container }}
