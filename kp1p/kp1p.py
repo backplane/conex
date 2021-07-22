@@ -51,7 +51,7 @@ def write_csv(
     dialect=csv.excel,
 ):
     """
-    write a csv file from the given list/iterables of dicts
+    write a csv file from the given list/iterable of dicts
     """
     writer = csv.DictWriter(
         csvfh,
@@ -155,6 +155,9 @@ def main() -> int:
     except FileExistsError:
         warn(f'fatal: the output file "{args.outfile}" already exists')
         return os.EX_CANTCREAT
+
+    if args.outfile != "-":
+        warn(f"wrote to {args.outfile}")
 
     return 0
 
