@@ -1,6 +1,11 @@
+FROM python:3-alpine as builder
+COPY kp1p /kp1p
+RUN python -m zipapp -p "/usr/bin/env python3" --compress kp1p
+
 FROM python:3-alpine
 LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
 
-COPY kp1p.py /bin/kp1p
+COPY --from=builder /kp1p.pyz /bin/kp1p
+
 WORKDIR /work
 ENTRYPOINT ["kp1p"]
