@@ -36,7 +36,7 @@ firefox_ssb() {
 
   SECCOMP_PROFILE="${SSB_BASE}/seccomp.json"
   if ! [ -f "$SECCOMP_PROFILE" ]; then
-    if ! curl -sSLf -o "$SECCOMP_PROFILE" \
+    if ! curl -sSLf --tlsv1.2 -o "$SECCOMP_PROFILE" \
       "https://raw.githubusercontent.com/glvnst/conex/master/firefox/seccomp.json"; then
       echo "unable to obtain seccomp profile from github" 2>&1
       return 1

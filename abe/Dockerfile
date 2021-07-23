@@ -5,9 +5,8 @@ FROM alpine:edge as downloader
 ARG ABE_VERSION="20210709062403-4c55371"
 ENV ABE_URL="https://github.com/nelenkov/android-backup-extractor/releases/download/${ABE_VERSION}/abe.jar"
 
-RUN set -x \
-  && apk add --no-cache curl \
-  && curl -L -o "/abe.jar" "$ABE_URL"
+RUN apk add --no-cache curl
+RUN curl -sSL --tlsv1.3 -o "/abe.jar" "$ABE_URL"
 
 FROM amazoncorretto:16-alpine
 LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
