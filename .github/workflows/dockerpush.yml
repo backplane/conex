@@ -18,6 +18,7 @@ jobs:
       matrix:
         container:
         - "7z"
+        - "abe"
         - "adb"
         - "apg"
         - "audiosprite"
