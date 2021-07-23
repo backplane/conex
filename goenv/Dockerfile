@@ -23,9 +23,7 @@ USER user
 ENV PATH="/home/user/go/bin:$PATH"
 
 # https://staticcheck.io/docs
-# https://github.com/golang/lint
 RUN set -eux \
-  && go get -u golang.org/x/lint/golint \
-  && go get -u honnef.co/go/tools/...
+  && go get -u honnef.co/go/tools/cmd/staticcheck@latest
 
 WORKDIR /home/user/go/src/local
