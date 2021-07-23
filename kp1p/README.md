@@ -1,6 +1,6 @@
 # kp1p
 
-[`python:3-alpine`](https://hub.docker.com/_/alpine/)-based dockerization of kp1p, a utility for translating csv files exported from KeePassX/KeePassXC into a csv format that is better supported by 1Password.
+[`python:3-alpine`](https://hub.docker.com/_/python/)-based dockerization of kp1p, a utility for translating csv files exported from KeePassX/KeePassXC into a csv format that is better supported by 1Password.
 
 The program reads the given csv file an writes out a new csv file which can be imported into 1Password.
 
