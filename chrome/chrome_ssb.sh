@@ -18,12 +18,7 @@ chrome_ssb() {
   fi
   SECCOMP_PROFILE="${SSB_BASE}/seccomp.json"
   if ! [ -f "$SECCOMP_PROFILE" ]; then
-    if ! curl \
-      --location \
-      --silent \
-      --show-error \
-      --fail \
-      --output "$SECCOMP_PROFILE" \
+    if ! curl -sSLf --tlsv1.2 -o "$SECCOMP_PROFILE" \
       "https://raw.githubusercontent.com/glvnst/conex/master/chrome/seccomp.json"
     then
       echo "unable to obtain seccomp profile from github" 2>&1
