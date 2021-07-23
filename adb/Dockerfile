@@ -13,3 +13,4 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /work
+ENTRYPOINT ["adb"]
