@@ -3,7 +3,7 @@ CONTEXTS := $(DOCKERFILES:/Dockerfile=)
 
 .PHONY: all
 
-all: README.md .github/workflows/dockerpush.yml
+all: README.md .github/workflows/docker.yml
 
 README.md: */README.md docs/about.md docs/dockerization.md
 	@printf '==> %s\n' "$@"
@@ -14,5 +14,5 @@ README.md: */README.md docs/about.md docs/dockerization.md
 	  */README.md \
 	  >"$@"
 
-.github/workflows/dockerpush.yml: $(DOCKERFILES) $(CONTEXTS)
-	.helpers/update_action.py "$@"
+.github/workflows/docker.yml: $(DOCKERFILES) $(CONTEXTS)
+	.helpers/update_workflow.py "$@"
