@@ -94,7 +94,7 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.container }}
         tags: |
           type=schedule
-          type=ref,event=tag
+          type=ref,event=branch
         flavor: |
           latest=true
 
@@ -111,8 +111,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ${{ matrix.container }}
-        build-args: |
-          "PYTAG=${{ matrix.PYTHON_VERSION }}-${{ matrix.DISTRO }}"
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: |
