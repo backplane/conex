@@ -24,7 +24,7 @@ black() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:black" \
+    "backplane/black" \
     "$@"
 }
 

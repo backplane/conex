@@ -20,7 +20,7 @@ mssqlcli() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:mssql-cli" \
+    "backplane/mssql-cli" \
     "$@"
 }
 

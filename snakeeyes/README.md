@@ -20,7 +20,7 @@ snakeeyes() {
     --rm \
     --interactive \
     --tty \
-    "galvanist/conex:snakeeyes" \
+    "backplane/snakeeyes" \
     "$@"
 }
 

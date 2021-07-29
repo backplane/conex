@@ -4,43 +4,36 @@
 import argparse
 import json
 import sys
+import urllib.request as url
+from typing import Any, Dict, Final, Optional
 
-try:
-    # python 3
-    import urllib.request as url
-except ImportError:
-    # python 2
-    import urllib2 as url
+LOGIN_URL: Final = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:{repository}:pull"
+MANIFEST_URL: Final = "https://registry.hub.docker.com/v2/{repository}/manifests/{tag}"
 
 
-LOGIN_URL = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:{repository}:pull"
-MANIFEST_URL = "https://registry.hub.docker.com/v2/{repository}/manifests/{tag}"
+def get_json(request_url: str, headers: Optional[Dict[str, str]] = None):
+    """requests a JSON document from the given URL with the given headers"""
+    if headers is None:
+        headers = dict()
 
-
-def get_json(request_url, headers=None):
-    """ requests a JSON document from the given URL with the given headers """
-    if headers:
-        request_headers = headers
-    else:
-        request_headers = dict()
-
-    if "accept" not in request_headers:
-        request_headers["accept"] = "application/json"
+    if "accept" not in headers:
+        headers["accept"] = "application/json"
 
     req = url.Request(request_url)
-    for header_name, header_value in request_headers.items():
-        req.add_header(header_name, header_value)
+    for name, value in headers.items():
+        req.add_header(name, value)
 
-    resp = url.urlopen(req)
+    resp = url.urlopen(req)  # nosec - these urls are derived from the constants above
     if resp.getcode() != 200:
+        # fixme: this is not great. throw an exception, catch it
         pretty_print(resp)
         sys.exit(1)
 
     return json.loads(resp.read())
 
 
-def pretty_print(obj):
-    """ prints the given object in human-readable json format """
+def pretty_print(obj: Any):
+    """prints the given object in human-readable json format"""
     print(json.dumps(obj, indent=2))
 
 
@@ -50,31 +43,33 @@ def manifest_for_repo(repo, tag):
     repo: string, repository (e.g. 'library/fedora')
     tag:  string, tag of the repository (e.g. 'latest')
     """
-
-    manifest_types = (
-        "application/vnd.docker.distribution.manifest.list.v2+json,"
-        "application/vnd.docker.distribution.manifestv2+json"
-    )
-
     response = get_json(LOGIN_URL.format(repository=repo))
     token = response["token"]
 
     manifest = get_json(
         MANIFEST_URL.format(repository=repo, tag=tag),
-        headers={"Authorization": "Bearer {}".format(token), "accept": manifest_types},
+        headers={
+            "Authorization": f"Bearer {token}",
+            "accept": (
+                # note: implicit string concatenation
+                "application/vnd.docker.distribution.manifest.list.v2+json,"
+                "application/vnd.docker.distribution.manifestv2+json"
+            ),
+        },
     )
 
     return manifest
 
 
 def main():
-    """ entrypoint for command-line execution """
+    """entrypoint for command-line execution"""
     argp = argparse.ArgumentParser(
         description="A tool for getting manifests from docker hub"
     )
     argp.add_argument(
         "repotag",
         nargs="+",
+        type=str,
         help="<[namespace/]repository[:tag]> - the repo and tag of the desired manifest",
     )
     args = argp.parse_args()

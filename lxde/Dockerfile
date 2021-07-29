@@ -1,5 +1,5 @@
 FROM debian:stable-slim
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 # one of the names under /usr/share/i18n/SUPPORTED (e.g. es_MX or nl_BE)
 ENV LANG=en_US.UTF-8

@@ -37,7 +37,7 @@ firefox_ssb() {
   SECCOMP_PROFILE="${SSB_BASE}/seccomp.json"
   if ! [ -f "$SECCOMP_PROFILE" ]; then
     if ! curl -sSLf --tlsv1.2 -o "$SECCOMP_PROFILE" \
-      "https://raw.githubusercontent.com/glvnst/conex/master/firefox/seccomp.json"; then
+      "https://raw.githubusercontent.com/backplane/conex/master/firefox/seccomp.json"; then
       echo "unable to obtain seccomp profile from github" 2>&1
       return 1
     fi
@@ -61,7 +61,7 @@ firefox_ssb() {
     --volume "${HOME}/Downloads:/home/user/Downloads" \
     --security-opt "seccomp=${SECCOMP_PROFILE}" \
     --name "firefox_ssb_${SITE}" \
-    "galvanist/conex:firefox" \
+    "backplane/firefox" \
     "$@"
   [ -n "$SSB_DEBUG" ] && printf '%s\n' \
     "" \

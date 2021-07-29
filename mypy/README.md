@@ -22,7 +22,7 @@ mypy() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:mypy" \
+    "backplane/mypy" \
     "$@"
 }
 

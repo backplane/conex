@@ -30,7 +30,7 @@ haskellenv() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:haskellenv" \
+    "backplane/haskellenv" \
     "$@"
 }
 
@@ -39,7 +39,7 @@ haskellenv() {
 ### As Build Stage
 
 ```Dockerfile
-FROM galvanist/conex:haskellenv as builder
+FROM backplane/haskellenv as builder
 
 COPY src /work
 

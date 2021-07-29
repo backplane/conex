@@ -30,7 +30,7 @@ abe() {
       --tty \
       --volume "$(pwd):/work" \
       --env "ABE_PASSWD=${ABE_PASSWD}" \
-      "galvanist/conex:abe" \
+      "backplane/abe" \
       "$@"
   else
     docker run \
@@ -38,7 +38,7 @@ abe() {
       --interactive \
       --tty \
       --volume "$(pwd):/work" \
-      "galvanist/conex:abe" \
+      "backplane/abe" \
       "$@"
   fi
 }

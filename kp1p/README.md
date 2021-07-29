@@ -41,7 +41,7 @@ kp1p() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:kp1p" \
+    "backplane/kp1p" \
     "$@"
 }
 

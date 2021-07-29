@@ -39,7 +39,7 @@ wireguard() {
     --rm \
     --interactive \
     --tty \
-    "galvanist/conex:wireguard" \
+    "backplane/wireguard" \
     "$@"
 }
 

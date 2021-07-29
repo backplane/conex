@@ -20,7 +20,7 @@ pylint() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:pylint" \
+    "backplane/pylint" \
     "$@"
 }
 

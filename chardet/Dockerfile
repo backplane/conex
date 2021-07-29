@@ -1,5 +1,5 @@
 FROM python:3-alpine
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN pip install chardet
 WORKDIR /work

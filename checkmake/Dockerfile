@@ -6,8 +6,8 @@ RUN apk add --no-cache \
   && true
 
 # Environment variables required by the checkmake build system
-ARG BUILDER_NAME=github.com/glvnst/conex
-ARG BUILDER_EMAIL=glvnst@users.noreply.github.com
+ARG BUILDER_NAME=github.com/backplane/conex
+ARG BUILDER_EMAIL=backplane@users.noreply.github.com
 
 WORKDIR /build
 RUN set -x \
@@ -17,7 +17,7 @@ RUN set -x \
   && make binaries
 
 FROM alpine:edge
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 COPY --from=builder /build/checkmake /
 WORKDIR /work

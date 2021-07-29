@@ -13,7 +13,7 @@ audiosprite() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:audiosprite" \
+    "backplane/audiosprite" \
     "$@"
 }
 ```

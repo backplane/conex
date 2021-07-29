@@ -19,7 +19,7 @@ adb() {
     --tty \
     --device "/dev/bus/usb/001/004" \
     --volume "$(pwd):/work" \
-    "galvanist/conex:adb" \
+    "backplane/adb" \
     "$@"
 }
 

@@ -1,5 +1,5 @@
 FROM alpine:edge as builder
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -x \
   && apk add --update-cache \

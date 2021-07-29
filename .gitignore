@@ -1,3 +1,4 @@
-*-rcpt.txt
 venv
 .vscode
+.mypy_cache
+archived

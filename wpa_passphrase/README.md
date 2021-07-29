@@ -25,7 +25,7 @@ wpa_passphrase() {
     --rm \
     --interactive \
     --tty \
-    "galvanist/conex:wpa_passphrase" \
+    "backplane/wpa_passphrase" \
     "$@"
 }
 

@@ -1,5 +1,5 @@
 FROM debian:unstable-slim
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 LABEL upstream="<https://github.com/jessfraz/dockerfiles/tree/master/chrome/stable>"
 
 # Install chrome

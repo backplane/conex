@@ -18,7 +18,7 @@ pdf() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:pdf" \
+    "backplane/pdf" \
     "$@"
 }
 

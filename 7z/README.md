@@ -20,7 +20,7 @@ p7zip() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:7z" \
+    "backplane/7z" \
     "$@"
 }
 

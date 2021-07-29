@@ -25,7 +25,7 @@ imagename() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:imagename" \
+    "backplane/imagename" \
     "$@"
 }
 
@@ -34,7 +34,7 @@ imagename() {
 ### As Build Stage
 
 ```Dockerfile
-FROM galvanist/conex:imagename as builder
+FROM backplane/imagename as builder
 
 
 ```

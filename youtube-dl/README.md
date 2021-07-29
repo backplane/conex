@@ -16,7 +16,7 @@ youtubedl() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:youtube-dl" \
+    "backplane/youtube-dl" \
     "$@"
 }
 

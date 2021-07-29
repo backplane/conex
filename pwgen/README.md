@@ -49,7 +49,7 @@ pwgen() {
     --rm \
     --interactive \
     --tty \
-    "galvanist/conex:pwgen" \
+    "backplane/pwgen" \
     "$@"
 }
 

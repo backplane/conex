@@ -16,7 +16,7 @@ chardet() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:chardet" \
+    "backplane/chardet" \
     "$@"
 }
 

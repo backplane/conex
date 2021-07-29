@@ -22,7 +22,7 @@ goenv() {
     --tty \
     --volume "$(pwd):/home/user/go/src/local" \
     "$@" \
-    galvanist/conex:goenv
+    backplane/goenv
 }
 ```
 

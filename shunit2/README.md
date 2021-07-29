@@ -31,7 +31,7 @@ shunit2() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:shunit2" \
+    "backplane/shunit2" \
     "$@"
 }
 

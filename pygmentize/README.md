@@ -13,7 +13,7 @@ pygmentize() {
     --rm \
     --interactive \
     --volume "$(pwd):/work" \
-    "galvanist/conex:pygmentize" \
+    "backplane/pygmentize" \
     "$@"
 }
 

@@ -9,7 +9,7 @@ RUN apk add --no-cache curl
 RUN curl -sSL --tlsv1.3 -o "/abe.jar" "$ABE_URL"
 
 FROM amazoncorretto:16-alpine
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 LABEL upstream="https://github.com/nelenkov/android-backup-extractor"
 
 COPY --from=downloader /abe.jar /
