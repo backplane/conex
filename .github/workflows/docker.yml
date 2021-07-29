@@ -97,8 +97,6 @@ jobs:
           type=ref,event=tag
         flavor: |
           latest=true
-        labels: |
-          be.backplane.psum=${{}}
 
     - name: Calculate Perishable Checksum
       id: psum
