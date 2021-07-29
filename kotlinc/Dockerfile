@@ -1,5 +1,5 @@
 FROM alpine:edge
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 ARG KOTLINC_URL="https://github.com/JetBrains/kotlin/releases/download/v1.3.70/kotlin-compiler-1.3.70.zip"
 ARG KOTLINC_SHA512="13ed11fc82f1a20930589e578c9e247e88a5a5250eea966d7604766e219513d161bca65ee8255fc1cc370f738908957481fc829135e14a958f60626ea9ec99dd"

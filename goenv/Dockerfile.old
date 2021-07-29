@@ -1,5 +1,5 @@
 FROM debian:stable-slim
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 # Via https://golang.org/dl/
 ARG GO_REL="https://dl.google.com/go/go1.14.linux-amd64.tar.gz"

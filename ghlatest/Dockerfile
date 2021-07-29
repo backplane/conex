@@ -21,7 +21,7 @@ RUN set -ex \
   && find .
 
 FROM busybox:latest
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 COPY --from=builder /build/ghlatest /
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs

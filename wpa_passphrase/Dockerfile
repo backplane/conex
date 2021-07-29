@@ -5,7 +5,7 @@ RUN apk add --no-cache \
   && true
 
 FROM scratch
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 COPY --from=builder /lib/ld-musl-x86_64.so.1 /lib/libcrypto.so.1.1 /lib/
 COPY --from=builder /sbin/wpa_passphrase /sbin/

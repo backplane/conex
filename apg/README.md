@@ -85,7 +85,7 @@ apg() {
     --rm \
     --interactive \
     --tty \
-    "galvanist/conex:apg" \
+    "backplane/apg" \
     "$@"
 }
 

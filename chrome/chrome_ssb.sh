@@ -19,7 +19,7 @@ chrome_ssb() {
   SECCOMP_PROFILE="${SSB_BASE}/seccomp.json"
   if ! [ -f "$SECCOMP_PROFILE" ]; then
     if ! curl -sSLf --tlsv1.2 -o "$SECCOMP_PROFILE" \
-      "https://raw.githubusercontent.com/glvnst/conex/master/chrome/seccomp.json"
+      "https://raw.githubusercontent.com/backplane/conex/master/chrome/seccomp.json"
     then
       echo "unable to obtain seccomp profile from github" 2>&1
       return 1
@@ -55,7 +55,7 @@ chrome_ssb() {
     "$@"
 
   # the image to run (put this second)
-  set -- "${CHROME_SSB_IMAGE:-galvanist/conex:chrome}" "$@"
+  set -- "${CHROME_SSB_IMAGE:-backplane/chrome}" "$@"
 
   # the rest are docker run flags (put these last)
 

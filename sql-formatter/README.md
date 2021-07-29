@@ -31,7 +31,7 @@ sql_formatter() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:sql-formatter" \
+    "backplane/sql-formatter" \
     "$@"
 }
 

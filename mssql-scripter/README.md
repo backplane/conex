@@ -147,7 +147,7 @@ mssql_scripter() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:mssql-scripter" \
+    "backplane/mssql-scripter" \
     "$@"
 }
 

@@ -20,7 +20,7 @@ tsqllint() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:tsqllint" \
+    "backplane/tsqllint" \
     "$@"
 }
 

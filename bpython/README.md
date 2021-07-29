@@ -31,7 +31,7 @@ bpython() {
     --tty \
     --volume "$(pwd):/work" \
     "$@" \
-    "galvanist/conex:bpython"
+    "backplane/bpython"
 }
 
 ```

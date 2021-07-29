@@ -29,7 +29,7 @@ kotlinc() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:kotlinc" \
+    "backplane/kotlinc" \
     "$@"
 }
 
@@ -38,7 +38,7 @@ kotlinc() {
 ### As Build Stage
 
 ```Dockerfile
-FROM galvanist/conex:kotlinc as builder
+FROM backplane/kotlinc as builder
 
 COPY . .
 

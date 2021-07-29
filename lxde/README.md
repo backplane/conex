@@ -21,7 +21,7 @@ lxde() {
     --tty \
     --publish "5900:5900" \
     --volume "lxdehome:/work/" \
-    "galvanist/conex:lxde" \
+    "backplane/lxde" \
     "$@"
 }
 

@@ -29,7 +29,7 @@ compose_sort() {
     --rm \
     --interactive \
     --volume "$(pwd):/work" \
-    "galvanist/conex:compose_sort" \
+    "backplane/compose_sort" \
     "$@"
 }
 

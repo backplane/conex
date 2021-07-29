@@ -18,7 +18,7 @@ blampy() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:blampy" \
+    "backplane/blampy" \
     "$@"
 }
 

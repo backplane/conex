@@ -20,7 +20,7 @@ qrencode() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:qrencode" \
+    "backplane/qrencode" \
     "$@"
 }
 

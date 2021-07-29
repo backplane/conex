@@ -35,6 +35,6 @@ jq() {
   fi
 
   # shellcheck disable=SC2086
-  docker run $run_flags "galvanist/conex:jq" $container_flags "$@"
+  docker run $run_flags "backplane/jq" $container_flags "$@"
 }
 ```

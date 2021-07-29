@@ -13,7 +13,7 @@ This dockerization also contains the [mkwinpeimg](https://wimlib.net/man1/mkwinp
 You can quickly create a `mkwinpeimg` image this way:
 
 ```Dockerfile
-FROM galvanist/conex:wimlib-imagex
+FROM backplane/wimlib-imagex
 RUN apk add --no-cache bash
 ENTRYPOINT [ "/usr/bin/mkwinpeimg" ]
 ```
@@ -122,7 +122,7 @@ wimlibimagex() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:wimlib-imagex" \
+    "backplane/wimlib-imagex" \
     "$@"
 }
 
@@ -144,7 +144,7 @@ find . -size +4294967000c -iname '*.wim' -print | while read -r wimpath; do
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:wimlib-imagex" \
+    "backplane/wimlib-imagex" \
       split "$wimpath" "${wimdir}/${wimbase}.swm" 4000
 done
 ```

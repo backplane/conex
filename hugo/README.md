@@ -25,7 +25,7 @@ hugo() {
     --tty \
     --volume "$(pwd):/work" \
     --publish "1313:1313" \
-    galvanist/conex:hugo \
+    backplane/hugo \
     hugo \
       $insert \
       "$@"
@@ -47,7 +47,7 @@ $ hugo serve -D
 ### As Build Stage
 
 ```Dockerfile
-FROM galvanist/conex:hugo as builder
+FROM backplane/hugo as builder
 
 COPY . .
 RUN hugo

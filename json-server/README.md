@@ -16,7 +16,7 @@ json_server() {
     --tty \
     --volume "$(pwd):/work" \
     --publish "3000:3000" \
-    "galvanist/conex:json-server" \
+    "backplane/json-server" \
     --host 0.0.0.0 \
     "$@"
 }

@@ -17,7 +17,7 @@ vueenv() {
     --env "HOST=0.0.0.0" \
     --env "PORT=8090" \
     --publish "8090:8090" \
-    "galvanist/vueenv:latest" \
+    "backplane/vueenv:latest" \
     "$@"
 }
 ```
@@ -25,7 +25,7 @@ vueenv() {
 ### As Build Stage
 
 ```Dockerfile
-FROM galvanist/vueenv:latest as builder
+FROM backplane/vueenv:latest as builder
 
 COPY src /work
 

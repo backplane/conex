@@ -1,5 +1,5 @@
 FROM debian:stretch-slim
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 # Install chrome
 RUN set -x \

@@ -15,7 +15,7 @@ checkmake() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:checkmake" \
+    "backplane/checkmake" \
     "$@"
 }
 ```

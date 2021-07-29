@@ -1,5 +1,5 @@
 FROM debian:stable-slim
-LABEL maintainer="Ben Burke <glvnst@users.noreply.github.com>"
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 ARG HUGO_VERSION="0.86.0"
 

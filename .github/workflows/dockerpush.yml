@@ -7,7 +7,7 @@ on:
     - v*.*.*
   pull_request:
   schedule:
-  - cron: "16 9 * * *"
+  - cron: 16 9 * * *
 env:
   DH_USER: galvanist
 jobs:
@@ -17,52 +17,52 @@ jobs:
       fail-fast: false
       matrix:
         container:
-        - "7z"
-        - "abe"
-        - "adb"
-        - "apg"
-        - "audiosprite"
-        - "black"
-        - "blampy"
-        - "bpython"
-        - "chardet"
-        - "checkmake"
-        - "chrome"
-        - "compose_sort"
-        - "firefox"
-        - "fzf"
-        - "ghlatest"
-        - "goenv"
-        - "graphviz"
-        - "grta"
-        - "haskellenv"
-        - "httpie"
-        - "hugo"
-        - "jq"
-        - "json-server"
-        - "kotlinc"
-        - "kp1p"
-        - "lxde"
-        - "mssql-cli"
-        - "mssql-scripter"
-        - "myip"
-        - "mypy"
-        - "ods_conv"
-        - "pdf"
-        - "pwgen"
-        - "pycodestyle"
-        - "pygmentize"
-        - "pylint"
-        - "qrencode"
-        - "shunit2"
-        - "snakeeyes"
-        - "sql-formatter"
-        - "tsqllint"
-        - "vueenv"
-        - "wimlib-imagex"
-        - "wireguard"
-        - "wpa_passphrase"
-        - "youtube-dl"
+        - 7z
+        - abe
+        - adb
+        - apg
+        - audiosprite
+        - black
+        - blampy
+        - bpython
+        - chardet
+        - checkmake
+        - chrome
+        - compose_sort
+        - firefox
+        - fzf
+        - ghlatest
+        - goenv
+        - graphviz
+        - grta
+        - haskellenv
+        - httpie
+        - hugo
+        - jq
+        - json-server
+        - kotlinc
+        - kp1p
+        - lxde
+        - mssql-cli
+        - mssql-scripter
+        - myip
+        - mypy
+        - ods_conv
+        - pdf
+        - pwgen
+        - pycodestyle
+        - pygmentize
+        - pylint
+        - qrencode
+        - shunit2
+        - snakeeyes
+        - sql-formatter
+        - tsqllint
+        - vueenv
+        - wimlib-imagex
+        - wireguard
+        - wpa_passphrase
+        - youtube-dl
     if: github.event_name == 'push' || github.event_name == 'schedule'
     steps:
     - uses: actions/checkout@v2
@@ -70,7 +70,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         username: ${{ env.DH_USER }}
-        password: ${{ secrets.DOCKER_HUB_TOKEN }}    
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
     - name: Build/Push
       run: |
         export GH_REGISTRY_PATH="docker.pkg.github.com/${{ github.repository }}"

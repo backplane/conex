@@ -20,7 +20,7 @@ pycodestyle() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:pycodestyle" \
+    "backplane/pycodestyle" \
     "$@"
 }
 

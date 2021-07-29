@@ -62,7 +62,7 @@ graphviz() {
     --interactive \
     --tty \
     --volume "$(pwd):/work" \
-    "galvanist/conex:graphviz" \
+    "backplane/graphviz" \
     "$@"
 }
 
