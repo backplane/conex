@@ -7,7 +7,7 @@ from typing import Any, Dict, Final, List
 
 from ruamel.yaml import YAML
 
-CONTAINER_KEYPATH: Final = "jobs.build.strategy.matrix.container"
+CONTAINER_KEYPATH: Final = "jobs.build-push.strategy.matrix.container"
 
 
 def build_contexts(base_str: str) -> List[str]:
