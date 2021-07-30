@@ -45,7 +45,6 @@ jobs:
         - hugo
         - jq
         - json-server
-        - kotlinc
         - kp1p
         - lxde
         - mssql-cli
