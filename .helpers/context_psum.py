@@ -42,10 +42,10 @@ def parse_dockerignore(path: Union[str, pathlib.Path]) -> Set[str]:
     # https://docs.docker.com/engine/reference/builder/#dockerignore-file
 
     patterns: List[str] = []
-    with open(path, "rt", encoding="utf-8") as di:
-        for line in di:
+    with open(path, "rt", encoding="utf-8") as dockerignore:
+        for line in dockerignore:
             pattern = line.strip()
-            if pattern.startswith("#"):
+            if pattern.startswith("#") or pattern == "":
                 continue
             patterns.append(os.path.normpath(pattern))
     return set(patterns)
