@@ -3,7 +3,7 @@
 import argparse
 import pathlib
 import sys
-from typing import Any, Dict, Final, List
+from typing import Any, Dict, Final, List, Union
 
 from ruamel.yaml import YAML
 
@@ -40,8 +40,11 @@ def get_keypath(obj: Dict, keypath_str: str, delimiter: str = ".") -> Any:
     """given a deeply nested object and a delimited keypath, retrieve the deep value at that keypath"""
     keypath: List[str] = keypath_str.split(delimiter)
     sub_obj: Any = obj
+    key: Union[str, int]
     for depth, key in enumerate(keypath):
         try:
+            if isinstance(sub_obj, list):
+                key = int(key)
             sub_obj = sub_obj[key]
         except KeyError:
             raise KeyError(
@@ -56,8 +59,11 @@ def set_keypath(obj: Dict, keypath_str: str, new_value: Any, delimiter: str = ".
     keypath: List[str] = keypath_str.split(delimiter)
     sub_obj: Any = obj
     target_depth = len(keypath) - 1
+    key: Union[str, int]
     for depth, key in enumerate(keypath):
         try:
+            if isinstance(sub_obj, list):
+                key = int(key)
             if depth == target_depth:
                 sub_obj[key] = new_value
             else:
