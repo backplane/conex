@@ -110,7 +110,7 @@ jobs:
         psum="$(.helpers/context_psum.py "${{ matrix.container }}")"
 
         # see if perishable checksum matches the sum already on github
-        published_psum="$(.helpers/hub_manifest.py --keypath config/Labels/be.backplane.image.context_psum "$ORG/${{ matrix.container }}" )"
+        published_psum="$(.helpers/hub_manifest.py --keypath config/Labels/be.backplane.image.context_psum "$ORG/${{ matrix.container }}" || true)"
         if [ "$psum" = "$published_psum" ]; then
           skipbuild=1
         else
