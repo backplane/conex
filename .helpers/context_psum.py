@@ -86,7 +86,7 @@ def build_context_checksum(
         raise RuntimeError(f"the given contextdir '{contextdir}' is not a directory")
 
     exclusions: Set[str] = set()
-    hasher = hashlib.sha512()
+    hasher = hashlib.sha256()
 
     dockerignore = contextdir.joinpath(DOCKERIGNORE_FILENAME)
     if dockerignore.is_file():
@@ -180,7 +180,7 @@ def main() -> int:
     )
     now = args.datetime if args.datetime else datetime.datetime.utcnow()
     insert = now.strftime(PERISHABILITY_MAP[args.perishability])
-    perishable_sum = hashlib.sha512(f"{checksum}: {insert}".encode("utf-8")).hexdigest()
+    perishable_sum = hashlib.sha256(f"{checksum}: {insert}".encode("utf-8")).hexdigest()
     print(perishable_sum)
 
     return 0
