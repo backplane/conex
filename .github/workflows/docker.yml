@@ -136,8 +136,7 @@ jobs:
       with:
         context: ${{ matrix.container }}
         push: ${{ github.event_name != 'pull_request' }}
-        # tags: ${{ steps.meta.outputs.tags }}
-        tags: latest
+        tags: ${{ steps.meta.outputs.tags }}
         labels: |
           ${{ steps.meta.outputs.labels }}
           be.backplane.image.context_psum=${{ steps.cdata.outputs.psum }}
