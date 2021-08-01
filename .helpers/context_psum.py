@@ -64,9 +64,9 @@ def parse_dockerignore(path: Union[str, pathlib.Path]) -> Set[str]:
 
 def sset(*args: Any) -> Set[str]:
     """
-    returns the set of the string version(s) of the give argument(s)
+    returns the given arguments as a set of strings
     """
-    # just a dumb helper function to make a few things more readable
+    # this is just a helper function to make a few things more readable
     return set([str(arg) for arg in args])
 
 
