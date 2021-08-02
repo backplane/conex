@@ -130,10 +130,9 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.container }}
         tags: |
-          type=schedule
-          type=ref,event=branch
+          type=raw,value=latest
         flavor: |
-          latest=true
+          latest=false
 
     # Build and push Docker image with Buildx (don't push on PR)
     # https://github.com/docker/build-push-action
