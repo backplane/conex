@@ -6,29 +6,31 @@ import re
 import sys
 
 import yaml
+
 try:
-    from yaml import CLoader as Loader, CDumper as Dumper
+    from yaml import CDumper as Dumper
+    from yaml import CLoader as Loader
 except ImportError:
-    from yaml import Loader, Dumper
+    from yaml import Dumper, Loader
 
 PATH_SORT_HINTS = {
-    r'^$': [
-        'version',
-        'services',
-        'volumes',
-        'networks',
-        'secrets',
+    r"^$": [
+        "version",
+        "services",
+        "volumes",
+        "networks",
+        "secrets",
     ],
-    r'^/services/[^/]+$': [
-        'image',
-        'build',
-        'restart',
-        'depends_on',
-        'environment',
-        'secrets',
-        'volumes',
-        'networks',
-        'ports',
+    r"^/services/[^/]+$": [
+        "image",
+        "build",
+        "restart",
+        "depends_on",
+        "environment",
+        "secrets",
+        "volumes",
+        "networks",
+        "ports",
     ],
 }
 
@@ -54,6 +56,7 @@ def compile_hints(path_hints):
     """
     result = dict()
     for path_regex, hint_list in path_hints.items():
+
         def get_hint(key, hints={hint: i for i, hint in enumerate(hint_list)}):
             return hints.get(key, len(hints))
 
@@ -77,7 +80,7 @@ def pappend(path, appendage):
     aka 'path append', return the concatenation of a given path, a delimiter,
     and the given appendage
     """
-    return "{}{}{}".format(path, '/', appendage)
+    return "{}{}{}".format(path, "/", appendage)
 
 
 def ordered_dict_copy(source, sort_hints, path=""):
@@ -122,10 +125,10 @@ def ordered_list_copy(source, sort_hints, path=""):
 
 
 def dump_anydict_as_map(anydict):
-    """ helper to make the yaml library treat OrderedDicts like mappings """
+    """helper to make the yaml library treat OrderedDicts like mappings"""
     # directly from https://stackoverflow.com/a/8661021
     def _represent_dictorder(self, data):
-        return self.represent_mapping('tag:yaml.org,2002:map', data.items())
+        return self.represent_mapping("tag:yaml.org,2002:map", data.items())
 
     yaml.add_representer(anydict, _represent_dictorder)
 
@@ -135,25 +138,29 @@ def main():
     read yaml from stdin, sort it accordingly, write it to stdout
     return a value suitable for sys.exit
     """
-    argp = argparse.ArgumentParser(description=(
-        "command-line utility for sorting docker-compose.yml files"))
-    argp.add_argument("input_file", nargs='?', help=(
-        "the file to sort, if not specified STDIN will be used"))
+    argp = argparse.ArgumentParser(
+        description=("command-line utility for sorting docker-compose.yml files")
+    )
+    argp.add_argument(
+        "input_file",
+        nargs="?",
+        help=("the file to sort, if not specified STDIN will be used"),
+    )
     args = argp.parse_args()
 
     if args.input_file:
-        input_file = open(args.input, 'r')
+        input_file = open(args.input_file, "r")
     else:
         input_file = sys.stdin
 
     dump_anydict_as_map(collections.OrderedDict)
 
-    yml = yaml.load(input_file, Loader=Loader)
+    yml = yaml.safe_load(input_file, Loader=Loader)
     sorted_yml = ordered_dict_copy(yml, compile_hints(PATH_SORT_HINTS))
-    print(yaml.dump(sorted_yml, Dumper=Dumper))
+    print(yaml.safe_dump(sorted_yml, Dumper=Dumper))
 
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())
