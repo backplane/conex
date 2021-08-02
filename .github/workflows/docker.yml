@@ -84,10 +84,10 @@ jobs:
         set -ex
 
         # ensure the required environment variables are set
-        ${REGISTRY:?} # this is used in subsequent steps
-        ${ORG:?}
-        ${PSUM_LABEL:?}
-        ${PLATFORMS_OVERRIDE:?}
+        : "${REGISTRY:?}" # this is used in subsequent steps
+        : "${ORG:?}"
+        : "${PSUM_LABEL:?}"
+        : "${PLATFORMS_OVERRIDE:?}"
 
         # helper functions
         output() {
