@@ -1,17 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 """ sorts the sections and keys of a docker-compose.yml file """
 import argparse
-import collections
 import re
 import sys
+from typing import Any, Callable, Dict, List, Optional, Pattern
 
-import yaml
-
-try:
-    from yaml import CDumper as Dumper
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Dumper, Loader
+from ruamel.yaml import YAML
 
 PATH_SORT_HINTS = {
     r"^$": [
@@ -35,7 +29,9 @@ PATH_SORT_HINTS = {
 }
 
 
-def compile_hints(path_hints):
+def compile_hints(
+    path_hints: Dict[str, List[str]]
+) -> Dict[Pattern[Any], Callable[[str], int]]:
     """
     given a regex_string:hint_list mapping, return a
     compiled_regex:key_function mapping.
@@ -54,17 +50,23 @@ def compile_hints(path_hints):
         re.compile('^/test$'): lambda x: {'one': 0, 'two': 1}.get(x, 2)
     }
     """
-    result = dict()
+    result: Dict[Pattern[Any], Callable[[str], int]] = dict()
     for path_regex, hint_list in path_hints.items():
 
-        def get_hint(key, hints={hint: i for i, hint in enumerate(hint_list)}):
+        def get_hint(
+            key: str,
+            hints: Dict[str, int] = {hint: i for i, hint in enumerate(hint_list)},
+        ) -> int:
             return hints.get(key, len(hints))
 
         result[re.compile(path_regex)] = get_hint
     return result
 
 
-def anymatch(hint_dict, path):
+def anymatch(
+    hint_dict: Dict[Pattern[Any], Callable[[str], int]],
+    path: str,
+) -> Optional[Callable[[str], int]]:
     """
     given a hint dictionary and a path, if the path matches any of the regexes
     in the hint_dict, return the corresponding item from the hint_dict
@@ -75,26 +77,29 @@ def anymatch(hint_dict, path):
     return None
 
 
-def pappend(path, appendage):
+def pappend(path: str, *appendages: str, delimiter: str = "/") -> str:
     """
     aka 'path append', return the concatenation of a given path, a delimiter,
     and the given appendage
     """
-    return "{}{}{}".format(path, "/", appendage)
+    return delimiter.join((path.rstrip(delimiter),) + appendages)
 
 
-def ordered_dict_copy(source, sort_hints, path=""):
+def ordered_dict_copy(
+    source: Dict[Any, Any],
+    sort_hints: Dict[Pattern[Any], Callable[[str], int]],
+    path: str = "",
+) -> Dict[Any, Any]:
     """
     returns a copy of the given source data structure with the dicts replaced
     by OrderedDicts and sorted according to the given hints
     """
-    dest = collections.OrderedDict()
-    hints = anymatch(sort_hints, path)
+    dest: Dict[Any, Any] = dict()
 
     if source is None:
         return dest
 
-    for key in sorted(source, key=hints):
+    for key in sorted(source, key=anymatch(sort_hints, path)):
         val = source[key]
         if isinstance(val, dict):
             dest[key] = ordered_dict_copy(val, sort_hints, pappend(path, key))
@@ -106,12 +111,16 @@ def ordered_dict_copy(source, sort_hints, path=""):
     return dest
 
 
-def ordered_list_copy(source, sort_hints, path=""):
+def ordered_list_copy(
+    source: List[Any],
+    sort_hints: Dict[Pattern[Any], Callable[[str], int]],
+    path: str = "",
+) -> List[Any]:
     """
     returns a copy of the given source data structure with the dicts replaced
     by OrderedDicts and sorted according to the given hints
     """
-    dest = list()
+    dest: List[Any] = list()
 
     for item in source:
         if isinstance(item, dict):
@@ -124,16 +133,7 @@ def ordered_list_copy(source, sort_hints, path=""):
     return dest
 
 
-def dump_anydict_as_map(anydict):
-    """helper to make the yaml library treat OrderedDicts like mappings"""
-    # directly from https://stackoverflow.com/a/8661021
-    def _represent_dictorder(self, data):
-        return self.represent_mapping("tag:yaml.org,2002:map", data.items())
-
-    yaml.add_representer(anydict, _represent_dictorder)
-
-
-def main():
+def main() -> int:
     """
     read yaml from stdin, sort it accordingly, write it to stdout
     return a value suitable for sys.exit
@@ -153,11 +153,10 @@ def main():
     else:
         input_file = sys.stdin
 
-    dump_anydict_as_map(collections.OrderedDict)
-
-    yml = yaml.safe_load(input_file, Loader=Loader)
-    sorted_yml = ordered_dict_copy(yml, compile_hints(PATH_SORT_HINTS))
-    print(yaml.safe_dump(sorted_yml, Dumper=Dumper))
+    yaml = YAML()
+    composition = yaml.load(input_file)
+    sorted_composition = ordered_dict_copy(composition, compile_hints(PATH_SORT_HINTS))
+    yaml.dump(sorted_composition, sys.stdout)
 
     return 0
 
