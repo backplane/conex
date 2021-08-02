@@ -13,6 +13,8 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
   ORG: backplane
+  PSUM_LABEL: be.backplane.image.context_psum
+  PLATFORMS_OVERRIDE: .build_platforms.txt
 
 jobs:
   build-push:
@@ -78,34 +80,41 @@ jobs:
     - name: Load Custom Data
       id: cdata
       run: |
+        #!/bin/sh
         set -ex
 
+        # ensure the required environment variables are set
+        ${REGISTRY:?} # this is used in subsequent steps
+        ${ORG:?}
+        ${PSUM_LABEL:?}
+        ${PLATFORMS_OVERRIDE:?}
+
+        # helper functions
         output() {
           printf '::set-output name=%s::%s\n' "$1" "$2"
         }
 
-        # perishable checksum
+        # calculate perishable checksum
         psum="$(.helpers/context_psum.py "${{ matrix.container }}")"
 
-        # see if perishable checksum matches the sum already on github
-        published_psum="$(.helpers/hub_manifest.py --keypath config/Labels/be.backplane.image.context_psum "$ORG/${{ matrix.container }}" || true)"
-        if [ "$psum" = "$published_psum" ]; then
+        # determine if that perishable checksum matches the one already on docker hub; if so, skip the build
+        skipbuild=0
+        hub_psum="$(.helpers/hub_manifest.py --keypath "config/Labels/${PSUM_LABEL}" "${ORG}/${{ matrix.container }}" || true)"
+        if [ "$psum" = "$hub_psum" ]; then
           skipbuild=1
-        else
-          skipbuild=0
         fi
 
-        # .platforms.txt override
-        platforms_file="${{ matrix.container }}/.build_platforms.txt"
+        # platforms
         platforms="linux/amd64,linux/arm64,linux/arm/v7"
-        if [ -f "$platforms_file" ]; then
-          platforms="$(cat "$platforms_file")"
+        override="${{ matrix.container }}/${PLATFORMS_OVERRIDE}"
+        if [ -f "$override" ]; then
+          platforms="$(cat "$override")"
         fi
 
+        # output the outputs
         output "psum" "$psum"
         output "skipbuild" "$skipbuild"
         output "platforms" "$platforms"
-
 
     - name: Set up QEMU
       if: ${{ steps.cdata.outputs.skipbuild != '1' }}
@@ -145,5 +154,5 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: |
           ${{ steps.meta.outputs.labels }}
-          be.backplane.image.context_psum=${{ steps.cdata.outputs.psum }}
+          ${{ env.PSUM_LABEL }}=${{ steps.cdata.outputs.psum }}
         platforms: ${{ steps.cdata.outputs.platforms }}
