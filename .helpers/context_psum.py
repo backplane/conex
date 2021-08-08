@@ -168,7 +168,7 @@ def main() -> int:
         "-p",
         "--perishability",
         choices=PERISHABILITY_MAP,
-        default=DAY,
+        default=WEEK,
         help="the maximum amount of time a perishable sum could last",
     )
 
