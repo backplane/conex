@@ -31,6 +31,7 @@ jobs:
         - adb
         - apg
         - audiosprite
+        - aws-cli
         - bind
         - black
         - blampy
