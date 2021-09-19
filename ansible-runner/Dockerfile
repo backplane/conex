@@ -24,4 +24,4 @@ RUN set -ex; \
 USER nonroot
 WORKDIR /work
 
-ENTRYPOINT /usr/local/bin/ansible-runner
+ENTRYPOINT ["/usr/local/bin/ansible-runner"]
