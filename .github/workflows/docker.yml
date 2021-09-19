@@ -29,6 +29,7 @@ jobs:
         - 7z
         - abe
         - adb
+        - ansible-runner
         - apg
         - audiosprite
         - aws-cli
