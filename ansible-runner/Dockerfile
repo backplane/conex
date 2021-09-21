@@ -9,6 +9,7 @@ RUN set -ex; \
     openssh-client \
   ; \
   apk add --virtual build-dependencies \
+    cargo \
     gcc \
     libffi-dev \
     musl-dev \
@@ -19,6 +20,7 @@ RUN set -ex; \
   pip cache purge; \
   apk del build-dependencies; \
   rm -rf \
+    /tmp/* \
     /var/cache/apk \
     ~/.cache \
   ;
