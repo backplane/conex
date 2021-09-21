@@ -1,6 +1,6 @@
 # ansible-runner
 
-[`python:3-alpine`](https://hub.docker.com/_/alpine/)-based dockerization of [ansible-runner](https://ansible-runner.readthedocs.io).
+[`alpine:3`](https://hub.docker.com/_/alpine/)-based dockerization of [ansible-runner](https://ansible-runner.readthedocs.io) (and ansible itself)
 
 
 As the site says:
