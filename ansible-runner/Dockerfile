@@ -1,31 +1,21 @@
-FROM python:3-alpine
+FROM alpine:3
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 COPY ["requirements.txt", "/"]
 
 RUN set -ex; \
   apk add --update-cache \
-    libffi \
+    ansible \
     openssh-client \
-    py3-cryptography \
-  ; \
-  apk add --virtual build-dependencies \
-    gcc \
-    libffi-dev \
-    musl-dev \
-    python3-dev \
+    py3-pip \
   ; \
   pip install -r requirements.txt; \
   pip cache purge; \
-  apk del build-dependencies; \
   rm -rf \
     /tmp/* \
     /var/cache/apk \
     ~/.cache \
   ;
-  # this reduces the image size but makes container startup slow
-  #find / -name '__pycache__' -print0 \
-  #  | xargs -0 rm -rf --
 
 ARG NONROOT_GID=20000
 ARG NONROOT_UID=20000
