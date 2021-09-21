@@ -7,14 +7,13 @@ RUN set -ex; \
   apk add --update-cache \
     libffi \
     openssh-client \
+    py3-cryptography \
   ; \
   apk add --virtual build-dependencies \
-    cargo \
     gcc \
     libffi-dev \
     musl-dev \
     python3-dev \
-    rust \ 
   ; \
   pip install -r requirements.txt; \
   pip cache purge; \
