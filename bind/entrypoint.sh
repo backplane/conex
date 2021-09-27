@@ -48,12 +48,12 @@ main() {
         ;;
 
       --)
+        shift || true
         break
         ;;
 
       *)
-        # unknown arg, put it back in the positional params & break
-        set -- "$arg" "$@"
+        # unknown arg, leave it in the positional params
         break
         ;;
     esac
