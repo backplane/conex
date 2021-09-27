@@ -67,6 +67,7 @@ main() {
         ;;
 
       --)
+        shift || true
         break
         ;;
 
