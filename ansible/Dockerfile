@@ -1,7 +1,7 @@
 FROM alpine:3
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-COPY ["requirements.txt", "/"]
+COPY ["requirements.txt", "entrypoint.sh", "/"]
 
 RUN set -ex; \
   apk add --update-cache \
@@ -34,4 +34,4 @@ RUN set -ex; \
 USER nonroot
 WORKDIR /work
 
-ENTRYPOINT ["/usr/bin/ansible-runner"]
+ENTRYPOINT ["/entrypoint.sh"]
