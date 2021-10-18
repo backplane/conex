@@ -54,6 +54,7 @@ jobs:
         - json-server
         - kp1p
         - lxde
+        - minidlna
         - mssql-cli
         - mssql-scripter
         - myip
