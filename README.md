@@ -12,6 +12,8 @@ The name "conex" is a reference to the [Conex box](https://en.wikipedia.org/wiki
 
 I aspire to the following guidelines when packaging things _for this repo_ with production and/or critical software, some additional steps like version-pinning and health checks are highly recommended.
 
+**NOTE!** *I am in the process of updating some of these guidelines.*
+
 * `Dockerfile` instructions (e.g.; `FROM`, `RUN`, `COPY`, `ENTRYPOINT`) should be in UPPERCASE letters.
 * For the `FROM` instruction:
 	* Use `scratch` if possible
