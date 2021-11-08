@@ -5,13 +5,14 @@ RUN apk add --no-cache \
     bash \
     git \
     npm \
-  && true
+    python3 \
+  ;
 
 RUN npm install --global \
     '@vue/cli' \
     'vue@next' \
     'yarn' \
-  && true
+  ;
 
 RUN adduser -D -h /work vue
 USER vue
