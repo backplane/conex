@@ -1,4 +1,5 @@
-FROM alpine:edge
+ARG ALPINE=3.14
+FROM alpine:$ALPINE
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN apk add --no-cache \
