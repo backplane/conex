@@ -7,7 +7,7 @@ RUN apk add --no-cache \
 
 WORKDIR /build
 
-ARG GHLATEST_VERSION="0.1.4"
+ARG GHLATEST_VERSION="0.1.5"
 RUN set -ex \
   && curl \
     --location \
