@@ -37,6 +37,7 @@ jobs:
         - black
         - blampy
         - bpython
+        - cdk
         - chardet
         - checkmake
         - chrome
@@ -74,6 +75,7 @@ jobs:
         - wimlib-imagex
         - wireguard
         - wpa_passphrase
+        - yamllint
         - youtube-dl
     steps:
 
