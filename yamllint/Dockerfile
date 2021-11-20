@@ -1,8 +1,9 @@
-FROM python:3.10-alpine
+FROM python:3-alpine
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
-  pip install yamllint;
+  pip install yamllint; \
+  pip cache purge;
 
 ARG NONROOT_UID=1000 NONROOT_GID=1000
 

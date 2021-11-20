@@ -1,6 +1,6 @@
 # yamllint
 
-[`python:3.10-alpine`](https://hub.docker.com/_/python/)-based dockerization of [yamllint](https://yamllint.readthedocs.io/en/stable/index.html), the linter for YAML files.
+[`python:3-alpine`](https://hub.docker.com/_/python/)-based dockerization of [yamllint](https://yamllint.readthedocs.io/en/stable/index.html), the linter for YAML files.
 
 As the site says:
 
