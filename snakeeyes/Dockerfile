@@ -1,5 +1,7 @@
 FROM backplane/ghlatest as dl
-RUN /ghlatest dl glvnst/snakeeyes -f linux_amd64
+COPY arch.sh /arch.sh
+RUN set -eux; \
+  /ghlatest dl glvnst/snakeeyes -f "linux_$(/arch.sh)"
 RUN tar -xvzf snakeeyes_*_linux_amd64.tar.gz
 
 FROM scratch
