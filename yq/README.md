@@ -1,0 +1,27 @@
+# yq
+
+[`scratch`](https://hub.docker.com/_/scratch/)-based dockerization of [yq](https://mikefarah.github.io/yq/), the command-line YAML processor.
+
+As the site says:
+
+> yq uses `jq` like syntax but works with yaml files as well as json
+
+## Usage
+
+### Interactive
+
+The following shell function can assist in running this image interactively:
+
+```sh
+
+yq() {
+  docker run \
+    --rm \
+    --interactive \
+    --tty \
+    --volume "$(pwd):/work" \
+    "backplane/yq" \
+    "$@"
+}
+
+```
