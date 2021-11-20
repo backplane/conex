@@ -1,6 +1,7 @@
 FROM backplane/ghlatest as getter
 
-RUN /ghlatest dl -f "linux_$(/arch.sh)$" -o /yq mikefarah/yq
+RUN set -eux; \
+  /ghlatest dl -f "linux_$(/arch.sh)$" -o /yq mikefarah/yq
 
 FROM scratch
 COPY --from=getter /yq /
