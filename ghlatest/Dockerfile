@@ -7,23 +7,13 @@ RUN apk add --no-cache \
 
 WORKDIR /build
 
-ARG GHLATEST_VERSION="0.1.5"
-RUN set -ex \
-  && curl \
-    --location \
-    --show-error \
-    --silent \
-    --ssl-reqd \
-    --tlsv1.2 \
-    --output "archive.tgz" \
-    "https://github.com/glvnst/ghlatest/releases/download/v${GHLATEST_VERSION}/ghlatest_${GHLATEST_VERSION}_linux_amd64.tar.gz" \
-  && tar -xvzf "archive.tgz" \
-  && find .
+COPY arch.sh downloader.sh .
+RUN ./downloader.sh
 
 FROM busybox:latest
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-COPY --from=builder /build/ghlatest /
+COPY --from=builder /build/ghlatest /build/arch.sh /
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
 WORKDIR /work
