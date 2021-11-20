@@ -12,6 +12,9 @@ case "$ARCH" in
   aarch64)
     ARCH="arm64"
     ;;
+  armv7l)
+    ARCH="armv7"
+    ;;
 esac
 printf '%s\n' "$ARCH"
 exit 0
