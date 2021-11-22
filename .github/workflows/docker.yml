@@ -19,7 +19,10 @@ env:
   REGISTRY: docker.io
   ORG: backplane
   PSUM_LABEL: be.backplane.image.context_psum
+  PLATFORMS: linux/amd64,linux/arm64,linux/arm/v7
+  LICENSES: Various Open Source
   PLATFORMS_OVERRIDE: .build_platforms.txt
+  LICENSES_OVERRIDE: LICENSES.txt
 
 jobs:
   build-push:
@@ -84,9 +87,11 @@ jobs:
           - youtube-dl
           - yq
     steps:
+      # https://github.com/actions/checkout
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # some customer outputs for use later in the file
       - name: Load Custom Data
         id: cdata
         run: |
@@ -99,45 +104,23 @@ jobs:
           : "${PSUM_LABEL:?}"
           : "${PLATFORMS_OVERRIDE:?}"
 
-          # helper functions
-          output() {
-            printf '::set-output name=%s::%s\n' "$1" "$2"
-          }
+          # generate some useful outputs
+          .helpers/cdata.py \
+            --forcebuild '${{ inputs.force_build }}' \
+            --repo "${ORG}/${{ matrix.container }}" \
+            '${{ matrix.container }}'
 
-          # calculate perishable checksum
-          psum="$(.helpers/context_psum.py '${{ matrix.container }}')"
-
-          # if we're not forcing the build, we check if we can skip it
-          skipbuild=0
-          if python -c 'import sys; sys.exit(0 if """${{ matrix.container }}""" not in """${{ inputs.force_build }}""".split(",") else 1)'; then
-            # we're checking if we can skip the build here;
-            # does the calculated psum match the psum label on the image already on github? if so, skip it
-            hub_psum="$(.helpers/hub_manifest.py --keypath "config/Labels/${PSUM_LABEL}" "${ORG}/${{ matrix.container }}" || true)"
-            if [ "$psum" = "$hub_psum" ]; then
-              skipbuild=1
-            fi
-          fi
-
-          # platforms
-          platforms="linux/amd64,linux/arm64,linux/arm/v7"
-          override="${{ matrix.container }}/${PLATFORMS_OVERRIDE}"
-          if [ -f "$override" ]; then
-            platforms="$(cat "$override")"
-          fi
-
-          # output the outputs
-          output "psum" "$psum"
-          output "skipbuild" "$skipbuild"
-          output "platforms" "$platforms"
-
+      # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
         uses: docker/setup-qemu-action@v1
 
+      # https://github.com/docker/setup-buildx-action
       - name: Set up Docker Buildx
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
         uses: docker/setup-buildx-action@v1
 
+      # https://github.com/docker/login-action
       - name: Login to Docker Hub
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
         uses: docker/login-action@v1
@@ -146,6 +129,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
+      # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
         id: meta
@@ -156,6 +140,10 @@ jobs:
             type=raw,value=latest
           flavor: |
             latest=false
+          labels: |
+            org.opencontainers.image.title=${{ matrix.container }}
+            org.opencontainers.image.source=https://github.com/backplane/conex/${{ matrix.container }}
+            org.opencontainers.image.licenses=${{ steps.cdata.outputs.licenses }}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
