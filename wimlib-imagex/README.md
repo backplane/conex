@@ -18,14 +18,6 @@ RUN apk add --no-cache bash
 ENTRYPOINT [ "/usr/bin/mkwinpeimg" ]
 ```
 
-## Stability
-
-This dockerization is based on the `HEAD` of the wimlib git repo. It is common practice for developers to check build-breaking code into git repos as they develop their software -- I am not sure if this is the case for wimlib because I haven't checked. If you want to depend on this container image you should fork it and...:
-
-* use a fixed version of alpine (instead of edge)
-* checkout a version tag after the `git clone`
-* OR download and extract the latest source code release from <https://wimlib.net/>, in this case you may not need the autotools which are retrieved in the build stage
-
 ## Usage
 
 ```

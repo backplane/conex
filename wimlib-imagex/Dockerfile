@@ -1,6 +1,7 @@
 FROM alpine:3.13 as builder
 
-ARG TAG="v1.13.3"
+# for updates, see: https://wimlib.net/downloads/index.html
+ARG TAG="v1.13.4"
 
 RUN set -x \
   && apk add --no-cache \
