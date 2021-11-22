@@ -90,6 +90,28 @@ def manifest_for_repo(repo, tag):
     return blob
 
 
+def manifest_for_repotag(
+    repotag: str,
+    keypath: Optional[str] = None,
+    keypath_delimiter: str = "/",
+) -> Any:
+    """
+    returns the manifest for the corresponding Docker repotag ([namespace/]repository[:tag])
+    """
+    if ":" in repotag:
+        repo, tag = repotag.split(":", 1)
+    else:
+        repo, tag = repotag, "latest"
+    if "/" not in repo:
+        repo = f"library/{repo}"
+
+    manifest = manifest_for_repo(repo, tag)
+    if not keypath:
+        return manifest
+
+    return get_keypath(manifest, keypath, keypath_delimiter)
+
+
 def main():
     """entrypoint for command-line execution"""
     argp = argparse.ArgumentParser(
@@ -108,16 +130,8 @@ def main():
     )
     args = argp.parse_args()
 
-    for repo_tag in args.repotag:
-        repo_tag: str
-        if ":" in repo_tag:
-            repo, tag = repo_tag.split(":", 1)
-        else:
-            repo, tag = repo_tag, "latest"
-        if "/" not in repo:
-            repo = "library/" + repo
-
-        manifest = manifest_for_repo(repo, tag)
+    for repotag in args.repotag:
+        manifest = manifest_for_repotag(repotag)
         if args.keypath:
             pretty_print(get_keypath(manifest, args.keypath, delimiter="/"))
         else:
