@@ -6,7 +6,7 @@ import hashlib
 import os
 import pathlib
 import sys
-from typing import Any, Dict, Final, List, Set, Union
+from typing import Any, Dict, Final, List, Optional, Set, Union
 
 DOCKERIGNORE_FILENAME: Final = ".dockerignore"
 
@@ -127,6 +127,23 @@ def build_context_checksum(
     return hasher.hexdigest()
 
 
+def context_psum(
+    context_dir: pathlib.Path,
+    perishability: str = WEEK,
+    dockerfile_name: str = "Dockerfile",
+    exclude_dockerfile: bool = False,
+    dt: Optional[datetime.datetime] = None,
+) -> str:
+    """
+    returns the perishable checksum for the given container build context directory
+    """
+    checksum = build_context_checksum(context_dir, dockerfile_name, exclude_dockerfile)
+    if not dt:
+        dt = datetime.datetime.utcnow()
+    insert = dt.strftime(PERISHABILITY_MAP[perishability])
+    return hashlib.sha256(f"{checksum}: {insert}".encode("utf-8")).hexdigest()
+
+
 def main() -> int:
     """
     entrypoint for direct execution; print the perishable checksum for the given container build context
@@ -173,14 +190,13 @@ def main() -> int:
     )
 
     args = argp.parse_args()
-    checksum = build_context_checksum(
+    perishable_sum = context_psum(
         args.contextdir,
+        args.perishability,
         args.dockerfile,
         args.exclude_dockerfile,
+        args.datetime,
     )
-    now = args.datetime if args.datetime else datetime.datetime.utcnow()
-    insert = now.strftime(PERISHABILITY_MAP[args.perishability])
-    perishable_sum = hashlib.sha256(f"{checksum}: {insert}".encode("utf-8")).hexdigest()
     print(perishable_sum)
 
     return 0
