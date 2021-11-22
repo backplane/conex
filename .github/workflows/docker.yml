@@ -108,7 +108,7 @@ jobs:
 
           # if we're not forcing the build, we check if we can skip it
           skipbuild=0
-          if python -c 'import sys; sys.exit(0 if """${{ matrix.container }}""" not in """${{ inputs.force_build }}""".split(',') else 1)'; then
+          if python -c 'import sys; sys.exit(0 if """${{ matrix.container }}""" not in """${{ inputs.force_build }}""".split(",") else 1)'; then
             # we're checking if we can skip the build here;
             # does the calculated psum match the psum label on the image already on github? if so, skip it
             hub_psum="$(.helpers/hub_manifest.py --keypath "config/Labels/${PSUM_LABEL}" "${ORG}/${{ matrix.container }}" || true)"
