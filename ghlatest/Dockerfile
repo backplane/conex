@@ -16,6 +16,10 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 COPY --from=builder /build/ghlatest /build/arch.sh /
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
+RUN set -eux; \
+  ln -s /ghlatest /bin/; \
+  ln -s /arch.sh /bin/;
+
 WORKDIR /work
 
 ENTRYPOINT ["/ghlatest"]
