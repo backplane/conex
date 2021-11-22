@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: 16 9 * * *
   workflow_dispatch:
+    force_build:
+      description: 'comma-separated list of container names which should be force-rebuilt'
+      default: ''
+      required: false
+      type: string
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -99,13 +104,17 @@ jobs:
           }
 
           # calculate perishable checksum
-          psum="$(.helpers/context_psum.py "${{ matrix.container }}")"
+          psum="$(.helpers/context_psum.py '${{ matrix.container }}')"
 
-          # determine if that perishable checksum matches the one already on docker hub; if so, skip the build
+          # if we're not forcing the build, we check if we can skip it
           skipbuild=0
-          hub_psum="$(.helpers/hub_manifest.py --keypath "config/Labels/${PSUM_LABEL}" "${ORG}/${{ matrix.container }}" || true)"
-          if [ "$psum" = "$hub_psum" ]; then
-            skipbuild=1
+          if python -c 'import sys; sys.exit(0 if """${{ matrix.container }}""" not in """${{ inputs.force_build }}""".split(',') else 1)'; then
+            # we're checking if we can skip the build here;
+            # does the calculated psum match the psum label on the image already on github? if so, skip it
+            hub_psum="$(.helpers/hub_manifest.py --keypath "config/Labels/${PSUM_LABEL}" "${ORG}/${{ matrix.container }}" || true)"
+            if [ "$psum" = "$hub_psum" ]; then
+              skipbuild=1
+            fi
           fi
 
           # platforms
