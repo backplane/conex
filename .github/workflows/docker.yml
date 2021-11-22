@@ -7,11 +7,12 @@ on:
   schedule:
     - cron: 16 9 * * *
   workflow_dispatch:
-    force_build:
-      description: 'comma-separated list of container names which should be force-rebuilt'
-      default: ''
-      required: false
-      type: string
+    inputs:
+      force_build:
+        description: 'comma-separated list of container names which should be force-rebuilt'
+        default: ''
+        required: false
+        type: string
 
 env:
   # Use docker.io for Docker Hub if empty
