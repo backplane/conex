@@ -89,6 +89,7 @@ def write_yaml(path: str, obj: Any, encoding: str = "utf-8"):
     write the given object to the given path in yaml format
     """
     yaml = YAML()
+    yaml.width = 1000
     yaml.indent(offset=2, mapping=2, sequence=4)
     with open(path, "wt", encoding=encoding) as yml_out:
         yaml.dump(obj, yml_out)
