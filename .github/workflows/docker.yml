@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       force_build:
-        description: 'comma-separated list of container names which should be force-rebuilt'
+        description: comma-separated list of container names which should be force-rebuilt
         default: ''
         required: false
         type: string
