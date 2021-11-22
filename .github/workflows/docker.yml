@@ -106,7 +106,7 @@ jobs:
 
           # generate some useful outputs
           .helpers/cdata.py \
-            --forcebuild '${{ inputs.force_build }}' \
+            --forcebuild '${{ github.event.inputs.force_build }}' \
             --repo "${ORG}/${{ matrix.container }}" \
             '${{ matrix.container }}'
 
