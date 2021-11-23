@@ -7,7 +7,7 @@ on:
     branches: ['main']
 
 jobs:
-  testrig:
+  yamllint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
