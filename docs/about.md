@@ -6,4 +6,6 @@ The image sources in this repo are automatically built at least once every 7 day
 
 The name "conex" is a reference to the [Conex box](https://en.wikipedia.org/wiki/Intermodal_container), the key component of [containerization (in freight transport)](https://en.wikipedia.org/wiki/Containerization). Docker's creators make frequent use of the shipping container metaphor because the way that Docker standardizes (and thereby improves) the packaging, auditing, delivery, isolation, and use of *software* is analogous to the way the shipping container standardized (and thereby revolutionized) the packaging, tracking, isolation, and delivery of *freight*.
 
+**We aspire to have these images follow our [Dockerization Guidelines](https://github.com/backplane/conex/wiki/Dockerization-Guidelines).**
+
 **LICENSE NOTE**: This repo contains code for installing and running 3rd party software packages in Docker containers. Unless otherwise noted the code in this repo is subject to the LICENSE file. The use of the generated images is subject to the terms of the respective software packages.
