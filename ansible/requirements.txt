@@ -1,1 +1,1 @@
-ansible-runner~=2.0.2
+ansible-runner~=2.1.1
