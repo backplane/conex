@@ -5,12 +5,11 @@ CONTEXTS := $(DOCKERFILES:/Dockerfile=)
 
 all: README.md .github/workflows/docker.yml
 
-README.md: */README.md docs/about.md docs/dockerization.md
+README.md: */README.md docs/about.md
 	@printf '==> %s\n' "$@"
 	.helpers/readme_generator.py \
 	  --dhuser "backplane" \
 	  --header docs/about.md \
-	  --header docs/dockerization.md \
 	  */README.md \
 	  >"$@"
 
