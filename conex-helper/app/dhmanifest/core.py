@@ -5,6 +5,7 @@ import json
 import sys
 import urllib.request as url
 from typing import Any, Dict, Final, List, Optional, Union
+from urllib.error import URLError
 
 LOGIN_URL: Final = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:{repository}:pull"
 MANIFEST_URL: Final = "https://registry.hub.docker.com/v2/{repository}/manifests/{tag}"
@@ -23,7 +24,11 @@ def get_json(request_url: str, headers: Optional[Dict[str, str]] = None) -> Any:
     for name, value in headers.items():
         req.add_header(name, value)
 
-    resp = url.urlopen(req)  # nosec - these urls are derived from the constants above
+    try:
+        resp = url.urlopen(req)  # nosec - url derived from the constants above
+    except URLError:
+        return None
+
     if resp.getcode() != 200:
         # fixme: this is not great. throw an exception, catch it
         pretty_print(resp)
@@ -105,7 +110,13 @@ def manifest_for_repotag(
         repo = f"library/{repo}"
 
     manifest = manifest_for_repo(repo, tag)
+    if not manifest:
+        return None
+
     if not keypath:
         return manifest
 
-    return get_keypath(manifest, keypath, keypath_delimiter)
+    try:
+        return get_keypath(manifest, keypath, keypath_delimiter)
+    except KeyError:
+        return None
