@@ -1,6 +1,6 @@
-# cdk
+# cdk-python
 
-[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [AWS CDK](https://aws.amazon.com/cdk/), the AWS Cloud Development Kit.
+[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [AWS CDK](https://aws.amazon.com/cdk/), the AWS Cloud Development Kit and Python.
 
 As the site says:
 
@@ -14,14 +14,14 @@ The following shell function can assist in running this image interactively:
 
 ```sh
 
-cdk() {
+cdk-python() {
   docker run \
     --rm \
     --interactive \
     --tty \
     --volume "awsconfig:/config" \
     --volume "$(pwd):/work" \
-    "backplane/cdk" \
+    "backplane/cdk-python" \
     "$@"
 }
 

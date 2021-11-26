@@ -2,34 +2,25 @@ FROM alpine:edge
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
-  apk add --no-cache \
-    g++ \
-    git \
-    musl-dev \
+  apk add --update-cache \
     nodejs \
     npm \
+    git \
     py3-pip \
     py3-yaml \
     python3 \
-    python3-dev \
-  ;
-
-RUN set -eux; \
-  npm install -g aws-cdk; 
-
-RUN set -eux; \
-  pip install \
-    bandit \
-    black \
-    bpython \
-    flake8 \
-    isort \
-    mypy \
-    pycodestyle \
-    pylint \
-    pytest \
   ; \
-  pip cache purge;
+  apk add --virtual build-dependencies \
+    g++ \
+    musl-dev \
+    python3-dev \
+  ; \
+  npm install -g aws-cdk; \
+  apk del build-dependencies; \
+  rm -rf \
+    /var/cache/apk/* \
+    ~/.cache \
+  ;
 
 ARG NONROOT_UID=1000 NONROOT_GID=1000
 
