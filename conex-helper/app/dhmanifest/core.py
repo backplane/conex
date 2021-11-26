@@ -52,6 +52,8 @@ def get_keypath(obj: Dict, keypath_str: str, delimiter: str = ".") -> Any:
     key: Union[str, int]
     for depth, key in enumerate(keypath):
         try:
+            if sub_obj is None:
+                raise KeyError()
             if isinstance(sub_obj, list):
                 key = int(key)
             sub_obj = sub_obj[key]
@@ -109,7 +111,11 @@ def manifest_for_repotag(
     if "/" not in repo:
         repo = f"library/{repo}"
 
-    manifest = manifest_for_repo(repo, tag)
+    try:
+        manifest = manifest_for_repo(repo, tag)
+    except KeyError:
+        return None
+
     if not manifest:
         return None
 
