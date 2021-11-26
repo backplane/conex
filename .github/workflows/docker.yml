@@ -106,7 +106,7 @@ jobs:
 
           # generate some outputs about the container being built
           docker pull -q backplane/conex-helper
-          docker run --rm -it --volume "$(pwd):/work" backplane/conex-helper \
+          docker run --rm --volume "$(pwd):/work" backplane/conex-helper \
             metadata \
               --forcedbuilds '${{ github.event.inputs.force_build }}' \
               '${{ matrix.container }}'
