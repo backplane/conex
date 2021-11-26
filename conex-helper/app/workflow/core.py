@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """ helper for updating the github action with the current list of subdirectories """
-import argparse
 import pathlib
-import sys
 from typing import Any, Dict, Final, List, Union
 
 from ruamel.yaml import YAML
@@ -89,7 +87,7 @@ def write_yaml(path: str, obj: Any, encoding: str = "utf-8"):
     write the given object to the given path in yaml format
     """
     yaml = YAML()
-    yaml.width = 1000
+    yaml.width = 1000  # type: ignore
     yaml.indent(offset=2, mapping=2, sequence=4)
     with open(path, "wt", encoding=encoding) as yml_out:
         yaml.dump(obj, yml_out)
@@ -102,45 +100,3 @@ def update_action(path: str, projects: List[str]):
     action = read_yaml(path)
     set_keypath(action, CONTAINER_KEYPATH, projects)
     write_yaml(path, action)
-
-
-def main() -> int:
-    """
-    entrypoint for direct execution; returns an int suitable for use by sys.exit
-    """
-    argp = argparse.ArgumentParser(
-        description="helper for updating the github action with the current list of subdirectories",
-        formatter_class=argparse.HelpFormatter,
-    )
-    argp.add_argument(
-        "actionfile",
-        type=str,
-        help="the path to the action file to update (in-place)",
-    )
-    argp.add_argument(
-        "--basedir",
-        type=str,
-        default=".",
-        help="the path the repo base",
-    )
-    argp.add_argument(
-        "-l",
-        "--list",
-        action="store_true",
-        help="don't make any changes; instead print the container list from the current action file",
-    )
-
-    args = argp.parse_args()
-
-    if args.list:
-        action = read_yaml(args.actionfile)
-        print("\n".join(get_keypath(action, CONTAINER_KEYPATH)))
-        return 0
-
-    update_action(args.actionfile, build_contexts(args.basedir))
-
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

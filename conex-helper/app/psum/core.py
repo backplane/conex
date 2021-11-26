@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 """ calculates a perishable checksum for a docker build context """
-import argparse
 import datetime
 import hashlib
 import os
 import pathlib
-import sys
 from typing import Any, Dict, Final, List, Optional, Set, Union
 
 DOCKERIGNORE_FILENAME: Final = ".dockerignore"
@@ -142,65 +140,3 @@ def context_psum(
         dt = datetime.datetime.utcnow()
     insert = dt.strftime(PERISHABILITY_MAP[perishability])
     return hashlib.sha256(f"{checksum}: {insert}".encode("utf-8")).hexdigest()
-
-
-def main() -> int:
-    """
-    entrypoint for direct execution; print the perishable checksum for the given container build context
-    returns an integer suitable for use with sys.exit
-    """
-    argp = argparse.ArgumentParser(
-        description=(
-            "utility for calculating a perishable checksum for a docker build "
-            "context. 'perishable' means that part of the current UTC date is "
-            "included in the checksummed data. this is useful for tagging "
-            "container images, this way a container image can be rebuilt "
-            "whenever the build context changes OR when the UTC week number "
-            "(for example) changes."
-        ),
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    argp.add_argument(
-        "contextdir",
-        type=pathlib.Path,
-        help="docker build context (a directory) to calcualte the checksum for",
-    )
-    argp.add_argument(
-        "--datetime",
-        type=parse_isoformat,
-        help="override the current date/time with the given datetime.fromisoformat()-style string",
-    )
-    argp.add_argument(
-        "--dockerfile",
-        type=str,
-        default="Dockerfile",
-        help="set the name of the Dockerfile",
-    )
-    argp.add_argument(
-        "--exclude-dockerfile",
-        action="store_true",
-        help="exclude the Dockerfile from the context checksum",
-    )
-    argp.add_argument(
-        "-p",
-        "--perishability",
-        choices=PERISHABILITY_MAP,
-        default=WEEK,
-        help="the maximum amount of time a perishable sum could last",
-    )
-
-    args = argp.parse_args()
-    perishable_sum = context_psum(
-        args.contextdir,
-        args.perishability,
-        args.dockerfile,
-        args.exclude_dockerfile,
-        args.datetime,
-    )
-    print(perishable_sum)
-
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

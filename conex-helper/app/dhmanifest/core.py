@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ a tool for getting manifests from docker hub """
 # forked from https://github.com/TomasTomecek/download-manifest-from-dockerhub
-import argparse
 import json
 import sys
 import urllib.request as url
@@ -12,7 +11,7 @@ MANIFEST_URL: Final = "https://registry.hub.docker.com/v2/{repository}/manifests
 BLOB_URL: Final = "https://registry.hub.docker.com/v2/{repository}/blobs/{digest}"
 
 
-def get_json(request_url: str, headers: Optional[Dict[str, str]] = None):
+def get_json(request_url: str, headers: Optional[Dict[str, str]] = None) -> Any:
     """requests a JSON document from the given URL with the given headers"""
     if headers is None:
         headers = dict()
@@ -33,7 +32,7 @@ def get_json(request_url: str, headers: Optional[Dict[str, str]] = None):
     return json.loads(resp.read())
 
 
-def pretty_print(obj: Any):
+def pretty_print(obj: Any) -> None:
     """prints the given object in human-readable json format"""
     if isinstance(obj, str):
         print(obj)
@@ -59,7 +58,7 @@ def get_keypath(obj: Dict, keypath_str: str, delimiter: str = ".") -> Any:
     return sub_obj
 
 
-def manifest_for_repo(repo, tag):
+def manifest_for_repo(repo, tag) -> Any:
     """
     returns the manifest for the corresponding Docker Hub repo and tag
     repo: string, repository (e.g. 'library/fedora')
@@ -110,35 +109,3 @@ def manifest_for_repotag(
         return manifest
 
     return get_keypath(manifest, keypath, keypath_delimiter)
-
-
-def main():
-    """entrypoint for command-line execution"""
-    argp = argparse.ArgumentParser(
-        description="A tool for getting manifests from docker hub"
-    )
-    argp.add_argument(
-        "repotag",
-        nargs="+",
-        type=str,
-        help="<[namespace/]repository[:tag]> - the repo and tag of the desired manifest",
-    )
-    argp.add_argument(
-        "--keypath",
-        type=str,
-        help="retrieve only the given '/'-delimited keypath from the manifest document",
-    )
-    args = argp.parse_args()
-
-    for repotag in args.repotag:
-        manifest = manifest_for_repotag(repotag)
-        if args.keypath:
-            pretty_print(get_keypath(manifest, args.keypath, delimiter="/"))
-        else:
-            pretty_print(manifest)
-
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
