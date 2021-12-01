@@ -1,7 +1,7 @@
 FROM alpine:edge
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-RUN set -eux \
+RUN set -eux; \
   apk add --update-cache \
     py3-pip \
     python3 \
