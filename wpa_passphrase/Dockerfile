@@ -11,5 +11,6 @@ COPY --from=builder /lib/ld-musl-*.so.1 /lib/libcrypto.so.* /lib/
 COPY --from=builder /sbin/wpa_passphrase /sbin/
 
 WORKDIR /work
+USER 65532
 
 ENTRYPOINT [ "/sbin/wpa_passphrase" ]

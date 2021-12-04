@@ -9,13 +9,14 @@ RUN apk add --no-cache \
     make \
     nano \
     vim \
-  && true
+  ;
 
 RUN set -eux \
   && adduser \
     -h "/home/user" \
     -s "/bin/bash" \
-    -u "1111" \
+    # nonroot
+    -u "65532" \
     -D \
     user
 USER user

@@ -58,7 +58,7 @@ RUN set -eux \
     --no-user-group \
     --groups sudo,adm \
     --shell "/bin/bash" \
-    --uid "1111" \
+    --uid "65532" \
     user \
   && passwd \
     --delete \

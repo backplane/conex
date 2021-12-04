@@ -11,12 +11,12 @@ RUN adduser \
   -h /work \
   -s /bin/sh \
   -D \
-  -u 1000 \
-  user
+  -u 65532 \
+  nonroot
 
 COPY ["entrypoint.sh", "/"]
 
-USER user
+USER nonroot
 
 WORKDIR /work
 ENTRYPOINT ["/entrypoint.sh"]

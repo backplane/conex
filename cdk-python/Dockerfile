@@ -22,7 +22,7 @@ RUN set -eux; \
     ~/.cache \
   ;
 
-ARG NONROOT_UID=1000 NONROOT_GID=1000
+ARG NONROOT_UID=65532 NONROOT_GID=65532
 
 RUN set -eux; \
   addgroup -g "$NONROOT_GID" nonroot; \

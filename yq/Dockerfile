@@ -8,5 +8,5 @@ RUN set -eux; \
 FROM scratch
 COPY --from=getter /yq /
 WORKDIR /work
-USER 1000
+USER 65532 # nonroot
 ENTRYPOINT ["/yq"]

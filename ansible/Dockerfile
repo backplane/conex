@@ -17,8 +17,8 @@ RUN set -ex; \
     ~/.cache \
   ;
 
-ARG NONROOT_GID=20000
-ARG NONROOT_UID=20000
+ARG NONROOT_GID=65532
+ARG NONROOT_UID=65532
 RUN set -ex; \
   addgroup \
     -g ${NONROOT_GID} \

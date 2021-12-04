@@ -4,8 +4,8 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 RUN apk add --no-cache aws-cli
 COPY [ "entrypoint.sh", "/" ]
 
-ARG NONROOT_GID=10001
-ARG NONROOT_UID=10001
+ARG NONROOT_GID=65532
+ARG NONROOT_UID=65532
 RUN set -ex \
   && addgroup \
     -g ${NONROOT_GID} \
