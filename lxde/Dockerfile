@@ -52,6 +52,7 @@ RUN set -x \
 
 RUN set -eux \
   && useradd \
+    --no-log-init \
     --base-dir / \
     --home-dir "/work" \
     --create-home \

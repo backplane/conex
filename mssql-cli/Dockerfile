@@ -38,7 +38,7 @@ RUN set -eux; \
 # Add non-privileged user
 RUN set -eux; \
   groupadd -g 65532 nonroot; \
-  useradd -u 65532 -g nonroot nonroot; \
+  useradd --no-log-init -u 65532 -g nonroot nonroot; \
   mkdir -p /home/nonroot /work; \
   chown -R nonroot:nonroot /home/nonroot /work;
 

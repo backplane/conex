@@ -45,7 +45,7 @@ RUN printf '%s\n' \
 # Add non-privileged user
 RUN set -x \
   && groupadd -r user \
-  && useradd -r -g user -G audio,video user \
+  && useradd --no-log-init -r -g user -G audio,video user \
   && mkdir -p /home/user/Downloads \
   && chown -R user:user /home/user
 
