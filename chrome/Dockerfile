@@ -1,6 +1,5 @@
 FROM debian:unstable-slim
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
-LABEL upstream="<https://github.com/jessfraz/dockerfiles/tree/master/chrome/stable>"
 
 COPY ["arch.sh", "/bin/"]
 
