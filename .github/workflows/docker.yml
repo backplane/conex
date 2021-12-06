@@ -49,6 +49,7 @@ jobs:
           - chardet
           - checkmake
           - chrome
+          - chromium
           - compose_sort
           - conex-helper
           - firefox
