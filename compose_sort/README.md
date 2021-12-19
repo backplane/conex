@@ -20,7 +20,13 @@ optional arguments:
 
 ### Interactive
 
-The following shell function can assist in running this image interactively:
+The following one-liner invocation can be used to quickly print a sorted resolved version of a docker composition:
+
+```sh
+docker-compose config --resolve-image-digests | docker run --rm -i backplane/compose_sort
+```
+
+The following shell function can also assist in running this image interactively:
 
 ```sh
 
