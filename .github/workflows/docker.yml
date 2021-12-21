@@ -37,6 +37,7 @@ jobs:
           - 7z
           - abe
           - adb
+          - amplify-vueenv
           - ansible
           - apg
           - audiosprite
