@@ -1,4 +1,4 @@
-ARG ALPINE=3.14
+ARG ALPINE=3.15
 FROM alpine:$ALPINE
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
