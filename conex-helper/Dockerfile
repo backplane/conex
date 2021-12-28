@@ -4,8 +4,14 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 COPY requirements.txt /
 
 RUN set -eux; \
+  apk add --no-cache --virtual build-dependencies \
+    gcc \
+    musl-dev \
+  ; \
+  pip install --upgrade pip; \
   pip install -r /requirements.txt; \
-  pip cache purge;
+  pip cache purge; \
+  apk del build-dependencies;
 
 COPY app /app/
 
