@@ -1,0 +1,17 @@
+global
+    pidfile    /haproxy.pid
+    maxconn    1000
+    # turn on stats unix socket
+    #stats socket /var/lib/haproxy/stats
+
+defaults
+    mode               tcp
+    log                global
+    option             dontlognull
+    retries            3
+    timeout queue      1m
+    timeout connect    10s
+    timeout client     1m
+    timeout server     1m
+    timeout check      10s
+    maxconn            3000

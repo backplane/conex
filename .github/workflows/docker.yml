@@ -73,6 +73,7 @@ jobs:
           - mypy
           - ods_conv
           - pdf
+          - proxyport
           - pwgen
           - pycodestyle
           - pygmentize
