@@ -93,7 +93,7 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # some customer outputs for use later in the file
       - name: Load Custom Data
