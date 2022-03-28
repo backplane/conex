@@ -25,6 +25,6 @@ ENV PATH="/home/user/go/bin:$PATH"
 
 # https://staticcheck.io/docs
 RUN set -eux \
-  && go get -u honnef.co/go/tools/cmd/staticcheck@latest
+  && go install honnef.co/go/tools/cmd/staticcheck@latest
 
 WORKDIR /home/user/go/src/local
