@@ -6,16 +6,18 @@ COPY [ "entrypoint.sh", "/" ]
 
 ARG NONROOT_GID=65532
 ARG NONROOT_UID=65532
-RUN set -ex \
-  && addgroup \
-    -g ${NONROOT_GID} \
+RUN set -eux; \
+  addgroup \
+    -g "${NONROOT_GID}" \
     nonroot \
-  && adduser \
+  ; \
+  adduser \
     -h /work \
-    -u ${NONROOT_UID} \
+    -u "${NONROOT_UID}" \
     -G nonroot \
     -D \
-    nonroot
+    nonroot \
+  ;
 USER nonroot
 WORKDIR /work
 
