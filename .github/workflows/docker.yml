@@ -137,7 +137,7 @@ jobs:
       - name: Extract Docker metadata
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.container }}
           tags: |
