@@ -1,20 +1,27 @@
 FROM alpine:edge
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-RUN apk add --no-cache \
-    py3-pip \
-    python3 \
-    yaml \
-  && find / -name '__pycache__' -type d -print0 | xargs -0 rm -rf --
-
 COPY [ "requirements.txt", "/" ]
 
-RUN pip3 install \
-    -r /requirements.txt \
-  && find / -name '__pycache__' -type d -print0 | xargs -0 rm -rf --
+RUN set -eux; \
+  apk add --update-cache \
+    py3-pip \
+    python3 \
+  ; \
+  apk add --virtual build-dependencies \
+    gcc \
+    musl-dev \
+    python3-dev \
+  ; \
+  pip3 install -r requirements.txt; \
+  pip3 cache purge; \
+  apk del build-dependencies; \
+  rm -rf \
+    /var/cache/apk/* \
+    ~/.cache \
+  ; \
+  find / -name __pycache__ -type d -print0 | xargs -0 -r rm -r --;
 
 COPY [ "compose_sort.py", "/compose_sort" ]
-
 WORKDIR /work
-
 ENTRYPOINT [ "/usr/bin/python3", "/compose_sort" ]
