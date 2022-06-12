@@ -4,7 +4,7 @@ set -eu
 SELF="$(basename "$0" ".sh")"
 
 usage() {
-  exception="$1"; shift
+  exception="$1"
   [ -n "$exception" ] && printf 'ERROR: %s\n\n' "$exception"
 
   printf '%s\n' \
@@ -98,7 +98,7 @@ main() {
   chown named:named "$bind_dir"
 
   warn "running named-checkconf"
-  /usr/sbin/named-checkconf -z \
+  /usr/bin/named-checkconf -z \
     || die "named-checkconf failed"
 
   warn "starting named"
