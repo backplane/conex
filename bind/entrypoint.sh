@@ -83,6 +83,11 @@ main() {
     # that we dynamically create based on the contents of the
     # zones subdirectory
     warn "constructing ${zone_config}"
+    if [ -f "${zone_config}" ]; then
+      warn "found existing ${zone_config}, removing it for reconstruction"
+      rm -vf "${zone_config}"
+    fi
+
     for zone_file in "$(basename "${zone_dir}")"/*; do \
       zone="$(basename "$zone_file")"
       [ "$zone" != '*' ] || die "no zone files were found (normally these should be placed in /config/zones/)"
