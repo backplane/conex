@@ -5,12 +5,18 @@ COPY ["requirements.txt", "entrypoint.sh", "/"]
 
 RUN set -ex; \
   apk add --update-cache \
-    ansible \
     openssh-client \
     py3-pip \
   ; \
+  apk add --virtual build-dependencies \
+    gcc \
+    libffi-dev \
+    musl-dev \
+    python3-dev \
+  ; \
   pip install -r requirements.txt; \
   pip cache purge; \
+  apk del build-dependencies; \
   rm -rf \
     /tmp/* \
     /var/cache/apk \

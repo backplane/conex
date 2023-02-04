@@ -3,9 +3,6 @@
 SELF="$(basename "$0" ".sh")"
 
 usage() {
-  exception="$1"; shift
-  [ -n "$exception" ] && printf 'ERROR: %s\n\n' "$exception"
-
   printf '%s\n' \
     "Note: this is the help text for an ansible container entrypoint, if you" \
     "      want to see the help text for ansible itself, use something like:" \
@@ -30,11 +27,11 @@ usage() {
     "                ansible-runner" \
     "                ansible-test" \
     "                ansible-vault" \
+    "                molecule" \
     "" \
     "If no utility is specified, 'ansible' will be used." \
     "" # no trailing slash
 
-  [ -n "$exception" ] && exit 1
   exit 0
 }
 
@@ -59,11 +56,8 @@ main() {
         ;;
 
       -d|--debug)
+        warn "enabling debug outout"
         set -x
-        ;;
-
-      --mega-turtles)
-        usage "You can't handle MEGA-TURTLES."
         ;;
 
       --)
@@ -71,7 +65,7 @@ main() {
         break
         ;;
 
-      ansible|ansible-config|ansible-connection|ansible-console|ansible-doc|ansible-galaxy|ansible-inventory|ansible-playbook|ansible-pull|ansible-runner|ansible-test|ansible-vault)
+      ansible|ansible-config|ansible-connection|ansible-console|ansible-doc|ansible-galaxy|ansible-inventory|ansible-playbook|ansible-pull|ansible-runner|ansible-test|ansible-vault|molecule)
         util="$arg";
         shift || true
         break
@@ -88,9 +82,12 @@ main() {
   # ensure required environment variables are set
   # : "${USER:?the USER environment variable must be set}"
 
+  # should be unreachable
+  [ -n "$util" ] || die "no util selected during arg processing loop"
+
   # do things
   exec "$util" "$@"
 }
 
-[ -n "$IMPORT" ] || main "$@"; exit
+main "$@"; exit
 
