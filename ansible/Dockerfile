@@ -13,6 +13,7 @@ RUN set -ex; \
     libffi-dev \
     musl-dev \
     python3-dev \
+    rust \
   ; \
   pip install -r requirements.txt; \
   pip cache purge; \
