@@ -7,6 +7,7 @@ RUN set -ex; \
   apk add --update-cache \
     openssh-client \
     py3-pip \
+    python3 \
   ; \
   apk add --virtual build-dependencies \
     gcc \
@@ -14,6 +15,7 @@ RUN set -ex; \
     musl-dev \
     python3-dev \
     rust \
+    cargo \
   ; \
   pip install -r requirements.txt; \
   pip cache purge; \
