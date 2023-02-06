@@ -10,12 +10,12 @@ RUN set -ex; \
     python3 \
   ; \
   apk add --virtual build-dependencies \
+    cargo \
     gcc \
     libffi-dev \
     musl-dev \
     python3-dev \
     rust \
-    cargo \
   ; \
   pip install -r requirements.txt; \
   pip cache purge; \
