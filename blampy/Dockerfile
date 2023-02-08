@@ -1,18 +1,15 @@
-FROM alpine:3 as builder
+FROM python:3-alpine as builder
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
   apk add --update-cache \
     inotify-tools \
-    py3-pip \
-    python3 \
   ; \
   apk add --virtual build-dependencies \
     curl \
     g++ \
     gcc \
     musl-dev \
-    python3-dev \
   ; \
   pip3 install \
     black \
