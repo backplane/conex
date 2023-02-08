@@ -11,20 +11,20 @@ RUN apk add --no-cache \
     vim \
   ;
 
-RUN set -eux \
-  && adduser \
+RUN set -eux; \
+  adduser \
     -h "/home/user" \
     -s "/bin/bash" \
     # nonroot
     -u "65532" \
     -D \
-    user
+    user;
 USER user
 
 ENV PATH="/home/user/go/bin:$PATH"
 
 # https://staticcheck.io/docs
-RUN set -eux \
-  && go install honnef.co/go/tools/cmd/staticcheck@latest
+RUN set -eux; \
+  go install honnef.co/go/tools/cmd/staticcheck@latest
 
 WORKDIR /home/user/go/src/local

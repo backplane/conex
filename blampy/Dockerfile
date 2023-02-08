@@ -1,29 +1,32 @@
-FROM alpine:edge as builder
+FROM alpine:3 as builder
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-RUN set -x \
-  && apk add --update-cache \
+RUN set -eux; \
+  apk add --update-cache \
     inotify-tools \
     py3-pip \
     python3 \
-  && apk add --virtual build-dependencies \
+  ; \
+  apk add --virtual build-dependencies \
     curl \
     g++ \
     gcc \
     musl-dev \
     python3-dev \
-  && pip3 install \
+  ; \
+  pip3 install \
     black \
     bpython \
     mypy \
     pycodestyle \
     pylint \
-  && apk del build-dependencies \
-  && pip cache purge \
-  && rm -r \
+  ; \
+  pip cache purge; \
+  apk del build-dependencies; \
+  rm -r \
     /var/cache/apk/* \
     ~/.cache \
-  && true
+  ;
 
 WORKDIR /work
 

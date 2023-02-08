@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \

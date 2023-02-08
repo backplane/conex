@@ -1,13 +1,14 @@
-FROM alpine:edge
+FROM alpine:3
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-RUN apk add --no-cache \
+RUN set -eux; \
+  apk add --no-cache \
     python3 \
     py3-pip \
-  && pip3 --no-cache-dir install \
+  ; \
+  pip3 --no-cache-dir install \
     httpie \
-  && true
-  #&& find / -name __pycache__ -type d -print0 | xargs -0 rm -r --
+  ;
 
 WORKDIR /work
 
