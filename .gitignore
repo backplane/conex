@@ -1,5 +1,6 @@
-venv
-.vscode
-archived
 **/.mypy_cache
+**/.venv
+**/.vscode
 **/__pycache__
+**/venv
+archived
