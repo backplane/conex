@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """ utility """
+import logging
+import os
 import pathlib
 from typing import List
 
@@ -22,7 +24,17 @@ def gh_output(name: str, value: str) -> None:
     """
     write the given value with the given name in github workflow step output format
     """
-    print(f"::set-output name={name}::{value}")
+    try:
+        output_file = os.environ["GITHUB_OUTPUT"]
+    except KeyError:
+        logging.error(
+            "the GITHUB_OUTPUT environment variable is required for "
+            "this proram to work"
+        )
+        raise
+
+    with open(output_file, "at", encoding="utf-8") as out:
+        out.write(f"{name}={value}\n")
 
 
 def stripped_contents(path: pathlib.Path, encoding="utf-8") -> str:
