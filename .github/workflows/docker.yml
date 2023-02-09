@@ -109,7 +109,6 @@ jobs:
 
           # generate some outputs about the container being built
           docker pull -q backplane/conex-helper
-          ls -al "$GITHUB_OUTPUT"
           docker run --rm --user "$(id -u)" --env GITHUB_OUTPUT \
             --volume "$(pwd):/work" \
             --volume "/home/runner:/home/runner" \
