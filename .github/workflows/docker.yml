@@ -110,14 +110,13 @@ jobs:
           # generate some outputs about the container being built
           docker pull -q backplane/conex-helper
           ls -al "$GITHUB_OUTPUT"
-          docker run --rm --user 0 \
+          docker run --rm --user "$(id -u)" --env GITHUB_OUTPUT \
             --volume "$(pwd):/work" \
             --volume "/home/runner:/home/runner" \
-            -e GITHUB_OUTPUT \
             backplane/conex-helper \
-            metadata \
-              --forcedbuilds '${{ github.event.inputs.force_build }}' \
-              '${{ matrix.container }}'
+              metadata \
+                --forcedbuilds '${{ github.event.inputs.force_build }}' \
+                '${{ matrix.container }}'
 
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
