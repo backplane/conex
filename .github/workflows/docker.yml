@@ -109,7 +109,10 @@ jobs:
 
           # generate some outputs about the container being built
           docker pull -q backplane/conex-helper
-          docker run --rm --volume "$(pwd):/work" -e GITHUB_OUTPUT \
+          docker run --rm \
+            --volume "$(pwd):/work" \
+            --volume "/home/runner:/home/runner" \
+            -e GITHUB_OUTPUT \
             backplane/conex-helper \
             metadata \
               --forcedbuilds '${{ github.event.inputs.force_build }}' \
