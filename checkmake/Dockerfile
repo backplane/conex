@@ -3,25 +3,27 @@ FROM golang:1-alpine as builder
 RUN apk add --no-cache \
     git \
     make \
-  && true
+  ;
 
-# Environment variables required by the checkmake build system
-ARG BUILDER_NAME=github.com/backplane/conex
+# Environment variables required or used by the checkmake build system
 ARG BUILDER_EMAIL=backplane@users.noreply.github.com
+ARG BUILDER_NAME=github.com/backplane/conex
+ARG CGO_ENABLED=0
+ARG GOOS=linux
 
 WORKDIR /build
-RUN set -x \
-  && git clone "https://github.com/mrtazz/checkmake" \
-  && cd checkmake \
-  && export GOOS=linux CGO_ENABLED=0 \
-  && make binaries
+RUN set -eux; \
+  git clone "https://github.com/mrtazz/checkmake.git"; \
+  cd checkmake; \
+  git checkout "$(git tag | sort -V | tail -1)"; \
+  make binaries;
 
-FROM alpine:edge
+FROM scratch
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-COPY --from=builder /build/checkmake /
-WORKDIR /work
-USER nobody
+COPY --from=builder /build/checkmake/checkmake /
 
-ENTRYPOINT ["/checkmake"]
+USER 65534:65534
+WORKDIR /work
+ENTRYPOINT [ "/checkmake" ]
 CMD [ "--help" ]
