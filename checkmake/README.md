@@ -1,11 +1,8 @@
 # checkmake
 
-[`scratch`](https://hub.docker.com/_/scratch/)-based single-binary dockerization
-of [checkmake](https://github.com/mrtazz/checkmake/), the `Makefile` linter.
+[`scratch`](https://hub.docker.com/_/scratch/)-based single-binary dockerization of [checkmake](https://github.com/mrtazz/checkmake/), the `Makefile` linter
 
-The image runs as a non-root user in the single-binary container. It has its
-workdir set to `/work`. The multi-stage image build clones the upstream repo
-and then checks-out the latest git tag before compiling the app.
+The image runs as a non-root user in the single-binary container. It has its workdir set to `/work`. The multi-stage image build clones the upstream repo and then checks-out the latest git tag before compiling the app.
 
 The image is hosted on GitHub: in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/checkmake).
 
@@ -13,8 +10,7 @@ The image is hosted on GitHub: in the [backplane/conex repo](https://github.com/
 
 ### Interactive
 
-This shell function demonstrates using this image in place of having the binary
-installed.
+This shell function demonstrates using this image in place of having the binary installed.
 
 ```sh
 checkmake() {

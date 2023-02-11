@@ -90,7 +90,6 @@ jobs:
           - yamllint
           - youtube-dl
           - yq
-
     steps:
       # https://github.com/actions/checkout
       - name: Checkout repository
