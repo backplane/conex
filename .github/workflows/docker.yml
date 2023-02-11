@@ -90,6 +90,7 @@ jobs:
           - yamllint
           - youtube-dl
           - yq
+
     steps:
       # https://github.com/actions/checkout
       - name: Checkout repository
@@ -166,3 +167,13 @@ jobs:
             ${{ steps.meta.outputs.labels }}
             ${{ env.PSUM_LABEL }}=${{ steps.cdata.outputs.psum }}
           platforms: ${{ steps.cdata.outputs.platforms }}
+
+      - name: Update Docker Hub Description
+        if: ${{ steps.cdata.outputs.skipbuild != '1' }}
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: ${{ env.ORG }}/${{ matrix.container }}
+          short-description: ${{ steps.cdata.outputs.description }}
+          readme-filepath: ${{ matrix.container }}/README.md
