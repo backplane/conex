@@ -40,8 +40,9 @@ sql_formatter() {
 when run interactively with the `-h` argument, the container produces the following usage text:
 
 ```
-usage: sql-formatter [-h] [-o OUTPUT] [-l {db2,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sql,tsql}] [-i N | -t] [-u] [--lines-between-queries N]
-                     [--version]
+usage: sql-formatter [-h] [-o OUTPUT] [--fix]
+                     [-l {bigquery,db2,hive,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sqlite,sql,trino,transactsql,tsql,singlestoredb,snowflake}]
+                     [-c CONFIG] [--version]
                      [FILE]
 
 SQL Formatter
@@ -53,12 +54,10 @@ optional arguments:
   -h, --help            show this help message and exit
   -o OUTPUT, --output OUTPUT
                         File to write SQL output (defaults to stdout)
-  -l {db2,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sql,tsql}, --language {db2,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sql,tsql}
+  --fix                 Update the file in-place
+  -l {bigquery,db2,hive,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sqlite,sql,trino,transactsql,tsql,singlestoredb,snowflake}, --language {bigquery,db2,hive,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sqlite,sql,trino,transactsql,tsql,singlestoredb,snowflake}
                         SQL Formatter dialect (defaults to basic sql)
-  -i N, --indent N      Number of spaces to indent query blocks (defaults to 2)
-  -t, --tab-indent      Indent query blocks with tabs instead of spaces
-  -u, --uppercase       Capitalize language keywords
-  --lines-between-queries N
-                        How many newlines to insert between queries (separated by ";")
+  -c CONFIG, --config CONFIG
+                        Path to config json file (will use default configs if unspecified)
   --version             show program's version number and exit
 ```
