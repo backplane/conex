@@ -6,6 +6,8 @@ As the site says:
 
 > yq uses `jq` like syntax but works with yaml files as well as json
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/yq).
+
 ## Usage
 
 ### Interactive

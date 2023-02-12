@@ -8,6 +8,8 @@ As the site says:
 
 The image uses the `wg` command as its entry-point.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/wireguard).
+
 ## Usage
 
 It is probably best if you don't use this "experimental" container image for anything sensitive. Experimental isn't exactly the right word because the Dockerfile just installs the recommended package and does nothing else, but using this image means you're trusting my setup, my github account, possibly my docker hub account in addition to the apk server, the apk packager's hardware and accounts, etc.

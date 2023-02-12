@@ -8,6 +8,8 @@ As the site says:
 
 Note: there is an [official docker image for the AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-docker.html) (it's `amazon/aws-cli`).
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/aws-cli).
+
 ## Usage
 
 ### Interactive

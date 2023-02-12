@@ -8,6 +8,8 @@ As the site says:
 
 This container is **NOT** a general-purpose containerization of haproxy, it is using haproxy exclusively the single specific purpose of forwaring ports in a container sidecar context.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/proxyport).
+
 ## Usage
 
 This is text of the entrypoint's usage function:

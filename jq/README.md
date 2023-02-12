@@ -6,6 +6,8 @@ From the site:
 
 > jq is a lightweight and flexible command-line JSON processor. jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/jq).
+
 ## Usage
 
 ### Interactive

@@ -4,6 +4,8 @@
 
 Note: This version uses the [debian adb package](https://packages.debian.org/buster/adb) only -- previously I was getting the code directly from [google's android platform utils for linux release](https://dl.google.com/android/repository/platform-tools-latest-linux.zip) and including other parts of the platform utils in this images.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/adb).
+
 ## Usage
 
 ### Interactive

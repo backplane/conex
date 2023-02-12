@@ -8,6 +8,8 @@ As the homepage says:
 
 This image is meant to be used as a builder stage in a multi-stage build and it is also very useful for interactive use during development.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/goenv).
+
 ## Usage
 
 ### Interactive

@@ -8,6 +8,8 @@ As the site says:
 >
 >Graphviz has many useful features for concrete diagrams, such as options for colors, fonts, tabular node layouts, line styles, hyperlinks, and custom shapes.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/graphviz).
+
 ## Usage
 
 See [Graphviz Command-line Invocation](https://graphviz.org/_pages/doc/info/command.html) for general information about calling graphviz from the command line.

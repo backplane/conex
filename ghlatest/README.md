@@ -4,6 +4,8 @@ scratch-based dockerization of [ghlatest](https://github.com/backplane/ghlatest)
 
 This container is a work-in-progress.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/ghlatest).
+
 ## Usage
 
 This is the output of the container when invoked with the `-h` argument.

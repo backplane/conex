@@ -2,6 +2,8 @@
 
 [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [shUnit2](https://github.com/kward/shunit2/), the "xUnit-based unit test framework for Bourne-based shell scripts."
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/shunit2).
+
 ## Usage
 
 The image will set the `SHUNIT_PATH` environment variable (to `/shunit`). It will provide the latest version of shunit at `/shunit`. At the end of your shell tests, load shunit with something like the following line:

@@ -6,6 +6,8 @@ As the [man page for wpa_passphrase(8)](https://manpages.debian.org/unstable/wpa
 
 > wpa_passphrase pre-computes PSK entries for network configuration blocks of a `wpa_supplicant.conf` file. An ASCII passphrase and SSID are used to generate a 256-bit PSK
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/wpa_passphrase).
+
 ## Usage
 
 ```

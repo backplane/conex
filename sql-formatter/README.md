@@ -17,6 +17,8 @@ As the site says:
 - **spark** - [Spark](https://spark.apache.org/docs/latest/api/sql/index.html)
 - **tsql** - [SQL Server Transact-SQL](https://docs.microsoft.com/en-us/sql/sql-server/)
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/sql-formatter).
+
 ## Usage
 
 ### Interactive

@@ -4,6 +4,8 @@
 
 This image is meant to be used behind a load balancer that provides TLS.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/grta).
+
 ## Usage
 
 Coming "soon."

@@ -6,6 +6,8 @@ As the site says:
 
 > wimlib-imagex deals with archive files in the Windows Imaging (WIM) format. Its interface is similar to Microsoft’s ImageX, but wimlib-imagex is cross-platform and has useful improvements and extensions
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/wimlib-imagex).
+
 ## mkwinpeimg
 
 This dockerization also contains the [mkwinpeimg](https://wimlib.net/man1/mkwinpeimg.html) bash script, but I have not tested it and I have not included bash in this image (adding bash would add 20% to the image size).

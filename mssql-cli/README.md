@@ -6,6 +6,8 @@ As the site says, `mssql-cli` is:
 
 > A command-line client for SQL Server with auto-completion and syntax highlighting 
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/mssql-cli).
+
 ## Usage
 
 ### Interactive

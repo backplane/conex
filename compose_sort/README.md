@@ -4,6 +4,8 @@
 
 The utility works best when the input comes in the normalized format produced by the [`docker-compose config`](https://docs.docker.com/compose/reference/config/) command.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/compose_sort).
+
 ## Usage
 
 ```

@@ -6,6 +6,8 @@ As the site says:
 
 > yamllint does not only check for syntax validity, but for weirdnesses like key repetition and cosmetic problems such as lines length, trailing spaces, indentation, etc.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/yamllint).
+
 ## Usage
 
 ### Interactive

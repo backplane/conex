@@ -6,6 +6,8 @@ As the site says:
 
 > The AWS Cloud Development Kit (AWS CDK) is an open source software development framework to define your cloud application resources using familiar programming languages.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/cdk-python).
+
 ## Usage
 
 ### Interactive

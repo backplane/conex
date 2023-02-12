@@ -4,6 +4,8 @@
 
 I use and publish images for all these tools separately, but this container bundles them together with a small wrapper script.
 
+The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/blampy).
+
 ## Usage
 
 ### Interactive
