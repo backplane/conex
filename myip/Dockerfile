@@ -5,17 +5,15 @@ RUN apk add --no-cache \
   && true
 
 WORKDIR /go/src/app
-COPY . .
 
-RUN export CGO_ENABLED=0 GOOS=linux GOARCH=amd64; \
-  go build -a -tags netgo -ldflags '-w' -v -o app *.go
+RUN go install github.com/backplane/myip@latest
 
 FROM scratch
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-COPY --from=builder /go/src/app/app /
+COPY --from=builder /go/bin/myip /
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
 WORKDIR /work
-
-ENTRYPOINT ["/app"]
+USER 65534:65534
+ENTRYPOINT ["/myip"]
