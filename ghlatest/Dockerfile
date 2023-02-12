@@ -2,24 +2,18 @@ FROM golang:alpine AS builder
 
 RUN apk add --no-cache \
     ca-certificates \
-    curl \
   && true
 
-WORKDIR /build
+WORKDIR /go/src/app
 
-COPY arch.sh downloader.sh .
-RUN ./downloader.sh
+RUN go install github.com/backplane/ghlatest@latest
 
-FROM busybox:latest
+FROM scratch
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-COPY --from=builder /build/ghlatest /build/arch.sh /
+COPY --from=builder /go/bin/ghlatest /
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
-RUN set -eux; \
-  ln -s /ghlatest /bin/; \
-  ln -s /arch.sh /bin/;
-
 WORKDIR /work
-
+USER 65534:65534
 ENTRYPOINT ["/ghlatest"]
