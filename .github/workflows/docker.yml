@@ -149,7 +149,7 @@ jobs:
             latest=false
           labels: |
             org.opencontainers.image.title=${{ matrix.container }}
-            org.opencontainers.image.source=https://github.com/backplane/conex/${{ matrix.container }}
+            org.opencontainers.image.source=https://github.com/backplane/conex/tree/main/${{ matrix.container }}
             org.opencontainers.image.licenses=${{ steps.cdata.outputs.licenses }}
             org.opencontainers.image.description=${{ steps.cdata.outputs.description }}
 
