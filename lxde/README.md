@@ -2,7 +2,7 @@
 
 [`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of [TigerVNC](https://tigervnc.org/) running an [LXDE](https://lxde.org/) X11 desktop environment
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/lxde).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/lxde).
 
 ## Usage
 

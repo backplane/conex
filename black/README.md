@@ -10,7 +10,7 @@ As the [github repo](https://github.com/psf/black) says:
 >
 >Black makes code review faster by producing the smallest diffs possible.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/black).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/black).
 
 ## Usage
 

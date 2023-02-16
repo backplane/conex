@@ -39,7 +39,7 @@ The debian (and consequently ubuntu) package maintainer [Marc Haber](https://sal
 >
 > * apg has not seen upstream attention since 2003, upstream is not answering e-mail, and the upstream web page does not look like it is in good working order. The Debian maintainer plans to discontinue apg maintenance as soon as an actually maintained software with a [comparable] feature set becomes available.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/apg).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/apg).
 
 ## Usage
 

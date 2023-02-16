@@ -8,7 +8,7 @@ As the site says:
 >
 > You can mix dynamic and static typing in your programs. You can always fall back to dynamic typing when static typing is not convenient, such as for legacy code.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/mypy).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/mypy).
 
 ## Usage
 

@@ -6,7 +6,7 @@ As the site says:
 
 > [Poppler](https://poppler.freedesktop.org/) is a PDF rendering library based on the xpdf-3.0 code base.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/pdf).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/pdf).
 
 ## Usage
 

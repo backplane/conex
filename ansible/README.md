@@ -6,7 +6,7 @@ As the [wikipedia article](https://en.wikipedia.org/wiki/Ansible_(software)) say
 
 > Ansible is an open-source software provisioning, configuration management, and application-deployment tool enabling infrastructure as code.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/ansible).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/ansible).
 
 ## Usage
 

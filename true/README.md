@@ -4,7 +4,7 @@
 
 This container does nothing except exit with exitcode 0. It is useful for testing container infrastructure.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/true).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/true).
 
 ## Usage
 

@@ -2,7 +2,7 @@
 
 [`amazoncorretto:16-alpine`](https://hub.docker.com/_/amazoncorretto/)-based dockerization of [android-backup-extractor](https://github.com/nelenkov/android-backup-extractor), a "utility to extract and repack Android backups created with adb backup"
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/abe).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/abe).
 
 ## Usage
 

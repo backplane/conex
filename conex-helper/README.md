@@ -2,7 +2,7 @@
 
 [`python:3-alpine`](https://hub.docker.com/_/python/)-based dockerization of a utility program which helps manage the `backplane/conex` github repo
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/conex-helper).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/conex-helper).
 
 ## Usage
 

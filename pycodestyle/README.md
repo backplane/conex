@@ -6,7 +6,7 @@ As the homepage says:
 
 > pycodestyle (formerly pep8) is a tool to check your Python code against some of the style conventions in [PEP 8](http://www.python.org/dev/peps/pep-0008/).
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/pycodestyle).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/pycodestyle).
 
 ## Usage
 

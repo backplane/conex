@@ -6,7 +6,7 @@ As the site says:
 
 > 7-Zip is a file archiver with a high compression ratio.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/7z).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/7z).
 
 ## Usage
 

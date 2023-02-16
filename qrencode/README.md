@@ -6,7 +6,7 @@ As the site says, `qrencode` is:
 
 > for encoding data in a QR Code symbol, a 2D symbology that can be scanned by handy terminals such as a mobile phone[s] with [cameras]. The capacity of QR Code is up to 7000 digits or 4000 characters and has high robustness.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/qrencode).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/qrencode).
 
 ## Usage
 

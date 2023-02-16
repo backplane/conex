@@ -4,7 +4,7 @@
 
 This is the same code base as the [pwgen package on debian](https://packages.debian.org/stable/pwgen).
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/pwgen).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/pwgen).
 
 ## Usage
 

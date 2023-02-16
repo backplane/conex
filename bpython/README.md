@@ -16,7 +16,7 @@ As their homepage says:
 >* Python 3 support.
 
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/bpython).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/bpython).
 
 ## Usage
 

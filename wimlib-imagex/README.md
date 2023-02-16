@@ -6,7 +6,7 @@ As the site says:
 
 > wimlib-imagex deals with archive files in the Windows Imaging (WIM) format. Its interface is similar to Microsoft’s ImageX, but wimlib-imagex is cross-platform and has useful improvements and extensions
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/wimlib-imagex).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/wimlib-imagex).
 
 ## mkwinpeimg
 

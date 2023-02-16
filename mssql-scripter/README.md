@@ -8,6 +8,8 @@ As the site says:
 >
 > mssql-scripter is built using Python and incorporates the usability principles of the new Azure CLI 2.0 tools.
 
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/mssql-scripter).
+
 ## Usage
 
 ```

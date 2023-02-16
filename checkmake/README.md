@@ -4,7 +4,7 @@
 
 The image runs as a non-root user in the single-binary container. It has its workdir set to `/work`. The multi-stage image build clones the upstream repo and then checks-out the latest git tag before compiling the app.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/checkmake).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/checkmake).
 
 ## Usage
 

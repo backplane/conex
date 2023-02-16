@@ -4,7 +4,7 @@
 
 The program reads the given csv file an writes out a new csv file which can be imported into 1Password.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/kp1p).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/kp1p).
 
 ## Usage
 

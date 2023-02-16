@@ -2,7 +2,7 @@
 
 [`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of a [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) utility that converts ODS documents into other formats (currently JSON and CSV). [ODS document format](https://en.wikipedia.org/wiki/OpenDocument) support is provided by [pyexcel-ods3](https://github.com/pyexcel/pyexcel-ods3).
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/ods_conv).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/ods_conv).
 
 ## Usage
 

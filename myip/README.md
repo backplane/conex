@@ -4,7 +4,7 @@
 
 It is meant to be run behind a load balancer that provides TLS.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/myip).
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/myip).
 
 ## Usage
 
