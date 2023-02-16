@@ -4,6 +4,8 @@ A simple tool to reclaim space inside the Docker Desktop VM
 
 This image is a based on the code hosted at <https://github.com/djs55/desktop-reclaim-space> which is the source for the image [docker/desktop-reclaim-space](https://hub.docker.com/r/docker/desktop-reclaim-space/tags). I have provided this image build because `docker/desktop-reclaim-space` is currently not available for ARM processors (As of 16-Feb-2023 [there is an open issue to address this](https://github.com/djs55/desktop-reclaim-space/issues/2)).
 
+**Normally you should not need to run this (or any) `desktop-reclaim-space` container!** The docker desktop virtual machine already includes a process called [`trim-after-delete`](https://github.com/linuxkit/linuxkit/tree/master/pkg/trim-after-delete) which automatically returns unused disk space within 10 seconds of a docker resource being deleted (it may take slightly longer to see the change if you have a `.qcow2` disk image).
+
 The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/desktop-reclaim-space).
 
 ## Usage (macOS)
