@@ -54,6 +54,7 @@ jobs:
           - compose_sort
           - conex-helper
           - desktop-reclaim-space
+          - 'false'
           - firefox
           - fzf
           - ghlatest
