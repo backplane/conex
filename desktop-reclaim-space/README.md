@@ -34,7 +34,7 @@ The source code for this image is hosted on GitHub in the [backplane/conex repo]
 
 * **IMPORTANT SECURITY NOTE**: As a general rule you don't want to run containers with `--privileged` because this can let malicious containers do bad things. We're using it here to enable the us to escape into the Linux VM that powers Docker Desktop. Malware could use it to escape into other containers, persist itself in volumes and in the VM, and access as many paths from your mac as you have shared with Docker. The risks are real. If you want to be extra safe you can view the source of the Docker file and build it yourself.
 * The base image for this container is [justincormack/nsenter1](https://hub.docker.com/r/justincormack/nsenter1) which is created from [the source code here](https://github.com/justincormack/nsenter1). ([Justin Cormack](https://www.docker.com/author/justin-cormack/) is the Docker CTO and a key engineer of the Docker Desktop product.) `nsenter1` is itself a very simple image which you can build yourself for extra safety.
-* An alternative to using this container is to just use the Justin Cormack's `nsenter1` image directly with this command:
+* An alternative to using this container image is to just use the Justin Cormack's `nsenter1` image directly with this command:
 
     ```sh
     docker run \
