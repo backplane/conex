@@ -53,6 +53,7 @@ jobs:
           - chromium
           - compose_sort
           - conex-helper
+          - desktop-reclaim-space
           - firefox
           - fzf
           - ghlatest
