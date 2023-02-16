@@ -83,6 +83,7 @@ jobs:
           - shunit2
           - snakeeyes
           - sql-formatter
+          - 'true'
           - tsqllint
           - vueenv
           - wimlib-imagex
