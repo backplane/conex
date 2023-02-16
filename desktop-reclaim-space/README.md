@@ -4,7 +4,7 @@ A simple tool to reclaim space inside the Docker Desktop VM
 
 This image is a based on the code hosted at <https://github.com/djs55/desktop-reclaim-space> which is the source for the image [docker/desktop-reclaim-space](https://hub.docker.com/r/docker/desktop-reclaim-space/tags). I have imported this code and provided this image build because `docker/desktop-reclaim-space` is currently not available for ARM processors.
 
-The image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/desktop-reclaim-space).
+The image source code is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/desktop-reclaim-space).
 
 ## Usage (macOS)
 
