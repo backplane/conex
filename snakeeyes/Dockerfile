@@ -1,6 +1,7 @@
 FROM backplane/ghlatest as dl
-RUN set -eux; \
-  /ghlatest dl -f "linux_$(/arch.sh)" -o snakeeyes.tgz glvnst/snakeeyes
+
+ARG TARGETARCH
+RUN ghlatest dl -f "linux_${TARGETARCH}" -o snakeeyes.tgz glvnst/snakeeyes
 RUN tar -xvzf snakeeyes.tgz
 
 FROM scratch
