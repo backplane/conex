@@ -1,12 +1,10 @@
 FROM backplane/ghlatest as getter
 
-COPY arch.sh /
-
-RUN set -eux; \
-  /ghlatest dl -f "linux_$(/arch.sh)$" -o /yq mikefarah/yq
+ARG TARGETARCH
+RUN ghlatest dl -f "linux_${TARGETARCH}$" -o yq mikefarah/yq
 
 FROM scratch
-COPY --from=getter /yq /
+COPY --from=getter /work/yq /
 WORKDIR /work
 USER 65532
 ENTRYPOINT ["/yq"]
