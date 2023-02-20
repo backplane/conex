@@ -4,7 +4,7 @@ RUN apk add --no-cache \
     ca-certificates \
   ;
 
-RUN go install github.com/backplane/ghlatest@latest
+RUN go install github.com/backplane/ghlatest@v0.3
 
 FROM busybox:musl
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
