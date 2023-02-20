@@ -1,12 +1,9 @@
-FROM backplane/ghlatest as dl
-
-ARG TARGETARCH
-RUN ghlatest dl -f "linux_${TARGETARCH}" -o snakeeyes.tgz glvnst/snakeeyes
-RUN tar -xvzf snakeeyes.tgz
+FROM backplane/ghlatest as downloader
+RUN ghlatest dl --current-os --current-arch --extract --rm --keep snakeeyes glvnst/snakeeyes
 
 FROM scratch
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
-COPY --from=dl /work/snakeeyes /
+COPY --from=downloader /work/snakeeyes /
 # nonroot
 USER 65532
 ENTRYPOINT ["/snakeeyes"]
