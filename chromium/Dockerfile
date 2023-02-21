@@ -1,17 +1,14 @@
 FROM debian:unstable-slim
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-COPY ["arch.sh", "/bin/"]
-
 # Install chromium
+ARG AG="apt-get -yq --no-install-recommends"
+ARG DEBIAN_FRONTEND="noninteractive"
+
 RUN set -eux; \
-  export \
-    AG="apt-get -yq" \
-    DEBIAN_FRONTEND=noninteractive \
-  ; \
   $AG update; \
   $AG upgrade; \
-  $AG install --no-install-recommends \
+  $AG install  \
     ca-certificates \
     chromium \
     chromium-l10n \
@@ -21,6 +18,7 @@ RUN set -eux; \
     fonts-symbola \
     hicolor-icon-theme \
     libgtk-4-1 \
+    xauth \
   ; \
   $AG autoremove; \
   $AG clean; \
@@ -31,21 +29,25 @@ RUN set -eux; \
   ;
 
 # Install fontconfig
-COPY ["fonts.conf", "/etc/fonts/local.conf"]
+COPY [ "fonts.conf", "/etc/fonts/local.conf" ]
 
 # Add non-privileged user and create a data directory so named/managed volumes
 # get the right permissions
 RUN set -eux; \
   groupadd -r user; \
-  useradd --no-log-init -r -g user -G audio,video user; \
-  mkdir -p /home/user/Downloads; \
-  chown -R user:user /home/user; \
+  useradd --no-log-init --system --create-home -g user -G audio,video user; \
+  mkdir -p ~user/Downloads; \
+  chown -R user:user ~user; \
   mkdir /data; \
   chown user:user /data;
+
+WORKDIR /home/user
+
+# Last call for root-permissions
+COPY [ "entrypoint.sh", "chromium_ssb.sh", "/" ]
 
 # Run as non-privileged user
 USER user
 
 # Run chromium
-COPY ["entrypoint.sh", "/"]
 ENTRYPOINT [ "/entrypoint.sh" ]
