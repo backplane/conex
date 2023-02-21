@@ -1,31 +1,18 @@
-FROM debian:stable-slim
+FROM backplane/ghlatest AS downloader
+RUN ghlatest download \
+  --current-arch --current-os \
+  --filter "hugo_extended" --filter "tar.gz" \
+  gohugoio/hugo
+RUN ghlatest download --filter "_checksums.txt" gohugoio/hugo
+# validate the checksums or bomb-out
+RUN grep -F -- *.tar.gz *sums.txt | sha256sum -w -s -c -
+RUN ghlatest extract --keep hugo --rm *.tar.gz
+
+FROM gcr.io/distroless/cc
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
-
-ARG HUGO_VERSION="0.86.0"
-
-RUN AG="env DEBIAN_FRONTEND=noninteractive apt-get -yq" \
-  && $AG update \
-  && $AG upgrade \
-  && $AG install --no-install-recommends \
-    ca-certificates \
-    curl \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN curl -sSL --tlsv1.3 -L \
-    -O "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb" \
-    -O "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_checksums.txt" \
-  && grep -F -- \
-      "hugo_extended_${HUGO_VERSION}_Linux-64bit.deb" \
-      "hugo_${HUGO_VERSION}_checksums.txt" \
-    | sha256sum --strict --status -c - \
-  && dpkg --install "hugo_extended_${HUGO_VERSION}_Linux-64bit.deb" \
-  && sha256sum \
-    "hugo_extended_${HUGO_VERSION}_Linux-64bit.deb" \
-    "$(which hugo)" \
-  && rm -- \
-    "hugo_extended_${HUGO_VERSION}_Linux-64bit.deb" \
-    "hugo_${HUGO_VERSION}_checksums.txt"
+COPY --from=downloader /work/hugo /bin/
 
 ENV HUGO_BIND="0.0.0.0"
-
 WORKDIR /work
+ENTRYPOINT [ "/bin/hugo" ]
+CMD [ "--help" ]

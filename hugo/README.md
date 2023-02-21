@@ -1,6 +1,6 @@
 # hugo
 
-[`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of hugo-extended -- the static site generator
+[`distroless/cc`](https://github.com/GoogleContainerTools/distroless)-based dockerization of hugo-extended -- the static site generator
 
 I use it as a builder in multi-stage image builds, I also run it interactively during development.
 
