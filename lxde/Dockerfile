@@ -6,12 +6,13 @@ ENV LANG=en_US.UTF-8
 
 # one oe of the names under /usr/share/i18n/charmaps (e.g. ISO-8859-16)
 ARG CHARSET=UTF-8
+ARG AG="apt-get -yq --no-install-recommends"
+ARG DEBIAN_FRONTEND=noninteractive
 
-RUN set -x \
-  && AG="env DEBIAN_FRONTEND=noninteractive apt-get -yq" \
-  && $AG update \
-  && $AG upgrade \
-  && $AG install --no-install-recommends \
+RUN set -eux; \
+  $AG update; \
+  $AG upgrade; \
+  $AG install \
     apt-transport-https \
     busybox \
     bzip2 \
@@ -42,16 +43,17 @@ RUN set -x \
     unzip \
     vim \
     x11-xserver-utils \
-  && rm -rf /var/lib/apt/lists/* \
-  && busybox --install
+  ; \
+  rm -rf /var/lib/apt/lists/*; \
+  busybox --install;
 
-RUN set -x \
-  && printf '%s %s\n' "$LANG" "$CHARSET" | tee /etc/locale.gen \
-  && locale-gen \
-  && /usr/sbin/update-locale
+RUN set -eux; \
+  printf '%s %s\n' "$LANG" "$CHARSET" | tee /etc/locale.gen; \
+  locale-gen; \
+  /usr/sbin/update-locale;
 
-RUN set -eux \
-  && useradd \
+RUN set -eux; \
+  useradd \
     --no-log-init \
     --base-dir / \
     --home-dir "/work" \
@@ -61,15 +63,17 @@ RUN set -eux \
     --shell "/bin/bash" \
     --uid "65532" \
     user \
-  && passwd \
+  ; \
+  passwd \
     --delete \
     --expire \
-    user
+    user \
+  ;
 
 # do this before dropping privs
 COPY ["entrypoint.sh", "/"]
 
 USER user
-WORKDIR /work
 
+WORKDIR /work
 ENTRYPOINT ["/entrypoint.sh"]
