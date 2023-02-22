@@ -180,14 +180,39 @@ die() {
 }
 
 main() {
+
+  while [ $# -gt 0 ]; do
+    arg="$1" # shift at end of loop; if you break in the loop don't forget to shift first
+    case "$arg" in
+      -h|-help|--help)
+        usage ""
+        ;;
+
+      -d|--debug)
+        set -x
+        ;;
+
+      --foreground)
+        SSB_FOREGROUND="1"
+        ;;
+
+      --)
+        shift || true
+        break
+        ;;
+
+      *)
+        # unknown arg, leave in the positional params
+        break
+        ;;
+    esac
+    shift || break
+  done
+
   # ensure required environment variables are set
   # : "${USER:?the USER environment variable must be set}"
   : "${HOME?this variable must be defined in the environment}"
   : "${DISPLAY?this variable must be defined in the environment}"
-
-  if [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ]; then
-    usage ""
-  fi
 
   if [ -z "$*" ]; then
     usage "you must specify a NAME for the site specific browser"
