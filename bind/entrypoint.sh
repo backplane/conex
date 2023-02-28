@@ -110,7 +110,9 @@ main() {
   # copy any config files & zones found in /config to /etc/bind
   if [ -d "$CONFIG_DIR" ]; then
     warn "found ${CONFIG_DIR}; copying contents to ${BIND_DIR}"
-    cp -vaf "${CONFIG_DIR}/" "${BIND_DIR}/"
+    cp -vaf "${CONFIG_DIR}/." "${BIND_DIR}/" | while read -r LINE; do
+      warn "copy:" "$LINE"
+    done
   fi
 
   # cd to /etc/bind
@@ -132,7 +134,7 @@ main() {
 
     for zone_file in "$(basename "${ZONE_DIR}")"/*; do \
       zone="$(basename "$zone_file")"
-      if ! [ "$zone" != '*' ]; then
+      if [ "$zone" = '*' ]; then
         die "no zone files were found in ${ZONE_DIR} but we need zone files" \
           "so that we can generate ${ZONE_CONFIG} and we MUST generate that" \
           "file because ${BIND_CONFIG} currently refers to it"
