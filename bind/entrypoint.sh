@@ -129,7 +129,9 @@ main() {
     warn "constructing ${ZONE_CONFIG}"
     if [ -f "${ZONE_CONFIG}" ]; then
       warn "found existing ${ZONE_CONFIG}, removing it for reconstruction"
-      rm -vf "${ZONE_CONFIG}"
+      rm -vf "${ZONE_CONFIG}" 2>&1 | while read -r LINE; do
+        warn "remove:" "$LINE"
+      done
     fi
 
     for zone_file in "$(basename "${ZONE_DIR}")"/*; do \
@@ -141,7 +143,10 @@ main() {
       fi
       printf 'zone "%s" IN { type primary; file "%s"; };\n' \
         "$zone" "$zone_file" \
-        | tee -a "${ZONE_CONFIG}"; \
+        | tee -a "${ZONE_CONFIG}" \
+        | while read -r LINE; do
+          warn "config:" "$LINE"
+        done
     done
   fi
 
@@ -151,6 +156,8 @@ main() {
   chown named:named "$BIND_DIR"
 
   warn "running named-checkconf"
+  # we can't wrap the output of this command because we want a non-zero exit to
+  # terminate the container
   /usr/bin/named-checkconf -z \
     || die "named-checkconf failed"
 
