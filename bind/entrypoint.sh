@@ -1,10 +1,16 @@
 #!/bin/sh
-# util: entrypoint for bind container
+# entrypoint: script for staring bind9 in a container
 set -eu
 SELF="$(basename "$0" ".sh")"
 
+BIND_DIR="${BIND_DIR:-/etc/bind}"
+BIND_CONFIG="${BIND_CONFIG:-${BIND_DIR}/named.conf}"
+ZONE_CONFIG="${ZONE_CONFIG:-${BIND_DIR}/zones.conf}"
+ZONE_DIR="${ZONE_DIR:-${BIND_DIR}/zones}"
+CONFIG_DIR="${CONFIG_DIR:-/config}"
+
 usage() {
-  exception="$1"
+  exception="${1:-}"
   [ -n "$exception" ] && printf 'ERROR: %s\n\n' "$exception"
 
   printf '%s\n' \
@@ -12,9 +18,26 @@ usage() {
     "" \
     "-h / --help   show this message" \
     "-d / --debug  print additional debugging messages" \
-    "arg           description of arg" \
     "" \
-    "Description of functionality" \
+    "--bind-dir BIND_DIR        path of the bind configuration directory" \
+    "                           (default: '$BIND_DIR')" \
+    "--bind-config BIND_CONFIG  full path of the 'named.conf' bind config file" \
+    "                           (default: '$BIND_CONFIG')" \
+    "--zone-dir ZONE_DIR        path of a directory containing (only) zone" \
+    "                           files to automatically serve" \
+    "                           (default: '$ZONE_DIR')" \
+    "--zone-config ZONE_CONFIG  full path of the 'zones.conf' file to generate" \
+    "                           from the files found in ZONE_DIR" \
+    "                           (default: '$ZONE_CONFIG')" \
+    "--config-dir CONFIG_DIR    path of a directory whose contents could be" \
+    "                           copied into the BIND_DIR" \
+    "                           (default: '$CONFIG_DIR')" \
+    "" \
+    "--                         Pass the remaining command-line arguments to" \
+    "                           bind directly" \
+    "" \
+    "Generates a zones.conf file which 'includes' all the zone files found in" \
+    "the ZONE_DIR, runs named-checkconf, then starts bind" \
     "" # no trailing slash
 
   [ -n "$exception" ] && exit 1
@@ -43,8 +66,29 @@ main() {
         set -x
         ;;
 
-      --mega-turtles)
-        usage "You can't handle MEGA-TURTLES."
+      --bind-dir)
+        shift || usage "--bind-dir requires an argument"
+        BIND_DIR="$1"
+        ;;
+
+      --bind-config)
+        shift || usage "--bind-config requires an argument"
+        BIND_CONFIG="$1"
+        ;;
+
+      --zone-config)
+        shift || usage "--zone-config requires an argument"
+        ZONE_CONFIG="$1"
+        ;;
+
+      --zone-dir)
+        shift || usage "--zone-dir requires an argument"
+        ZONE_DIR="$1"
+        ;;
+
+      --config-dir)
+        shift || usage "--config-dir requires an argument"
+        CONFIG_DIR="$1"
         ;;
 
       --)
@@ -63,54 +107,59 @@ main() {
   # ensure required environment variables are set
   # : "${USER:?the USER environment variable must be set}"
 
-  bind_dir="/etc/bind"
-  bind_config="${bind_dir}/named.conf"
-  zone_config="${bind_dir}/zones.conf"
-  zone_dir="${bind_dir}/zones"
-
   # copy any config files & zones found in /config to /etc/bind
-  [ -d '/config' ] && cp -vaf /config/. "${bind_dir}"/.
+  if [ -d "$CONFIG_DIR" ]; then
+    warn "found ${CONFIG_DIR}; copying contents to ${BIND_DIR}"
+    cp -vaf "${CONFIG_DIR}/" "${BIND_DIR}/"
+  fi
 
   # cd to /etc/bind
-  cd "$bind_dir" || die "couldn't cd to ${bind_dir}/"
+  cd "$BIND_DIR" || die "couldn't cd to ${BIND_DIR}/"
 
-  # optionally construct the zone_config inclusion file
+  # optionally construct the ZONE_CONFIG inclusion file
   if \
-    [ -f "$bind_config" ] && \
-    grep -qF "include \"${zone_config}\";" "$bind_config" \
+    [ -f "$BIND_CONFIG" ] && \
+    grep -qF "include \"${ZONE_CONFIG}\";" "$BIND_CONFIG" \
   ; then
     # named.conf includes a reference to zones.conf, a file
     # that we dynamically create based on the contents of the
     # zones subdirectory
-    warn "constructing ${zone_config}"
-    if [ -f "${zone_config}" ]; then
-      warn "found existing ${zone_config}, removing it for reconstruction"
-      rm -vf "${zone_config}"
+    warn "constructing ${ZONE_CONFIG}"
+    if [ -f "${ZONE_CONFIG}" ]; then
+      warn "found existing ${ZONE_CONFIG}, removing it for reconstruction"
+      rm -vf "${ZONE_CONFIG}"
     fi
 
-    for zone_file in "$(basename "${zone_dir}")"/*; do \
+    for zone_file in "$(basename "${ZONE_DIR}")"/*; do \
       zone="$(basename "$zone_file")"
-      [ "$zone" != '*' ] || die "no zone files were found (normally these should be placed in /config/zones/)"
+      if ! [ "$zone" != '*' ]; then
+        die "no zone files were found in ${ZONE_DIR} but we need zone files" \
+          "so that we can generate ${ZONE_CONFIG} and we MUST generate that" \
+          "file because ${BIND_CONFIG} currently refers to it"
+      fi
       printf 'zone "%s" IN { type primary; file "%s"; };\n' \
         "$zone" "$zone_file" \
-        | tee -a "${zone_config}"; \
+        | tee -a "${ZONE_CONFIG}"; \
     done
   fi
 
-  warn "resetting $bind_dir permissions"
-  chown -R root:root "$bind_dir"
-  chmod -R a-rwx,a+rX,u+w "$bind_dir"
-  chown named:named "$bind_dir"
+  warn "resetting $BIND_DIR permissions"
+  chown -R root:root "$BIND_DIR"
+  chmod -R a-rwx,a+rX,u+w "$BIND_DIR"
+  chown named:named "$BIND_DIR"
 
   warn "running named-checkconf"
   /usr/bin/named-checkconf -z \
     || die "named-checkconf failed"
 
-  warn "starting named"
-  exec /usr/sbin/named \
+  # put the whole command in the positional params so we can report it
+  set -- /usr/sbin/named \
     -u named \
-    -c "${CONFIG_FILE:-${bind_config}}" \
-    -g
+    -c "$BIND_CONFIG" \
+    -g \
+    "$@"
+  warn "exec-ing bind:" "$@"
+  exec "$@"
 }
 
 main "$@"; exit
