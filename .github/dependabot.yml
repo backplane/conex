@@ -7,7 +7,7 @@ updates:
     open-pull-requests-limit: 10
     versioning-strategy: increase-if-necessary
   - package-ecosystem: pip
-    directory: "/*/"
+    directory: "/"
     schedule:
       interval: daily
     open-pull-requests-limit: 10
