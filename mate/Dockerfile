@@ -43,7 +43,13 @@ RUN set -eux; \
     vim \
     x11-xserver-utils \
   ; \
-  rm -rf /var/lib/apt/lists/*; \
+  $AG autoremove; \
+  $AG clean; \
+  rm -rf \
+    /var/cache/debconf/*-old \
+    /var/lib/apt/lists/* \
+    /var/lib/dpkg/*-old \
+  ; \
   busybox --install;
 
 RUN set -eux; \
