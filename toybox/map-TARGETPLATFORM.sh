@@ -3,6 +3,7 @@ SELF=$(basename "$0" ".sh")
 
 # Supported by docker, but no toybox binary releases:
 # * riscv64
+# * armv6
 
 # Supported by toybox, but possibly not docker:
 # * armv4l
@@ -22,7 +23,8 @@ warn() {
 }
 
 main() {
-  arch="${TARGETARCH:-$(arch)}"
+  arch="${TARGETPLATFORM:-$(arch)}"
+  arch="${arch##linux/}"
   case "$arch" in
     386|i686) arch="i686" ;;
     amd64|x86_64) arch="x86_64" ;;
@@ -32,7 +34,7 @@ main() {
     mips64*) arch="mips64" ;;
     ppc64le|powerpc64le) arch="powerpc64le" ;;
     s390x) arch="s390x" ;;
-    *) warn "Architecture \"${TARGET_ARCH}\" is unsupported" ;;
+    *) warn "Architecture \"${TARGETPLATFORM}\" is unsupported" ;;
   esac
   echo "$arch"
 }
