@@ -86,6 +86,7 @@ jobs:
           - shunit2
           - snakeeyes
           - sql-formatter
+          - toybox
           - 'true'
           - tsqllint
           - vueenv
