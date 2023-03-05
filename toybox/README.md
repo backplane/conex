@@ -30,4 +30,3 @@ To see what version of toybox is in the container you can run `toybox --version`
 
 * At present the lack of `stty` can make it a little annoying to work in the toybox shell because you might experience issues with backspace/delete.
 * You may also find it unpleasant to operate without shell history.
-* The container image license situation is complicated. Time image includes ca-certificates from aports and elements of the password file from alpine. So it's more complicated to use this container than toybox's own BSD0 license.

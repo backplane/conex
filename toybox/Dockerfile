@@ -26,13 +26,13 @@ RUN set -eux; \
   cp -p /bin/toybox /build/bin/; \
   # create a nonroot user account and install its /home directory to /build
   adduser -s /bin/sh -S -D nonroot; \
-  cp -pR /home /build/; \
+  cp -pR /home /root /build/; \
   # copy some useful resource from /etc to /build/
   cp -pR \
-    /etc/ca-certificates.conf \
-    /etc/ca-certificates/ \
-    /etc/ssl/ \
-    /etc/ssl*.*/ \
+    #/etc/ca-certificates.conf \
+    #/etc/ca-certificates/ \
+    #/etc/ssl/ \
+    #/etc/ssl*.*/ \
     /etc/passwd \
     /etc/shadow \
     /etc/group \
