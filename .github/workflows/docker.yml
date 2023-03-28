@@ -78,6 +78,7 @@ jobs:
           - mypy
           - ods_conv
           - pdf
+          - pgformatter
           - proxyport
           - pwgen
           - pycodestyle
