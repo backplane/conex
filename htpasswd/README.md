@@ -1,6 +1,6 @@
 # htpasswd
 
-[`alpine`](https://hub.docker.com/_/alpine/)-based dockerization of [apache2-utils](https://pkgs.alpinelinux.org/package/edge/main/x86_64/apache2-utils) which provides [`htpasswd`](https://httpd.apache.org/docs/current/programs/htpasswd.html)
+[`alpine`](https://hub.docker.com/_/alpine/)-based dockerization of [`apache2-utils`](https://pkgs.alpinelinux.org/package/edge/main/x86_64/apache2-utils) which provides [`htpasswd`](https://httpd.apache.org/docs/current/programs/htpasswd.html)
 
 As the site says:
 
