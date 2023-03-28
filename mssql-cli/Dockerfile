@@ -4,16 +4,15 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 # a helper utility
 COPY arch.sh /
 
+ARG AG="apt-get -yq --no-install-recommends"
+ARG DEBIAN_FRONTEND="noninteractive"
+
 RUN set -eux; \
-  export \
-    AG="apt-get -yq" \
-    DEBIAN_FRONTEND="noninteractive" \
-    DEBIAN_VERSION_CODENAME="$(. /etc/os-release; echo "$VERSION_CODENAME")" \
-    DEBIAN_VERSION_ID="$(. /etc/os-release; echo "$VERSION_ID")" \
-  ; \
+  DEBIAN_VERSION_CODENAME=$(. /etc/os-release; echo "$VERSION_CODENAME"); \
+  DEBIAN_VERSION_ID=$(. /etc/os-release; echo "$VERSION_ID"); \
   $AG update; \
   $AG upgrade; \
-  $AG install --no-install-recommends \
+  $AG install \
     apt-transport-https \
     ca-certificates \
     gnupg \
@@ -22,12 +21,13 @@ RUN set -eux; \
   wget -O - \
     "https://packages.microsoft.com/keys/microsoft.asc" \
     | apt-key add -; \
-  printf "deb [arch=$(/arch.sh)] %s %s main\n" \
+  printf "deb [arch=%s] %s %s main\n" \
+    "$(/arch.sh)" \
     "https://packages.microsoft.com/debian/${DEBIAN_VERSION_ID}/prod" \
     "$DEBIAN_VERSION_CODENAME" \
     | tee /etc/apt/sources.list.d/mssql-cli.list; \
   $AG update; \
-  $AG install --no-install-recommends \
+  $AG install \
     mssql-cli \
   ; \
   $AG purge --auto-remove \

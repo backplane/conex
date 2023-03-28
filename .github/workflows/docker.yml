@@ -101,7 +101,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # some customer outputs for use later in the file
+      # some custom outputs for use later in the build
       - name: Load Custom Data
         id: cdata
         run: |
@@ -114,8 +114,11 @@ jobs:
           : "${PSUM_LABEL:?}"
 
           # generate some outputs about the container being built
-          docker pull -q backplane/conex-helper
-          docker run --rm --user "$(id -u)" --env GITHUB_OUTPUT \
+          docker run \
+            --rm \
+            --pull "always" \
+            --user "$(id -u)" \
+            --env "GITHUB_OUTPUT" \
             --volume "$(pwd):/work" \
             --volume "/home/runner:/home/runner" \
             backplane/conex-helper \
@@ -159,7 +162,6 @@ jobs:
             org.opencontainers.image.licenses=${{ steps.cdata.outputs.licenses }}
             org.opencontainers.image.description=${{ steps.cdata.outputs.description }}
 
-      # Build and push Docker image using buildx
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
@@ -173,6 +175,7 @@ jobs:
             ${{ env.PSUM_LABEL }}=${{ steps.cdata.outputs.psum }}
           platforms: ${{ steps.cdata.outputs.platforms }}
 
+      # https://github.com/peter-evans/dockerhub-description
       - name: Update Docker Hub Description
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
         uses: peter-evans/dockerhub-description@v3

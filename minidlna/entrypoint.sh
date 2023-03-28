@@ -1,9 +1,9 @@
 #!/bin/sh
 # minidlnad entrypoint
-SELF="$(basename "$0" ".sh")"
+SELF=$(basename "$0" ".sh")
 
 usage() {
-  exception="$1"; shift
+  exception="${1:-}"
   [ -n "$exception" ] && printf 'ERROR: %s\n\n' "$exception"
 
   printf '%s\n' \
@@ -11,9 +11,8 @@ usage() {
     "" \
     "-h / --help   show this message" \
     "-d / --debug  print additional debugging messages" \
-    "arg           description of arg" \
     "" \
-    "Description of functionality" \
+    "starts minidlnad with the given arguments" \
     "" # no trailing slash
 
   [ -n "$exception" ] && exit 1
@@ -103,5 +102,5 @@ main() {
     "$@"
 }
 
-[ -n "$IMPORT" ] || main "$@"; exit
+main "$@"
 

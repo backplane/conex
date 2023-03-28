@@ -1,34 +1,39 @@
-FROM debian:buster-slim
+FROM backplane/ghlatest as dl
+RUN set -eux; \
+  mkdir -p /work/mssqltoolsservice; \
+  cd /work/mssqltoolsservice; \
+  ghlatest download \
+    -f ServiceLayer \
+    -f rhel \
+    --rm \
+    --extract \
+    microsoft/sqltoolsservice;
 
-# This is actually a terrible idea.
-# MS binary blob depends on libssl1.0.0
-# using https://packages.debian.org/jessie/libssl1.0.0
-ARG BAD_IDEA="https://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb"
-
-RUN set -x \
-  && AG="env DEBIAN_FRONTEND=noninteractive apt-get -yq" \
-  && $AG update \
-  && $AG install --no-install-recommends \
+FROM python:3-slim
+ARG DEBIAN_FRONTEND=noninteractive
+ARG AG="apt-get -yq --no-install-recommends"
+RUN set -eux; \
+  $AG update; \
+  $AG upgrade; \
+  $AG install \
     curl \
-    libicu63 \
-    multiarch-support \
-    python3 \
-    python3-pip \
-  && rm -rf /var/lib/apt/lists/* \
-  && curl -sSL --tlsv1.3 -o "libssl.deb" "${BAD_IDEA}" \
-  && dpkg -i "libssl.deb" \
-  && rm "libssl.deb"
+    libicu67 \
+    libssl1.1 \
+  ; \
+  $AG autoremove; \
+  $AG clean; \
+  rm -rf /var/lib/apt/lists/*;
 
-RUN set -x \
-  && pip3 install --upgrade \
-    pip \
-    setuptools \
-  && pip install \
+RUN set -eux; \
+  pip install --upgrade pip; \
+  pip install \
     mssql-scripter \
-  && pip cache purge \
-  && true
+  ; \
+  pip cache purge;
 
+ENV MSSQLTOOLSSERVICE_PATH="/opt/mssqltoolsservice"
 ENV PYTHONIOENCODING="utf_8"
+COPY --from=dl /work/mssqltoolsservice /opt/mssqltoolsservice
 
 WORKDIR /app
 ENTRYPOINT ["python3", "-m", "mssqlscripter"]

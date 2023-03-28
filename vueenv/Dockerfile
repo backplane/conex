@@ -1,5 +1,4 @@
-ARG ALPINE=3.15
-FROM alpine:$ALPINE
+FROM alpine:3
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN apk add --no-cache \
@@ -9,11 +8,15 @@ RUN apk add --no-cache \
     python3 \
   ;
 
-RUN npm install --global \
+RUN set -eux; \
+  npm install --global \
     '@vue/cli' \
+    'create-vue@3' \
     'vue@next' \
     'yarn' \
-  ;
+  ; \
+  # for the disk space
+  npm cache clean --force;
 
 RUN adduser -D -h /work vue
 USER vue

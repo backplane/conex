@@ -1,6 +1,9 @@
-**/.mypy_cache
-**/.venv
-**/.vscode
-**/__pycache__
 **/venv
+.DS_Store
+.mypy_cache
+.venv
+.vscode
+__pycache__
 archived
+vueenv/.bash_history
+vueenv/.npm
