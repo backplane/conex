@@ -176,6 +176,8 @@ jobs:
             ${{ steps.meta.outputs.labels }}
             ${{ env.PSUM_LABEL }}=${{ steps.cdata.outputs.psum }}
           platforms: ${{ steps.cdata.outputs.platforms }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # https://github.com/peter-evans/dockerhub-description
       - name: Update Docker Hub Description
