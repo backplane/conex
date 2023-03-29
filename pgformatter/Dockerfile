@@ -6,15 +6,21 @@ RUN set -eux; \
   ghlatest download --source --extract --rm darold/pgFormatter; \
   mv /work/pgFormatter/* /work/pgFormatter/src
 
-FROM perl:5-slim
+FROM perl:5-slim as builder
 ARG CHARSET=UTF-8
-
 COPY --from=downloader /work/pgFormatter/src /src/
 RUN set -eux; \
   cd /src; \
   perl Makefile.PL; \
   make; \
-  make install;
+  make install; \
+  cd /; \
+  rm -rf /src;
+
+FROM scratch
+COPY --from=builder / /
+
+ARG CHARSET=UTF-8
 
 # Add non-privileged user
 RUN set -eux; \
