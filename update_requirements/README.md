@@ -4,6 +4,8 @@
 
 The program updates Python `requirements.txt` files (optionally in-place), sorts them, and updates the version numbers therein. *NOTE:* Currently, version numbers are updated without regard for the version comparison operators already in the requirements file, this can do bad things in non-trivial requirements files. This limitation is likely to change in the future.
 
+The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/update_requirements).
+
 ## Usage
 
 ### Help Text
