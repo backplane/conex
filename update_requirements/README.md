@@ -1,8 +1,8 @@
 # update_requirements
 
-A `python:3-alpine`-based dockerization of [update_requirements](https://github.com/backplane/update_requirements), a utility that updates `requirements.txt` files. This utility updates requirements.txt files (optionally in-place), sorts them, and updates the version numbers therein.
+[`python:3-alpine`](https://hub.docker.com/_/python/)-based dockerization of [update_requirements](https://github.com/backplane/update_requirements), the utility for updating requirements files
 
-*NOTE:* Currently, version numbers are updated without regard for the version comparison operators already in the requirements file, this can do bad things in non-trivial requirements files. This limitation is likely to change in the future.
+The program updates Python `requirements.txt` files (optionally in-place), sorts them, and updates the version numbers therein. *NOTE:* Currently, version numbers are updated without regard for the version comparison operators already in the requirements file, this can do bad things in non-trivial requirements files. This limitation is likely to change in the future.
 
 ## Usage
 
