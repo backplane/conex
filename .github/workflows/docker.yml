@@ -91,6 +91,7 @@ jobs:
           - toybox
           - 'true'
           - tsqllint
+          - update_requirements
           - vueenv
           - wimlib-imagex
           - wireguard
