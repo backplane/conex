@@ -33,7 +33,7 @@ RUN set -eux; \
     make \
     nano \
     netbase \
-    netcat \
+    netcat-openbsd \
     sudo \
     tigervnc-common \
     tigervnc-standalone-server \
