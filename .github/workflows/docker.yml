@@ -92,6 +92,7 @@ jobs:
           - 'true'
           - tsqllint
           - update_requirements
+          - upx
           - vueenv
           - wimlib-imagex
           - wireguard
@@ -102,7 +103,7 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # some custom outputs for use later in the build
       - name: Load Custom Data
@@ -132,12 +133,12 @@ jobs:
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       # https://github.com/docker/setup-buildx-action
       - name: Set up Docker Buildx
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       # https://github.com/docker/login-action
       - name: Login to Docker Hub
@@ -152,7 +153,7 @@ jobs:
       - name: Extract Docker metadata
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.container }}
           tags: |

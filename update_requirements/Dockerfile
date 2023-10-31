@@ -4,10 +4,10 @@ RUN ghlatest download backplane/update_requirements
 FROM python:3-alpine
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-COPY --from=dl /work /tmp/wheeldl/
+COPY --from=dl /work /tmp/dl/
 RUN set -eux; \
-  pip install /tmp/wheeldl/*.whl; \
-  rm -rf /tmp/wheeldl;
+  pip install /tmp/dl/*.whl; \
+  rm -rf /tmp/dl;
 
 ARG NONROOT_GID=65532
 ARG NONROOT_UID=65532
