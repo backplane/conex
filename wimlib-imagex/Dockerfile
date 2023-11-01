@@ -1,50 +1,54 @@
-FROM alpine:3.13 as builder
+FROM alpine:edge as builder
 
 # for updates, see: https://wimlib.net/downloads/index.html
-ARG TAG="v1.13.6"
+ARG TAG="v1.14.3"
 
-RUN set -x \
-  && apk add --no-cache \
+RUN set -eux; \
+  apk add --no-cache \
     autoconf \
     automake \
     file \
-    fuse-dev \
+    fuse3-dev \
     gcc \
     git \
     libtool \
     libxml2-dev \
+    linux-headers \
     make \
     musl-dev \
     ntfs-3g-dev \
     openssl-dev \
     pkgconf \
-  && true
+  ;
+
 
 WORKDIR /build
+RUN git clone "git://wimlib.net/wimlib" /build
 
-RUN set -x \
-  && git clone "git://wimlib.net/wimlib" . \
-  && ( [ -z "$TAG" ] || git checkout "tags/${TAG}" -b "$TAG" ) \
-  && ./bootstrap \
-  && ( ./configure --prefix=/usr --disable-dependency-tracking || ( cat "config.log"; false ) ) \
-  && make install
+COPY patch /patch/
+RUN set -eux; \
+  ( [ -z "$TAG" ] || git checkout "tags/${TAG}" -b "$TAG" ); \
+  find /patch -type f -print | xargs -r -t -n 1 git apply; \
+  ./bootstrap; \
+  ( ./configure --prefix=/usr --disable-dependency-tracking || ( cat "config.log"; false ) ); \
+  make install
 
 FROM alpine:edge
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-RUN set -x \
-  && apk add --no-cache \
-    fuse \
+RUN set -eux; \
+  apk add --no-cache \
+    fuse3 \
     libxml2 \
     ntfs-3g \
     xz-libs \
-  && true
+  ;
 
 COPY --from=builder /usr/bin/wimlib-imagex /usr/bin/mkwinpeimg /usr/bin/
 COPY --from=builder /usr/lib/libwim.so.?? /usr/lib/
 
-RUN set -x \
-  && for name in \
+RUN set -eux; \
+  for name in \
     wimappend \
     wimapply \
     wimcapture \

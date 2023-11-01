@@ -1,0 +1,19 @@
+diff --git a/src/mount_image.c b/src/mount_image.c
+index 4702d60d..0ee04742 100644
+--- a/src/mount_image.c
++++ b/src/mount_image.c
+@@ -33,6 +33,14 @@
+ 
+ #ifdef WITH_FUSE
+ 
++/* musl libc support */
++#ifndef RENAME_NOREPLACE
++  #define RENAME_NOREPLACE 0x1
++#endif
++#ifndef RENAME_EXCHANGE
++  #define RENAME_EXCHANGE 0x2
++#endif
++
+ #ifdef _WIN32
+ #  error "FUSE mount not supported on Windows!  Please configure --without-fuse"
+ #endif
