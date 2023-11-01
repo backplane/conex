@@ -72,7 +72,6 @@ jobs:
           - lxde
           - mate
           - minidlna
-          - mssql-cli
           - mssql-scripter
           - myip
           - mypy
