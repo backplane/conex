@@ -1,6 +1,6 @@
 # ansible
 
-[`alpine:3`](https://hub.docker.com/_/alpine/)-based dockerization of [ansible](https://www.ansible.com/) and [ansible-runner](https://ansible-runner.readthedocs.io)
+[`alpine:3`](https://hub.docker.com/_/alpine/)-based dockerization of [ansible](https://www.ansible.com/), [ansible-runner](https://ansible-runner.readthedocs.io), and [molecule](https://ansible.readthedocs.io/projects/molecule/)
 
 As the [wikipedia article](https://en.wikipedia.org/wiki/Ansible_(software)) says:
 
@@ -10,50 +10,25 @@ The source code for this image is hosted on GitHub in the [backplane/conex repo]
 
 ## Usage
 
-This is the help text provided by the container's entrypoint:
+The following tools are available in the container:
 
-```
-Note: this is the help text for an ansible container entrypoint, if you
-      want to see the help text for ansible itself, use something like:
-      docker run --rm -it backplane/ansible ansible -h
+* `ansible`
+* `ansible-community`
+* `ansible-config`
+* `ansible-connection`
+* `ansible-console`
+* `ansible-doc`
+* `ansible-galaxy`
+* `ansible-inventory`
+* `ansible-playbook`
+* `ansible-pull`
+* `ansible-runner`
+* `ansible-test`
+* `ansible-vault`
+* `molecule`
 
-
-Usage: entrypoint [-h|--help] <utility> [arg [...]]
-
--h / --help   show this message
--d / --debug  print additional debugging messages
-<utility>     run the named ansible utility with any given arguments
-              must be one of the following:
-                ansible
-                ansible-config
-                ansible-connection
-                ansible-console
-                ansible-doc
-                ansible-galaxy
-                ansible-inventory
-                ansible-playbook
-                ansible-pull
-                ansible-runner
-                ansible-test
-                ansible-vault
-
-If no utility is specified, 'ansible' will be used.
-```
-
-### Interactive
-
-The following shell function can assist in running this image interactively:
+These can be invoked as commands to the container, for example:
 
 ```sh
-
-ansible() {
-  docker run \
-    --rm \
-    --interactive \
-    --tty \
-    --volume "$(pwd):/work" \
-    "backplane/ansible" \
-    "$@"
-}
-
+docker run --rm -it --volume "$(pwd):/work" backplane/ansible ansible-config -h
 ```

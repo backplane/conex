@@ -1,7 +1,7 @@
 FROM alpine:3
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-COPY ["requirements.txt", "entrypoint.sh", "/"]
+COPY ["requirements.txt", "/"]
 
 RUN set -ex; \
   apk add --update-cache \
@@ -22,6 +22,7 @@ RUN set -ex; \
   apk del build-dependencies; \
   rm -rf \
     /tmp/* \
+    /usr/bin/__pycache__ \
     /var/cache/apk \
     ~/.cache \
   ;
@@ -40,7 +41,6 @@ RUN set -ex; \
     -D \
     nonroot \
   ;
+
 USER nonroot
 WORKDIR /work
-
-ENTRYPOINT ["/entrypoint.sh"]
