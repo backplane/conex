@@ -17,12 +17,16 @@ RUN set -eux; \
   $AG upgrade; \
   $AG install \
     curl \
-    libicu67 \
-    libssl1.1 \
+    libicu72 \
+    libssl3 \
   ; \
   $AG autoremove; \
   $AG clean; \
   rm -rf /var/lib/apt/lists/*;
+
+ENV MSSQLTOOLSSERVICE_PATH="/opt/mssqltoolsservice"
+ENV PYTHONIOENCODING="utf_8"
+COPY --from=dl /work/mssqltoolsservice /opt/mssqltoolsservice
 
 RUN set -eux; \
   pip install --upgrade pip; \
@@ -30,10 +34,6 @@ RUN set -eux; \
     mssql-scripter \
   ; \
   pip cache purge;
-
-ENV MSSQLTOOLSSERVICE_PATH="/opt/mssqltoolsservice"
-ENV PYTHONIOENCODING="utf_8"
-COPY --from=dl /work/mssqltoolsservice /opt/mssqltoolsservice
 
 WORKDIR /app
 ENTRYPOINT ["python3", "-m", "mssqlscripter"]
