@@ -74,6 +74,7 @@ jobs:
           - pwgen
           - pygmentize
           - qrencode
+          - registryproxy
           - shunit2
           - snakeeyes
           - sql-formatter
