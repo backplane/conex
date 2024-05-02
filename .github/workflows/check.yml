@@ -1,4 +1,4 @@
-name: YAML Lint
+name: Check
 
 on:
   push:
@@ -10,8 +10,10 @@ jobs:
   yamllint:
     runs-on: ubuntu-latest
     steps:
+      # https://github.com/actions/checkout
       - name: Checkout the code
         uses: actions/checkout@v4
+
       - name: Check the YAML in .github and containers
         run: |
           docker run \
