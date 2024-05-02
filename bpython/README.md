@@ -1,6 +1,6 @@
 # bpython
 
-[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [the bpython interpreter](https://bpython-interpreter.org/)
+[`python:3-alpine`](https://hub.docker.com/_/python/)-based dockerization of [the bpython interpreter](https://bpython-interpreter.org/)
 
 As their homepage says:
 

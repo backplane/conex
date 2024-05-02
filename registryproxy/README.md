@@ -1,6 +1,6 @@
 # registryproxy
 
-scratch-based dockerization of [registryproxy](https://github.com/backplane/registryproxy), a reverse proxy designed for Docker registries.
+[`scratch`](https://hub.docker.com/_/scratch/)-based single-binary dockerization of [registryproxy](https://github.com/backplane/registryproxy), a reverse proxy designed for Docker registries.
 
 The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/registryproxy).
 

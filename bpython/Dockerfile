@@ -1,19 +1,15 @@
-FROM alpine:3
+FROM python:3-alpine
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
-  apk add --update-cache \
-    py3-pip \
-    python3 \
-  ; \
-  apk add --virtual build-dependencies \
+  apk add --update-cache --virtual build-dependencies \
     curl \
     g++ \
     gcc \
     musl-dev \
     python3-dev \
   ; \
-  pip3 install \
+  pip install \
     bpython \
   ; \
   pip cache purge; \
@@ -26,4 +22,4 @@ RUN set -eux; \
 
 WORKDIR /work
 
-ENTRYPOINT [ "/usr/bin/bpython" ]
+ENTRYPOINT [ "/usr/local/bin/bpython" ]
