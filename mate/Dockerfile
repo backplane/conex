@@ -29,14 +29,15 @@ RUN set -eux; \
     iputils-ping \
     less \
     locales \
-    mate-desktop-environment \
     make \
+    mate-desktop-environment \
     nano \
     netbase \
     netcat-openbsd \
     sudo \
     tigervnc-common \
     tigervnc-standalone-server \
+    tigervnc-tools \
     traceroute \
     ttf-anonymous-pro \
     unzip \

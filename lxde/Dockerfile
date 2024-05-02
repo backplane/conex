@@ -38,6 +38,7 @@ RUN set -eux; \
     sudo \
     tigervnc-common \
     tigervnc-standalone-server \
+    tigervnc-tools \
     traceroute \
     ttf-anonymous-pro \
     unzip \
