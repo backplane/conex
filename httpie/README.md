@@ -1,6 +1,6 @@
 # httpie
 
-[`alpine:edge`](https://hub.docker.com/_/alpine/)-based dockerization of [HTTPie](https://httpie.org/) the versatile command line HTTP client
+[`python:3-alpine`](https://hub.docker.com/_/python/)-based dockerization of [HTTPie](https://httpie.org/) the versatile command line HTTP client
 
 As their site says:
 
