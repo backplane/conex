@@ -1,1 +1,1 @@
-ruamel.yaml>=0.17.10
+ruamel.yaml>=0.18.6
