@@ -1,26 +1,24 @@
-FROM backplane/ghlatest as downloader
-
-RUN set -eux; \
-  mkdir -p /work/pgFormatter; \
-  cd /work/pgFormatter; \
-  ghlatest download --source --extract --rm darold/pgFormatter; \
-  mv /work/pgFormatter/* /work/pgFormatter/src
+FROM backplane/ghlatest as dl
+RUN ghlatest download --source --extract --rm darold/pgformatter
+RUN mv darold-pgFormatter-* src
 
 FROM perl:5-slim as builder
 ARG CHARSET=UTF-8
-COPY --from=downloader /work/pgFormatter/src /src/
+WORKDIR /work
+
+COPY --from=dl /work/src /work/src
 RUN set -eux; \
-  cd /src; \
+  cd src; \
   perl Makefile.PL; \
   make; \
   make install; \
   cd /; \
-  rm -rf /src;
+  rm -rf /work
 
 FROM scratch
-COPY --from=builder / /
-
 ARG CHARSET=UTF-8
+LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
+COPY --from=builder / /
 
 # Add non-privileged user
 RUN set -eux; \
