@@ -1,12 +1,10 @@
-FROM alpine:3
+FROM python:3-alpine
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
   apk add --update-cache \
     libxml2 \
     libxslt \
-    py3-pip \
-    python3 \
   ; \
   apk add --update-cache --virtual build-dependencies \
     curl \
