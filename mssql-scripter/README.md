@@ -1,6 +1,6 @@
 # mssql-scripter
 
-[`debian:buster-slim`](https://hub.docker.com/_/debian/)-based dockerization of [mssql-scripter](https://github.com/microsoft/mssql-scripter), a multi-platform command line experience for scripting SQL Server databases.
+[`python:3-slim`](https://hub.docker.com/_/python/)-based dockerization of [mssql-scripter](https://github.com/microsoft/mssql-scripter), a tool for scripting SQL Server databases
 
 As the site says:
 
@@ -8,39 +8,43 @@ As the site says:
 >
 > mssql-scripter is built using Python and incorporates the usability principles of the new Azure CLI 2.0 tools.
 
-The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/mssql-scripter).
+Repo         | URL
+------------ | -------------------------------------------------------------
+Source Code  | <https://github.com/backplane/conex/tree/main/mssql-scripter>
+Docker Image | <https://hub.docker.com/r/backplane/mssql-scripter>
+
 
 ## Usage
 
 ```
 $ mssql-scripter -h
 usage: mssql-scripter [-h] [--connection-string  | -S ] [-d] [-U] [-P] [-f]
-                  [--file-per-object] [--data-only | --schema-and-data]
-                  [--script-create | --script-drop | --script-drop-create]
-                  [--target-server-version {2005,2008,2008R2,2012,2014,2016,vNext,AzureDB,AzureDW}]
-                  [--target-server-edition {Standard,Personal,Express,Enterprise,Stretch}]
-                  [--include-objects [[...]]] [--exclude-objects [[...]]]
-                  [--include-schemas [[...]]] [--exclude-schemas [[...]]]
-                  [--include-types [[...]]] [--exclude-types [[...]]]
-                  [--ansi-padding] [--append] [--check-for-existence] [-r]
-                  [--convert-uddts] [--include-dependencies]
-                  [--exclude-headers] [--constraint-names]
-                  [--unsupported-statements]
-                  [--disable-schema-qualification] [--bindings]
-                  [--collation] [--exclude-defaults]
-                  [--exclude-extended-properties] [--logins]
-                  [--object-permissions] [--owner]
-                  [--exclude-use-database] [--statistics]
-                  [--change-tracking] [--exclude-check-constraints]
-                  [--data-compressions] [--exclude-foreign-keys]
-                  [--exclude-full-text-indexes] [--exclude-indexes]
-                  [--exclude-primary-keys] [--exclude-triggers]
-                  [--exclude-unique-keys] [--display-progress]
-                  [--enable-toolsservice-logging] [--version]
+                      [--file-per-object] [--data-only | --schema-and-data]
+                      [--script-create | --script-drop | --script-drop-create]
+                      [--target-server-version {2005,2008,2008R2,2012,2014,2016,vNext,AzureDB,AzureDW}]
+                      [--target-server-edition {Standard,Personal,Express,Enterprise,Stretch}]
+                      [--include-objects [...]] [--exclude-objects [...]]
+                      [--include-schemas [...]] [--exclude-schemas [...]]
+                      [--include-types [...]] [--exclude-types [...]]
+                      [--ansi-padding] [--append] [--check-for-existence] [-r]
+                      [--convert-uddts] [--include-dependencies]
+                      [--exclude-headers] [--constraint-names]
+                      [--unsupported-statements]
+                      [--disable-schema-qualification] [--bindings]
+                      [--collation] [--exclude-defaults]
+                      [--exclude-extended-properties] [--logins]
+                      [--object-permissions] [--owner]
+                      [--exclude-use-database] [--statistics]
+                      [--change-tracking] [--exclude-check-constraints]
+                      [--data-compressions] [--exclude-foreign-keys]
+                      [--exclude-full-text-indexes] [--exclude-indexes]
+                      [--exclude-primary-keys] [--exclude-triggers]
+                      [--exclude-unique-keys] [--display-progress]
+                      [--enable-toolsservice-logging] [--version]
 
-Microsoft SQL Server Scripter Command Line Tool. Version 1.0.0a14
+Microsoft SQL Server Scripter Command Line Tool. Version 1.0.0a21
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --connection-string   Connection string of database to script. If connection
                         string and server are not supplied, defaults to value
@@ -69,18 +73,18 @@ optional arguments:
   --target-server-edition {Standard,Personal,Express,Enterprise,Stretch}
                         Script only features compatible with the specified SQL
                         Server database edition.
-  --include-objects [ [ ...]]
+  --include-objects [ ...]
                         Database objects to include in script.
-  --exclude-objects [ [ ...]]
+  --exclude-objects [ ...]
                         Database objects to exclude from script.
-  --include-schemas [ [ ...]]
+  --include-schemas [ ...]
                         Database objects of this schema to include in script.
-  --exclude-schemas [ [ ...]]
+  --exclude-schemas [ ...]
                         Database objects of this schema to exclude from
                         script.
-  --include-types [ [ ...]]
+  --include-types [ ...]
                         Database objects of this type to include in script.
-  --exclude-types [ [ ...]]
+  --exclude-types [ ...]
                         Database objects of this type to exclude from script.
   --ansi-padding        Generates ANSI Padding statements.
   --append              Append script to file.
