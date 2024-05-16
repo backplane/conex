@@ -11,8 +11,6 @@ RUN apk add --no-cache \
 RUN set -eux; \
   npm install --global \
     '@vue/cli' \
-    'create-vue@3' \
-    'vue@next' \
     'yarn' \
   ; \
   # for the disk space
