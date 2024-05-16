@@ -1,14 +1,11 @@
-FROM alpine:3
+FROM python:3-alpine
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
-  apk add --no-cache \
-    python3 \
-    py3-pip \
-  ; \
   pip3 --no-cache-dir install \
     httpie \
-  ;
+  ; \
+  pip cache purge
 
 WORKDIR /work
 
