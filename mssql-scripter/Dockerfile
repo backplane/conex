@@ -4,7 +4,8 @@ RUN set -eux; \
   cd /work/mssqltoolsservice; \
   ghlatest download \
     -f ServiceLayer \
-    -f rhel \
+    --current-arch \
+    --current-os \
     --rm \
     --extract \
     microsoft/sqltoolsservice;
