@@ -5,12 +5,12 @@ LABEL upstream="https://github.com/tonistiigi/audiosprite"
 RUN apk add --no-cache \
     ffmpeg \
     npm \
-  && true
+  ;
 
-RUN npm install -g 'audiosprite@^0.7.2'
+RUN npm install -g 'audiosprite'
 
 VOLUME /work
 WORKDIR /work
 
-ENTRYPOINT [ "/usr/bin/audiosprite" ]
+ENTRYPOINT [ "/usr/local/bin/audiosprite" ]
 CMD [ "--help" ]
