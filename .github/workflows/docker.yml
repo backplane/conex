@@ -42,7 +42,6 @@ jobs:
           - ansible
           - apg
           - audiosprite
-          - aws-cli
           - bind
           - bpython
           - cdk-python
