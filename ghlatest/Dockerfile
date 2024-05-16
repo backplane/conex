@@ -1,5 +1,5 @@
 FROM backplane/ghlatest AS downloader
-RUN ghlatest --verbosity debug download --current-arch --current-os --extract --rm backplane/ghlatest
+RUN ghlatest download --current-arch --current-os --extract --rm backplane/ghlatest
 
 FROM alpine:3 AS alpine
 RUN apk add --no-cache \
