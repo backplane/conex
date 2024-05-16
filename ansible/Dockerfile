@@ -1,4 +1,4 @@
-FROM alpine:3
+FROM python:3-alpine
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 COPY ["requirements.txt", "/"]
@@ -6,8 +6,6 @@ COPY ["requirements.txt", "/"]
 RUN set -ex; \
   apk add --update-cache \
     openssh-client \
-    py3-pip \
-    python3 \
   ; \
   apk add --virtual build-dependencies \
     cargo \

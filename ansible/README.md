@@ -1,6 +1,6 @@
 # ansible
 
-[`alpine:3`](https://hub.docker.com/_/alpine/)-based dockerization of [ansible](https://www.ansible.com/), [ansible-runner](https://ansible-runner.readthedocs.io), and [molecule](https://ansible.readthedocs.io/projects/molecule/)
+[`python:3-alpine`](https://hub.docker.com/_/python/)-based dockerization of [ansible](https://www.ansible.com/), [ansible-runner](https://ansible-runner.readthedocs.io), and [molecule](https://ansible.readthedocs.io/projects/molecule/)
 
 As the [wikipedia article](https://en.wikipedia.org/wiki/Ansible_(software)) says:
 
