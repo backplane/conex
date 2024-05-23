@@ -1,5 +1,5 @@
 FROM backplane/ghlatest as downloader
-RUN ghlatest dl --current-os --current-arch --extract --rm --keep snakeeyes glvnst/snakeeyes
+RUN ghlatest download --current-os --current-arch --extract --rm --keep snakeeyes glvnst/snakeeyes
 
 FROM scratch
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"

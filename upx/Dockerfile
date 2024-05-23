@@ -2,7 +2,7 @@ FROM backplane/ghlatest as downloader
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 # download the latest upx release
-RUN ghlatest dl --current-arch -x --keep '^upx-.+?-.+?_linux/?(upx)?$' upx/upx
+RUN ghlatest download --current-arch -x --keep '^upx-.+?-.+?_linux/?(upx)?$' upx/upx
 RUN mv -i upx-*_linux upx-linux
 
 # test upx by compressing the executables in the image
