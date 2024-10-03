@@ -1,4 +1,4 @@
-name: Docker Image Builds
+name: Docker
 on:
   push:
     branches: [main]
@@ -8,9 +8,9 @@ on:
     - cron: 16 9 * * *
   workflow_dispatch:
     inputs:
-      force_build:
-        description: comma-separated list of container names which should be force-rebuilt
-        default: ''
+      targets:
+        description: comma-separated list of container names which should be rebuilt
+        default: ""
         required: false
         type: string
 
@@ -25,8 +25,7 @@ env:
   LICENSES_OVERRIDE_FILE: LICENSES.txt
 
 jobs:
-  build-push:
-    if: github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+  image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -50,7 +49,7 @@ jobs:
           - chromium
           - compose_sort
           - conex-helper
-          - 'false'
+          - "false"
           - firefox
           - ghlatest
           - goenv
@@ -76,7 +75,7 @@ jobs:
           - snakeeyes
           - sql-formatter
           - toybox
-          - 'true'
+          - "true"
           - tsqllint
           - update_requirements
           - upx
