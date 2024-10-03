@@ -1,10 +1,7 @@
 FROM alpine:edge
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-RUN set -x \
-  && apk add --no-cache \
-    p7zip \
-  && true
+RUN apk add --no-cache p7zip
 
 WORKDIR /work
 

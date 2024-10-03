@@ -10,20 +10,22 @@ The source code for this image is hosted on GitHub in the [backplane/conex repo]
 
 ## Usage
 
-### Interactive
+### Examples
 
-The following shell function can assist in running this image interactively:
+#### Get help
 
 ```sh
+docker run --rm -it -v "$(pwd):/work" backplane/7z -h
+```
 
-p7zip() {
-  docker run \
-    --rm \
-    --interactive \
-    --tty \
-    --volume "$(pwd):/work" \
-    "backplane/7z" \
-    "$@"
-}
+#### Create an archive
 
+```sh
+docker run --rm -it -v "$(pwd):/work" backplane/7z a archive.7z examplefile.txt
+```
+
+#### Extract
+
+```sh
+docker run --rm -it --volume "$(pwd):/work" backplane/7z x archive.7z
 ```
