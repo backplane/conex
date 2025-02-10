@@ -10,7 +10,7 @@ on:
     inputs:
       targets:
         description: comma-separated list of container names which should be rebuilt
-        default: ""
+        default: ''
         required: false
         type: string
 
@@ -25,7 +25,7 @@ env:
   LICENSES_OVERRIDE_FILE: LICENSES.txt
 
 jobs:
-  image:
+  build-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -49,7 +49,7 @@ jobs:
           - chromium
           - compose_sort
           - conex-helper
-          - "false"
+          - 'false'
           - firefox
           - ghlatest
           - goenv
@@ -74,8 +74,9 @@ jobs:
           - shunit2
           - snakeeyes
           - sql-formatter
+          - toolbox
           - toybox
-          - "true"
+          - 'true'
           - tsqllint
           - update_requirements
           - upx
