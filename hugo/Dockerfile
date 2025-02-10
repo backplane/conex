@@ -1,7 +1,7 @@
 FROM backplane/ghlatest AS downloader
 RUN ghlatest download \
   --current-arch --current-os \
-  --filter "hugo_extended" --filter "tar.gz" \
+  --filter "hugo_extended_withdeploy" --filter "tar.gz" \
   gohugoio/hugo
 RUN ghlatest download --filter "_checksums.txt" gohugoio/hugo
 # validate the checksums or bomb-out
