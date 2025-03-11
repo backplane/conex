@@ -10,7 +10,7 @@ on:
     inputs:
       targets:
         description: comma-separated list of container names which should be rebuilt
-        default: ""
+        default: ''
         required: false
         type: string
 
@@ -49,7 +49,8 @@ jobs:
           - chromium
           - compose_sort
           - conex-helper
-          - "false"
+          - 'false'
+          - fedora-spe
           - firefox
           - ghlatest
           - goenv
@@ -76,7 +77,7 @@ jobs:
           - sql-formatter
           - toolbox
           - toybox
-          - "true"
+          - 'true'
           - tsqllint
           - update_requirements
           - upx
