@@ -1,4 +1,4 @@
-FROM alpine:edge as downloader
+FROM alpine:edge AS downloader
 
 # for ABE updates, see:
 # https://github.com/nelenkov/android-backup-extractor/releases

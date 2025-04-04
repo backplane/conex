@@ -1,4 +1,4 @@
-FROM python:3-alpine as builder
+FROM python:3-alpine AS builder
 COPY kp1p /kp1p
 RUN python -m zipapp -p "/usr/bin/env python3" --compress kp1p
 

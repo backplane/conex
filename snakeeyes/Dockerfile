@@ -1,4 +1,4 @@
-FROM backplane/ghlatest as downloader
+FROM backplane/ghlatest AS downloader
 RUN ghlatest download --current-os --current-arch --extract --rm --keep snakeeyes glvnst/snakeeyes
 
 FROM scratch

@@ -1,4 +1,4 @@
-FROM backplane/ghlatest as dl
+FROM backplane/ghlatest AS dl
 RUN ghlatest download --current-arch --current-os --filter '[^g][^z]$' -o yq mikefarah/yq
 
 FROM scratch

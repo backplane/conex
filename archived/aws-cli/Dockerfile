@@ -1,4 +1,4 @@
-FROM debian:stable-slim as downloader
+FROM debian:stable-slim AS downloader
 
 ARG AG="apt-get -yq --no-install-recommends"
 ARG DEBIAN_FRONTEND=noninteractive

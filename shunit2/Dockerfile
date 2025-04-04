@@ -1,4 +1,4 @@
-FROM koalaman/shellcheck:stable as shellcheck
+FROM koalaman/shellcheck:stable AS shellcheck
 
 FROM alpine:edge
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"

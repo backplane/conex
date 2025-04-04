@@ -1,4 +1,4 @@
-FROM python:3-alpine as builder
+FROM python:3-alpine AS builder
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \

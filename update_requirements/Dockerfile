@@ -1,4 +1,4 @@
-FROM backplane/ghlatest as dl
+FROM backplane/ghlatest AS dl
 RUN ghlatest download backplane/update_requirements
 
 FROM python:3-alpine

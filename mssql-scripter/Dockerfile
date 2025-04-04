@@ -1,4 +1,4 @@
-FROM backplane/ghlatest as dl
+FROM backplane/ghlatest AS dl
 RUN set -eux; \
   mkdir -p /work/mssqltoolsservice; \
   cd /work/mssqltoolsservice; \

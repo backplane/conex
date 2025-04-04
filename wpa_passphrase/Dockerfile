@@ -1,4 +1,4 @@
-FROM alpine:edge as builder
+FROM alpine:edge AS builder
 
 RUN apk add --no-cache \
     wpa_supplicant \

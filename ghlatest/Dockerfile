@@ -1,4 +1,4 @@
-FROM alpine:edge as downloader
+FROM alpine:edge AS downloader
 RUN set -eux; \
   apk add --no-cache \
     ca-certificates \
