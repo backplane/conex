@@ -84,6 +84,7 @@ jobs:
           - vueenv
           - wimlib-imagex
           - wireguard
+          - wireproxy
           - wpa_passphrase
           - yamllint
           - youtube-dl
