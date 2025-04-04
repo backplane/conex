@@ -1,6 +1,6 @@
 # ghlatest
 
-scratch-based dockerization of [ghlatest](https://github.com/backplane/ghlatest), a release downloader utility
+[`scratch`](https://hub.docker.com/_/scratch/)-based dockerization of [ghlatest](https://github.com/backplane/ghlatest), a release downloader utility
 
 This container is a work-in-progress.
 
