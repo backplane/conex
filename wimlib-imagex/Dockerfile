@@ -1,7 +1,7 @@
-FROM alpine:edge as builder
+FROM alpine:edge AS builder
 
 # for updates, see: https://wimlib.net/downloads/index.html
-ARG TAG="v1.14.3"
+ARG TAG="v1.14.4"
 
 RUN set -eux; \
   apk add --no-cache \
