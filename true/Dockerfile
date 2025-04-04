@@ -1,15 +1,19 @@
-FROM alpine:3 as builder
+FROM alpine:edge AS builder
+ARG EXIT_CODE=0
+
 RUN apk add --no-cache gcc musl-dev
+
 RUN set -eux; \
-  printf 'int main(void) { return 0; }\n' >true.c; \
-  time gcc -Wl,--gc-sections -static -Os -s -fdata-sections -ffunction-sections -o true true.c; \
-  wc -c true; \
-  time strip --strip-all --remove-section=.comment true; \
-  wc -c true; \
-  ./true
+  printf '%s\n' \
+    'int main(void) {' \
+    '  return ${EXIT_CODE};' \
+    '}' \
+    >exit.c; \
+  time gcc -Wl,--gc-sections -static -Os -s -fdata-sections -ffunction-sections -o exit exit.c; \
+  time strip --strip-all --remove-section=.comment exit;
 
 FROM scratch
 
-COPY --from=builder true /
+COPY --from=builder exit /true
 
 ENTRYPOINT ["/true"]
