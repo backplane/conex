@@ -109,7 +109,6 @@ jobs:
           # generate some outputs about the container being built
           docker run \
             --rm \
-            --pull "always" \
             --user "$(id -u)" \
             --env "GITHUB_OUTPUT" \
             --volume "$(pwd):/work" \
