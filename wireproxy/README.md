@@ -1,6 +1,6 @@
 # wireproxy
 
-This is a a [scratch](https://hub.docker.com/_/scratch/)-based dockerization of [wireproxy](https://github.com/whyvl/wireproxy), the "wireguard client that exposes itself as a socks5 proxy."
+This is a [scratch](https://hub.docker.com/_/scratch/)-based dockerization of [wireproxy](https://github.com/whyvl/wireproxy), the "wireguard client that exposes itself as a socks5 proxy."
 
 As [the site](https://github.com/whyvl/wireproxy) says:
 
