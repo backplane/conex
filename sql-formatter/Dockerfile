@@ -5,6 +5,7 @@ RUN set -x \
   && apk add --no-cache \
     nodejs \
     npm \
+    openssl \
   && npm install -g sql-formatter \
   && apk del \
     npm \
