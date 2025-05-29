@@ -3,6 +3,7 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN apk add --no-cache \
     npm \
+    openssl \
     tini \
   && npm install -g \
     json-server \
