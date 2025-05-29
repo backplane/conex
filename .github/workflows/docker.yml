@@ -81,6 +81,7 @@ jobs:
           - update_requirements
           - upx
           - vueenv
+          - wdt
           - wimlib-imagex
           - wireguard
           - wireproxy

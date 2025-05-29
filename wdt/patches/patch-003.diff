@@ -1,0 +1,13 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -80,6 +80,10 @@ if (NOT WDT_USE_SYSTEM_FOLLY)
+   "${FOLLY_SOURCE_DIR}/folly/ScopeGuard.cpp"
+   "${FOLLY_SOURCE_DIR}/folly/detail/SplitStringSimd.cpp"
+   "${FOLLY_SOURCE_DIR}/folly/detail/TrapOnAvx512.cpp"
++  "${FOLLY_SOURCE_DIR}/folly/external/fast-crc32/avx512_crc32c_v8s3x4.cpp"
++  "${FOLLY_SOURCE_DIR}/folly/external/fast-crc32/neon_crc32c_v3s4x2e_v2.cpp"
++  "${FOLLY_SOURCE_DIR}/folly/external/fast-crc32/neon_eor3_crc32_v9s3x2e_s3.cpp"
++  "${FOLLY_SOURCE_DIR}/folly/external/fast-crc32/neon_eor3_crc32c_v8s2x4_s3.cpp"
+   "${FOLLY_SOURCE_DIR}/folly/external/fast-crc32/sse_crc32c_v8s3x3.cpp"
+   )
+ endif()

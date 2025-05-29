@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index abbeead..6dc07df 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -43,7 +43,7 @@ set(WDT_USE_SYSTEM_FOLLY Off CACHE BOOL "Use folly library from system (default
+ # So hardcoding for now:
+ #set(CMAKE_BUILD_TYPE Debug)
+ set(CMAKE_BUILD_TYPE Release)
+-set(CMAKE_CXX_FLAGS "-msse4.2 -mpclmul")
++set(CMAKE_CXX_FLAGS "")
+ #set(CMAKE_CXX_FLAGS "-msse4.2 -mpclmul -Wextra -Wsign-compare -Wunused-variable")
+ #set(CMAKE_CXX_FLAGS "-msse4.2 -mpclmul -Wextra -Wsign-compare -Wunused-variable -Wconversion -Wsign-conversion")
+ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "_bin/wdt")
