@@ -6,7 +6,7 @@ RUN apk add --no-cache gcc musl-dev
 RUN set -eux; \
   printf '%s\n' \
     'int main(void) {' \
-    '  return ${EXIT_CODE};' \
+    "  return ${EXIT_CODE};" \
     '}' \
     >exit.c; \
   time gcc -Wl,--gc-sections -static -Os -s -fdata-sections -ffunction-sections -o exit exit.c; \
