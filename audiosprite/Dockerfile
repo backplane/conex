@@ -5,6 +5,7 @@ LABEL upstream="https://github.com/tonistiigi/audiosprite"
 RUN apk add --no-cache \
     ffmpeg \
     npm \
+    openssl \
   ;
 
 RUN npm install -g 'audiosprite'
