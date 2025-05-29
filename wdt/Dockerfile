@@ -59,7 +59,7 @@ RUN set -eux; \
   $AG upgrade; \
   $AG install \
     ca-certificates \
-    libgoogle-glog0v6 \
+    libgoogle-glog-dev \
     tini \
   ; \
   $AG autoremove; \
