@@ -10,7 +10,6 @@ RUN set -eux; \
     bash \
     bind9-dnsutils \
     ca-certificates \
-    chardet \
     curl \
     file \
     iproute2 \
@@ -22,6 +21,7 @@ RUN set -eux; \
     netcat-traditional \
     openssl \
     p7zip \
+    python3-charset-normalizer \
     ripgrep \
     rsync \
     socat \
@@ -32,6 +32,9 @@ RUN set -eux; \
   $AG autoremove; \
   $AG clean; \
   rm -rf /var/lib/apt/lists/*;
+
+# "alias" chardet to normalizer in a way that reminds the user what's happening
+COPY chardet.sh /bin/chardet
 
 WORKDIR /work
 ENTRYPOINT [ "/bin/bash" ]

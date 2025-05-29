@@ -11,7 +11,6 @@ The following tools are installed:
 - **age**: simple, modern and secure encryption tool
 - **bash**: The Bourne Again SHell.
 - **bind9-dnsutils**: DNS utilities for debugging domain name services.
-- **chardet**: Universal Character Encoding Detector
 - **curl**: Command-line tool for transferring data using various protocols (HTTP, HTTPS, FTP).
 - **file**: Recognize the type of data in a file using "magic" numbers
 - **iproute2**: Advanced IP packet routing and management tools.
@@ -23,6 +22,7 @@ The following tools are installed:
 - **netcat-traditional**: TCP/IP utilities (nc).
 - **openssl**: Secure Sockets Layer toolkit - cryptographic utility
 - **p7zip**: 7-Zip compression tool with encryption support.
+- **python3-charset-normalizer**: Open, modern and actively maintained alternative to Chardet
 - **ripgrep**: Fast search tool combining features of `grep` and `The Silver Searcher`.
 - **rsync**: fast, versatile, remote (and local) file-copying tool
 - **socat**: multipurpose relay for bidirectional data transfer
