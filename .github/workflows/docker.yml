@@ -42,7 +42,6 @@ jobs:
           - audiosprite
           - bind
           - bpython
-          - cdk-python
           - chardet
           - checkmake
           - chromium
@@ -53,7 +52,6 @@ jobs:
           - firefox
           - ghlatest
           - goenv
-          - grta
           - htpasswd
           - httpie
           - hugo
