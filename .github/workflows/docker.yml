@@ -75,7 +75,6 @@ jobs:
           - toolbox
           - toybox
           - 'true'
-          - tsqllint
           - update_requirements
           - upx
           - vueenv
