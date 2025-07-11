@@ -2,7 +2,7 @@ FROM backplane/ghlatest AS dl
 RUN ghlatest download --source --extract --rm darold/pgformatter
 RUN mv darold-pgFormatter-* src
 
-FROM perl:5-slim AS builder
+FROM perl:5.40-slim AS builder
 ARG CHARSET=UTF-8
 WORKDIR /work
 
