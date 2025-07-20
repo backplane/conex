@@ -4,7 +4,7 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 RUN set -eux; \
   apk add --no-cache \
     ffmpeg \
-    youtube-dl \
+    yt-dlp \
   ; \
   find / -name '__pycache__' -type d -print0 | xargs -0 rm -rf --
 
