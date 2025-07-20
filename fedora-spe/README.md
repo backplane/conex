@@ -12,7 +12,7 @@ Docker Image | <https://hub.docker.com/r/backplane/fedora-spe>
 
 ## `@server-product-environment` contents
 
-The Fedora package groups are defined in the `comps.xml` file associated with a package repo. The sources for the official Fedora groups live in the [https://pagure.io/fedora-comps](fedora-comps repo) in release-specific files (e.g. `comps-f43.xml.in`).
+The Fedora package groups are defined in the `comps.xml` file associated with a package repo. The sources for the official Fedora groups live in the [fedora-comps repo](https://pagure.io/fedora-comps) in release-specific files (e.g. `comps-f43.xml.in`).
 
 As of 11-Mar-2025, the definition of `server-product-environment` for Fedora 43 is:
 
