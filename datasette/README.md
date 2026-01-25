@@ -1,6 +1,6 @@
 # datasette
 
-[uv:python3-alpine](https://github.com/astral-sh/uv/pkgs/container/uv)-based dockerization of [datasette](https://docs.datasette.io/en/stable/), the "open source multi-tool for exploring and publishing data".
+[uv:alpine](https://github.com/astral-sh/uv/pkgs/container/uv)-based image for [datasette](https://docs.datasette.io/en/stable/), the "open source multi-tool for exploring and publishing data"
 
 As [the site](https://datasette.io/) says:
 
