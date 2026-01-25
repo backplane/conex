@@ -164,6 +164,8 @@ jobs:
             ${{ steps.meta.outputs.labels }}
             ${{ env.PSUM_LABEL }}=${{ steps.cdata.outputs.psum }}
           platforms: ${{ steps.cdata.outputs.platforms }}
+          provenance: mode=max
+          sbom: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
