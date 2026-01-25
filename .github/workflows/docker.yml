@@ -10,7 +10,7 @@ on:
     inputs:
       targets:
         description: comma-separated list of container names which should be rebuilt
-        default: ''
+        default: ""
         required: false
         type: string
 
@@ -48,7 +48,7 @@ jobs:
           - compose_sort
           - conex-helper
           - datasette
-          - 'false'
+          - "false"
           - fedora-spe
           - firefox
           - ghlatest
@@ -75,7 +75,7 @@ jobs:
           - sql-formatter
           - toolbox
           - toybox
-          - 'true'
+          - "true"
           - update_requirements
           - upx
           - vueenv
@@ -170,7 +170,7 @@ jobs:
       # https://github.com/peter-evans/dockerhub-description
       - name: Update Docker Hub Description
         if: ${{ steps.cdata.outputs.skipbuild != '1' }}
-        uses: peter-evans/dockerhub-description@v4
+        uses: peter-evans/dockerhub-description@v5
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
