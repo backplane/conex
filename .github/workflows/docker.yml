@@ -47,6 +47,7 @@ jobs:
           - chromium
           - compose_sort
           - conex-helper
+          - datasette
           - 'false'
           - fedora-spe
           - firefox
