@@ -90,7 +90,7 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # some custom outputs for use later in the build
       - name: Load Custom Data
