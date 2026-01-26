@@ -20,4 +20,4 @@ RUN find / \
 # start fresh image so we can benefit from the compression
 FROM scratch
 COPY --from=alpine / /
-CMD /bin/sh
+CMD [ "/bin/sh" ]
