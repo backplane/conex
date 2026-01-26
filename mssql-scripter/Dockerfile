@@ -18,7 +18,7 @@ RUN set -eux; \
   $AG upgrade; \
   $AG install \
     curl \
-    libicu72 \
+    'libicu??' \
     libssl3 \
   ; \
   $AG autoremove; \
