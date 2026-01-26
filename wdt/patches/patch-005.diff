@@ -1,0 +1,6 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+19c19
+< cmake_minimum_required(VERSION 3.2)
+---
+> cmake_minimum_required(VERSION 3.5)

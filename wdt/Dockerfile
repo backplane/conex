@@ -33,23 +33,29 @@ RUN set -eux; \
     zlib1g-dev \
   ;
 
-ADD https://github.com/facebook/folly.git /build/folly
+# v2025.10.27.00 is the last release with "folly/detail/SplitStringSimd.cpp"
+# which is used in wdt's CMakeLists.txt as of 26-Jan-2026
+ADD https://github.com/facebook/folly.git#v2025.10.27.00 /build/folly
+
+# yolo; but for reference, known good semver as of 26-Jan-2026 is "v1.27.1612021"
 ADD https://github.com/facebook/wdt.git /build/wdt
 
 COPY patches /build/patches/
 
-WORKDIR /build/folly
-RUN set -eux; \
-  echo python3.12 ./build/fbcode_builder/getdeps.py --allow-system-packages build folly
+# we don't need to actually build folly, we just need the source tree to be there (for emotional support)
+# WORKDIR /build/folly
+# RUN set -eux; \
+  # mkdir -p ~/.config/pip; \
+  # printf '%s\n' "[global]" "break-system-packages = true" >~/.config/pip/pip.conf; \
+  # python3 ./build/fbcode_builder/getdeps.py install-system-deps --allow-system-packages --recursive folly; \
+  # python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build folly;
 
 WORKDIR /build/wdt/_build
 RUN set -eux; \
   (cd ..; for patch in /build/patches/*; do patch -i "$patch"; done); \
-  (cd ..; grep -ir hash .); \
   cmake .. -DBUILD_TESTING=off; \
   make -j$(nproc); \
   make install;
-
 
 FROM debian:unstable-slim
 
