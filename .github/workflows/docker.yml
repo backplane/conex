@@ -144,6 +144,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.ORG }}/${{ matrix.container }}
           tags: |
             type=raw,value=latest
+            type=schedule,pattern={{date 'YYYYMMDD'}}
           flavor: |
             latest=false
           labels: |
