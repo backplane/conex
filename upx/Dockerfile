@@ -13,7 +13,7 @@ RUN find / \
     -type f \
     -executable \
     -size '+10k' \
-    -not -path /bin/upx \
+    -not '(' -path /bin/upx -or -path /usr/bin/getent ')' \
     -exec /bin/upx -- '{}' + \
   ;
 
