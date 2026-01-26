@@ -5,6 +5,7 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 ARG DATASETTE_VERSION=0.65.2
 ARG SQLITE_VERSION=3.51
 ARG SPATIALITE_VERSION=5.1
+ARG SQLITEUTILS_VERSION=3.39
 
 RUN apk add --no-cache \
     "sqlite=~${SQLITE_VERSION}" \
@@ -12,9 +13,9 @@ RUN apk add --no-cache \
     ;
 
 ARG UV_TOOL_DIR=/usr/local/share/uv
-RUN uv tool install \
-    "datasette>=${DATASETTE_VERSION}" \
-    ;
+RUN set -eux; \
+    uv tool install "datasette>=${DATASETTE_VERSION}"; \
+    uv tool install "sqlite-utils>=${SQLITEUTILS_VERSION}";
 
 ARG NONROOT_UID=65532 NONROOT_GID=65532
 RUN set -eux; \
