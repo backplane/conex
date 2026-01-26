@@ -18,6 +18,7 @@ RUN set -eux; \
     bzip2 \
     ca-certificates \
     curl \
+    fonts-anonymous-pro \
     fonts-droid-fallback \
     fonts-hack \
     fonts-inconsolata \
@@ -40,7 +41,6 @@ RUN set -eux; \
     tigervnc-standalone-server \
     tigervnc-tools \
     traceroute \
-    ttf-anonymous-pro \
     unzip \
     vim \
     x11-xserver-utils \
