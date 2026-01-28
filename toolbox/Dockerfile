@@ -14,6 +14,7 @@ RUN set -eux; \
     file \
     iproute2 \
     iputils-ping \
+    jq \
     mtr \
     nano \
     neovim \
@@ -28,6 +29,7 @@ RUN set -eux; \
     tmux \
     traceroute \
     unzip \
+    yq \
   ; \
   $AG autoremove; \
   $AG clean; \

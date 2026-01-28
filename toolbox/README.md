@@ -15,6 +15,7 @@ The following tools are installed:
 - **file**: Recognize the type of data in a file using "magic" numbers
 - **iproute2**: Advanced IP packet routing and management tools.
 - **iputils-ping**: Tools for testing network connectivity (ping, traceroute).
+- **jq**: slice, filter, map and transform structured JSON data (and more!) with ease
 - **mtr**: Full screen ncurses traceroute tool
 - **nano**: Lightweight text editor.
 - **neovim**: Modern Vim editor.
@@ -29,6 +30,7 @@ The following tools are installed:
 - **tmux**: Terminal multiplexer for session management.
 - **traceroute**: Tool to trace the route data packets take across networks.
 - **unzip**: Utility to extract files in ZIP archives.
+- **yq**: jq wrapper for YAML, XML, TOML documents
 
 The source code for this image is hosted on GitHub in the [backplane/conex repo](https://github.com/backplane/conex/tree/main/toolbox).
 
