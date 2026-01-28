@@ -50,12 +50,12 @@ include "/etc/bind/zones.conf";
 
 The following run command demonstrates how the container might be used:
 
-```sh
+```bash
 docker run \
   --detach \
   --tty \
   --publish "53:53/udp" \
-  --publish "53:53/tcp"
+  --publish "53:53/tcp" \
   --volume "$(pwd)/zones:/config/zones" \
   "backplane/bind"
 ```
@@ -64,13 +64,13 @@ docker run \
 
 The container entry point is configured by environment variables which can be overridden by command-line arguments. The following table documents the options and their meaning.
 
-Command-line Argument | Environment Variable | Description                                                                     | Default
---------------------- | -------------------- | ------------------------------------------------------------------------------- | ----------------------
-`--bind-dir`          | `BIND_DIR`           | path of the bind configuration directory                                        | `/etc/bind`
-`--bind-config`       | `BIND_CONFIG`        | full path of the `named.conf` bind config file                                  | `/etc/bind/named.conf`
-`--zone-dir`          | `ZONE_DIR`           | path of a directory containing (only) zone files to automatically serve         | `/etc/bind/zones`
-`--zone-config`       | `ZONE_CONFIG`        | full path of the `zones.conf` file to generate from the files found in ZONE_DIR | `/etc/bind/zones.conf`
-`--config-dir`        | `CONFIG_DIR`         | path of a directory whose contents could be copied into the BIND_DIR            | `/config`
+| Command-line Argument | Environment Variable | Description                                                                     | Default                |
+| --------------------- | -------------------- | ------------------------------------------------------------------------------- | ---------------------- |
+| `--bind-dir`          | `BIND_DIR`           | path of the bind configuration directory                                        | `/etc/bind`            |
+| `--bind-config`       | `BIND_CONFIG`        | full path of the `named.conf` bind config file                                  | `/etc/bind/named.conf` |
+| `--zone-dir`          | `ZONE_DIR`           | path of a directory containing (only) zone files to automatically serve         | `/etc/bind/zones`      |
+| `--zone-config`       | `ZONE_CONFIG`        | full path of the `zones.conf` file to generate from the files found in ZONE_DIR | `/etc/bind/zones.conf` |
+| `--config-dir`        | `CONFIG_DIR`         | path of a directory whose contents could be copied into the BIND_DIR            | `/config`              |
 
 ### Entry Point Usage
 

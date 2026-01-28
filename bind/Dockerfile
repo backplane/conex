@@ -3,8 +3,7 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
   apk add --no-cache \
-    bind \
-    openssl \
+    "bind>=9.20" \
   ;
 
 EXPOSE 53/tcp 53/udp
