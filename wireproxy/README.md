@@ -6,7 +6,12 @@ As [the site](https://github.com/whyvl/wireproxy) says:
 
 > wireproxy is a completely userspace application that connects to a wireguard peer, and exposes a socks5/http proxy or tunnels on the machine. This can be useful if you need to connect to certain sites via a wireguard peer, but can't be bothered to setup a new network interface for whatever reasons.
 
-This image is built from the latest semantic version tag in the wireproxy repo and uses scratch instead of distroless.
+This image is built from the latest semantic version tag in the wireproxy repo and uses scratch instead of distroless. **IMPORTANT: we also apply the following patches**:
+
+1. [001-update-deps-2-Feb-2026.patch](https://github.com/backplane/conex/blob/main/wireproxy/patches/001-update-deps-2-Feb-2026.patch) - Update go dependencies to resolve open CVEs
+2. [002-apply-upstream-pr-187.patch](https://github.com/backplane/conex/blob/main/wireproxy/patches/002-apply-upstream-pr-187.patch) - Apply the currently-open upstream PR <https://github.com/whyvl/wireproxy/pull/187>
+
+The build automatically applies all patches found in the https://github.com/backplane/conex/tree/main/wireproxy/patches subdirectory.
 
 | Repo         | URL                                                      |
 | ------------ | -------------------------------------------------------- |
