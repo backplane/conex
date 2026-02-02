@@ -1,5 +1,18 @@
 FROM golang:1 AS builder
 
+ARG AG="apt-get -yq --no-install-recommends"
+ARG DEBIAN_FRONTEND=noninteractive
+RUN set -eux; \
+  $AG update; \
+  $AG upgrade; \
+  $AG install \
+    patch \
+  ; \
+  $AG autoremove; \
+  $AG clean; \
+  rm -rf /var/lib/apt/lists/*;
+
+
 WORKDIR /build
 
 # Shallow-clone the repo to fetch tags only
@@ -17,7 +30,11 @@ RUN set -eux; \
   git fetch --depth=1 origin "$TAG"; \
   git checkout "$TAG";
 
-RUN make
+COPY patches /build/patches
+RUN set -eux; \
+  for patch in /build/patches/*.patch; do patch -i "$patch"; done; \
+  make
+
 RUN set -eux; \
   mkdir -p etc_files; \
   cd etc_files; \

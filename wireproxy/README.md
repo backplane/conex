@@ -8,10 +8,10 @@ As [the site](https://github.com/whyvl/wireproxy) says:
 
 This image is built from the latest semantic version tag in the wireproxy repo and uses scratch instead of distroless.
 
-Repo         | URL
------------- | -------------------------------------------------------------
-Docker File  | <https://github.com/backplane/conex/tree/main/wireproxy>
-Docker Image | <https://hub.docker.com/r/backplane/wireproxy>
+| Repo         | URL                                                      |
+| ------------ | -------------------------------------------------------- |
+| Docker File  | <https://github.com/backplane/conex/tree/main/wireproxy> |
+| Docker Image | <https://hub.docker.com/r/backplane/wireproxy>           |
 
 Note: The [wireproxy GitHub repo](https://github.com/whyvl/wireproxy) already has an excellent [Dockerfile](https://github.com/whyvl/wireproxy/blob/master/Dockerfile) with [official wireproxy images on GHCR](https://github.com/whyvl/wireproxy/pkgs/container/wireproxy), you may want to consider using those instead.
 
