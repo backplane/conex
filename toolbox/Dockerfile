@@ -9,12 +9,17 @@ RUN set -eux; \
     age \
     bash \
     bind9-dnsutils \
+    binutils \
+    binwalk \
+    bsdextrautils \
     ca-certificates \
+    cabextract \
     curl \
     file \
     iproute2 \
     iputils-ping \
     jq \
+    less \
     mtr \
     nano \
     neovim \
@@ -25,10 +30,13 @@ RUN set -eux; \
     python3-charset-normalizer \
     ripgrep \
     rsync \
+    shellcheck \
     socat \
     tmux \
     traceroute \
+    tree \
     unzip \
+    xxd \
     yq \
   ; \
   $AG autoremove; \
