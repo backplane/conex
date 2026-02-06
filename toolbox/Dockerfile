@@ -22,6 +22,7 @@ RUN set -eux; \
     less \
     mtr \
     nano \
+    ncdu \
     neovim \
     net-tools \
     netcat-traditional \
