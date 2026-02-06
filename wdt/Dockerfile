@@ -1,7 +1,10 @@
-FROM debian:unstable AS builder
-
 ARG AG="apt-get -yq --no-install-recommends"
 ARG DEBIAN_FRONTEND="noninteractive"
+
+FROM debian:unstable AS builder
+
+ARG AG
+ARG DEBIAN_FRONTEND
 
 RUN set -eux; \
   $AG update; \
@@ -59,13 +62,15 @@ RUN set -eux; \
 
 FROM debian:unstable-slim
 
-ARG AG="apt-get -yq --no-install-recommends"
+ARG AG
+ARG DEBIAN_FRONTEND
+
 RUN set -eux; \
   $AG update; \
   $AG upgrade; \
   $AG install \
     ca-certificates \
-    libgoogle-glog-dev \
+    'libgoogle-glog?v*' \
     tini \
   ; \
   $AG autoremove; \
