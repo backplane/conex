@@ -10,6 +10,7 @@ This image is built from the latest semantic version tag in the wireproxy repo a
 
 1. [001-update-deps-2-Feb-2026.patch](https://github.com/backplane/conex/blob/main/wireproxy/patches/001-update-deps-2-Feb-2026.patch) - Update go dependencies to resolve open CVEs
 2. [002-apply-upstream-pr-187.patch](https://github.com/backplane/conex/blob/main/wireproxy/patches/002-apply-upstream-pr-187.patch) - Apply the currently-open upstream PR <https://github.com/whyvl/wireproxy/pull/187>
+3. [003-swizzle-patched-socks5.patch](https://github.com/backplane/conex/blob/main/wireproxy/patches/003-swizzle-patched-socks5.patch) - Apply some PRs we've sent to things-go/go-socks5. [#113](https://github.com/things-go/go-socks5/pull/113) and [#114](https://github.com/things-go/go-socks5/pull/114), and a security-related dep bump
 
 The build automatically applies all patches found in the https://github.com/backplane/conex/tree/main/wireproxy/patches subdirectory.
 
