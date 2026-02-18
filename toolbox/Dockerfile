@@ -16,6 +16,8 @@ RUN set -eux; \
     cabextract \
     curl \
     file \
+    gcc \
+    git \
     iproute2 \
     iputils-ping \
     jq \
