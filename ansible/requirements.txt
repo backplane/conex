@@ -1,3 +1,3 @@
 ansible-runner~=2.4
 ansible~=13.2
-molecule~=25.12
+molecule~=26.2
