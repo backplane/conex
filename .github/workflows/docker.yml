@@ -73,6 +73,7 @@ jobs:
           - qrencode
           - shunit2
           - snakeeyes
+          - socat-forward
           - sql-formatter
           - toolbox
           - toybox
