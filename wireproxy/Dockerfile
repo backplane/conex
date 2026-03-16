@@ -30,9 +30,16 @@ RUN set -eux; \
   git fetch --depth=1 origin "$TAG"; \
   git checkout "$TAG";
 
-COPY patches /build/patches
+# COPY patches /build/patches
 RUN set -eux; \
-  for patch in /build/patches/*.patch; do patch -i "$patch"; done; \
+  #for patch in /build/patches/*.patch; do patch -i "$patch"; done; \
+  go mod edit \
+    -replace github.com/go-ini/ini=gopkg.in/ini.v1@latest \
+    -replace gvisor.dev/gvisor=gvisor.dev/gvisor@go \
+    -replace github.com/things-go/go-socks5=github.com/backplane/go-socks5@latest \
+  ; \
+  go mod tidy; \
+  go get -u; \
   make
 
 RUN set -eux; \
