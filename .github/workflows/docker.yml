@@ -42,6 +42,7 @@ jobs:
           - audiosprite
           - bind
           - bpython
+          - ccwrapper
           - chardet
           - checkmake
           - chromium
