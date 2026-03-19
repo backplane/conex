@@ -21,7 +21,6 @@ In addition to claude-code the following utils are included
 | ------------------- | --------------------- | -------------------------------------------------------------------------------- |
 | cargo 1.94          | `cargo`               | The Rust package manager                                                         |
 | curl 8.19           | `curl`; `wcurl`       | URL retrival utility and library                                                 |
-| deno 2.7            | `deno`                | A modern runtime for JavaScript and TypeScript                                   |
 | docker-cli 29.3     | `docker`              | Docker CLI (the plugin for `docker compose` is also included)                    |
 | gcc 15.2            | `gcc`                 | The GNU Compiler Collection                                                      |
 | git 2.53            | `git`                 | Distributed version control system                                               |

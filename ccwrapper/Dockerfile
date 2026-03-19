@@ -6,7 +6,6 @@ RUN apk add --no-cache \
     ca-certificates \
     cargo \
     curl \
-    deno \
     docker-cli \
     docker-cli-compose \
     gcc \

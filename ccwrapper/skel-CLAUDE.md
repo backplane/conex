@@ -6,7 +6,6 @@ Alpine Linux container. Running as `nonroot` (65532:65532) in `/work`.
 
 - **cargo**, **rustc**, **rustdoc** — Rust toolchain
 - **curl**, **wcurl** — HTTP/URL retrieval
-- **deno** — JavaScript/TypeScript runtime
 - **docker**, **docker compose** — Docker CLI
 - **gcc** — GNU C compiler
 - **git** — version control
