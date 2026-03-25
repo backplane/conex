@@ -3,6 +3,7 @@ LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
   apk add --no-cache \
+    'curl>=8.17' \
     'ffmpeg>=6' \
   ;
 
@@ -19,5 +20,12 @@ RUN set -eux; \
   adduser -h /home/nonroot -s /bin/sh -D -u "$NONROOT_UID" -G nonroot nonroot;
 USER nonroot
 WORKDIR /work
+
+RUN set -eux; \
+  INSTALLER="${HOME}/install.sh"; \
+  curl -fsSL -o "$INSTALLER" 'https://deno.land/install.sh'; \
+  /bin/sh "$INSTALLER";
+
+ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/nonroot/.deno/bin"
 
 ENTRYPOINT [ "/usr/local/bin/yt-dlp" ]
