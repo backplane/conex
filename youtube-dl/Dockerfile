@@ -1,14 +1,18 @@
-FROM ghcr.io/astral-sh/uv:alpine
+FROM alpine:edge
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
 RUN set -eux; \
   apk add --no-cache \
-    'curl>=8.17' \
-    'ffmpeg>=6' \
+    'curl>=8.19' \
+    'deno>=2.7' \
+    'ffmpeg>=8.1' \
   ;
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 ARG YTDLP_VERSION=2026
 ARG UV_TOOL_DIR=/usr/local/share/uv/bin
+ARG UV_TOOL_BIN_DIR=/usr/local/bin
 ARG UV_PYTHON_INSTALL_DIR=usr/local/share/uv
 RUN set -eux; \
   uv tool install "yt-dlp[default,curl-cffi]>=${YTDLP_VERSION}"; \
@@ -20,12 +24,5 @@ RUN set -eux; \
   adduser -h /home/nonroot -s /bin/sh -D -u "$NONROOT_UID" -G nonroot nonroot;
 USER nonroot
 WORKDIR /work
-
-RUN set -eux; \
-  INSTALLER="${HOME}/install.sh"; \
-  curl -fsSL -o "$INSTALLER" 'https://deno.land/install.sh'; \
-  /bin/sh "$INSTALLER";
-
-ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/nonroot/.deno/bin"
 
 ENTRYPOINT [ "/usr/local/bin/yt-dlp" ]
