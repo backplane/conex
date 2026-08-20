@@ -1,7 +1,7 @@
 ARG AG="apt-get -yq --no-install-recommends"
 ARG DEBIAN_FRONTEND="noninteractive"
 
-FROM debian:unstable AS builder
+FROM debian:stable-slim AS builder
 
 ARG AG
 ARG DEBIAN_FRONTEND
@@ -15,6 +15,7 @@ RUN set -eux; \
     g++ \
     git \
     libboost-all-dev \
+    libboost-system-dev \
     libdouble-conversion-dev \
     libevent-dev \
     libfast-float-dev \
@@ -31,7 +32,7 @@ RUN set -eux; \
     make \
     patch \
     pkg-config \
-    python3.12 \
+    python3.13 \
     wget \
     zlib1g-dev \
   ;

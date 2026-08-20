@@ -1,6 +1,6 @@
 # wdt
 
-[`debian:unstable-slim`](https://hub.docker.com/_/debian/)-based dockerization of [wdt](https://github.com/facebook/wdt), the command line tool for transferring data between 2 systems as fast as possible over multiple TCP paths
+[`debian:stable-slim`](https://hub.docker.com/_/debian/)-based dockerization of [wdt](https://github.com/facebook/wdt), the command line tool for transferring data between 2 systems as fast as possible over multiple TCP paths
 
 As the site says:
 
