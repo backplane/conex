@@ -1,12 +1,11 @@
 FROM alpine:edge
 LABEL maintainer="Backplane BV <backplane@users.noreply.github.com>"
 
-RUN apk add --no-cache \
-    jq \
-  && true
+RUN apk add --no-cache jq;
 
 WORKDIR /work
 
-ENTRYPOINT [ "jq" ]
+USER nobody
+ENTRYPOINT [ "/usr/bin/jq" ]
 CMD ["--help"]
 
