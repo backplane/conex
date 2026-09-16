@@ -36,7 +36,7 @@ RUN set -eux; \
   go mod edit \
     -replace github.com/go-ini/ini=gopkg.in/ini.v1@latest \
     -replace gvisor.dev/gvisor=gvisor.dev/gvisor@go \
-    -replace github.com/things-go/go-socks5=github.com/backplane/go-socks5@latest \
+    #-replace github.com/things-go/go-socks5=github.com/backplane/go-socks5@latest \
   ; \
   go mod tidy; \
   go get -u; \
