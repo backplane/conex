@@ -22,6 +22,7 @@ RUN set -eux; \
     iputils-ping \
     jq \
     less \
+    locales \
     mtr \
     nano \
     ncdu \
@@ -45,6 +46,9 @@ RUN set -eux; \
   $AG autoremove; \
   $AG clean; \
   rm -rf /var/lib/apt/lists/*;
+
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 # "alias" chardet to normalizer in a way that reminds the user what's happening
 COPY chardet.sh /bin/chardet
